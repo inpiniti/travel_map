@@ -1,8 +1,35 @@
+<script setup lang="ts">
+import { ref } from "vue";
+import ColCover from "./components/colCover.vue";
+import dayjs from "dayjs";
+import { city } from "./data/city";
+import { spots } from "./data/spots";
+
+const { travelPlans, getTravelPlans } = useTravelPlan();
+
+const zoom = ref(10);
+const TILES: any = {
+  openStreetMap: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+  cartoDb: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
+};
+const selectedTile = ref("openStreetMap");
+const selectedTileUrl = computed(() => TILES[selectedTile.value]);
+
+// 일정
+const itinerary = ref<any>([]);
+
+onMounted(() => {
+  getTravelPlans();
+});
+
+const open = ref(false);
+</script>
+
 <template>
   <ColCover class="h-svh">
     <Fix>
       <RowCover>
-        <Fix class="p-4 w-52">여기어때</Fix>
+        <Fix class="p-4 w-96">여기어때</Fix>
         <Full class="flex justify-between p-2">
           <div>
             <Button>음식점</Button>
@@ -27,31 +54,146 @@
     </Fix>
     <Full>
       <RowCover>
-        <Fix class="w-52">
+        <Fix class="w-96">
           <ColCover>
             <Fix class="p-2">
-              <div class="relative items-center w-full max-w-sm">
-                <Input
-                  id="search"
-                  type="text"
-                  placeholder="Search..."
-                  class="pl-10"
-                />
-                <span
-                  class="absolute inset-y-0 flex items-center justify-center px-2 start-0"
-                >
-                  <Search class="size-6 text-muted-foreground" />
-                </span>
+              <div class="relative items-center w-full flex gap-2">
+                <Input id="search" type="text" placeholder="Search..." />
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a city" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <template v-for="key in Object.keys(city)">
+                        <SelectLabel>{{ key }}</SelectLabel>
+                        <SelectItem
+                          :value="city_name"
+                          v-for="city_name in city[key]"
+                        >
+                          {{ city_name }}
+                        </SelectItem>
+                      </template>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
               </div>
             </Fix>
             <Full>
               <ScrollArea class="h-full">
                 <div class="flex flex-col gap-2 p-2">
+                  <Dialog>
+                    <DialogTrigger as-child>
+                      <Card class="flex gap-2 p-4 text-xs">
+                        + 여행 계획 작성하기
+                      </Card>
+                    </DialogTrigger>
+                    <DialogContent class="sm:max-w-[425px]">
+                      <DialogHeader>
+                        <DialogTitle>여행 계획 작성하기</DialogTitle>
+                        <DialogDescription>
+                          여기에서 여행 계획을 작성해보세요. 완료되면 저장을
+                          클릭하세요.
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div class="grid gap-4 py-4">
+                        <div class="grid grid-cols-4 items-center gap-4">
+                          <Label for="name" class="text-right">
+                            여행계획명
+                          </Label>
+                          <Input
+                            id="name"
+                            class="col-span-3"
+                            placeholder="서울 3박 4일 여행"
+                          />
+                        </div>
+                        <div class="grid grid-cols-4 items-center gap-4">
+                          <Label for="username" class="text-right">
+                            작성자
+                          </Label>
+                          <Input
+                            id="username"
+                            class="col-span-3"
+                            placeholder="홍길동"
+                          />
+                        </div>
+                        <div class="grid grid-cols-4 items-center gap-4">
+                          <Label for="username" class="text-right">
+                            여행지역
+                          </Label>
+                          <Select>
+                            <SelectTrigger class="col-span-3">
+                              <SelectValue placeholder="Select a city" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectGroup>
+                                <template v-for="key in Object.keys(city)">
+                                  <SelectLabel>{{ key }}</SelectLabel>
+                                  <SelectItem
+                                    :value="city_name"
+                                    v-for="city_name in city[key]"
+                                  >
+                                    {{ city_name }}
+                                  </SelectItem>
+                                </template>
+                              </SelectGroup>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div class="grid grid-cols-4 items-center gap-4">
+                          <Label for="username" class="text-right">
+                            여행기간
+                          </Label>
+                          <Input
+                            id="username"
+                            class="col-span-3"
+                            placeholder="3박 4일"
+                          />
+                        </div>
+                      </div>
+                      <DialogFooter>
+                        <Button type="submit"> Save changes </Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
                   <Card
-                    v-for="item in 125"
-                    class="flex flex-col gap-2 p-4 text-xs"
+                    v-for="travelPlan in travelPlans"
+                    class="flex gap-2 p-4 text-xs"
                   >
-                    후쿠오카 여행
+                    <img
+                      src="https://img.freepik.com/free-vector/peullaes-dijain-jaedan-ui-nal-ilbon_23-2148810360.jpg"
+                      alt="Travel Image"
+                      class="w-32 h-full object-cover rounded-lg"
+                    />
+                    <div class="p-2 flex flex-col">
+                      <div class="font-bold text-lg mb-2">
+                        {{ travelPlan.travel_region }}
+                        {{ travelPlan.travel_period }} 여행
+                      </div>
+                      <div class="flex items-center mb-1">
+                        <i class="fas fa-user"></i>{{ travelPlan.author }}
+                      </div>
+                      <div class="flex items-center mb-1">
+                        <i class="fas fa-calendar-alt"></i
+                        >{{
+                          dayjs(travelPlan.date_created).format("YYYY-MM-DD")
+                        }}
+                      </div>
+                      <div class="flex gap-2">
+                        <div class="flex items-center mb-1">
+                          <i class="fas fa-map-marker-alt"></i
+                          >{{ travelPlan.travel_region }}
+                        </div>
+                        <div class="flex items-center mb-1">
+                          <i class="fas fa-flag"></i
+                          >{{ travelPlan.travel_purpose }}
+                        </div>
+                      </div>
+                      <div class="flex items-center">
+                        <i class="fas fa-clock"></i
+                        >{{ travelPlan.travel_period }}
+                      </div>
+                    </div>
                   </Card>
                 </div>
               </ScrollArea>
@@ -103,11 +245,11 @@
             </Full>
           </ColCover>
         </Fix>
-        <Full>
+        <Full class="z-0">
           <LMap
             ref="map"
             :zoom="zoom"
-            :center="[47.21322, -1.559482]"
+            :center="[33.5813, 130.2394]"
             :use-global-leaflet="false"
           >
             <LTileLayer
@@ -124,8 +266,9 @@
               <LMarker
                 :lat-lng="[50, 50]"
                 draggable
-                @click="alert('클릭되었습니다.')"
+                @click="console.log('marker clicked')"
               />
+
               <LMarker :lat-lng="[47.41322, -1.219482]" />
 
               <LMarker :lat-lng="[47.61322, -0.519482]">
@@ -141,6 +284,12 @@
                 <LIcon :icon-size="[210, 210]"> Hello, Map! </LIcon>
               </LMarker>
               <LMarker :lat-lng="[47, -1]" />
+
+              <LMarker
+                :lat-lng="[spot.latitude, spot.longitude]"
+                v-for="spot in spots.후쿠오카"
+                @click="open = true"
+              />
             </LFeatureGroup>
             <LPolyline
               dashArray="10, 10"
@@ -156,20 +305,22 @@
       </RowCover>
     </Full>
   </ColCover>
-  <div style="height: 90vh; width: 90vw" class="hidden"></div>
+  <Drawer :open="open" @update:open="open = $event">
+    <DrawerContent>
+      <DrawerHeader>
+        <DrawerTitle>Are you absolutely sure?</DrawerTitle>
+        <DrawerDescription>This action cannot be undone.</DrawerDescription>
+      </DrawerHeader>
+      <DrawerFooter>
+        <Button>Submit</Button>
+        <DrawerClose>
+          <Button variant="outline"> Cancel </Button>
+        </DrawerClose>
+      </DrawerFooter>
+    </DrawerContent>
+  </Drawer>
 </template>
 
-<script setup>
-import { ref } from "vue";
-import ColCover from "./components/colCover.vue";
-const zoom = ref(6);
-const TILES = {
-  openStreetMap: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-  cartoDb: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
-};
-const selectedTile = ref("openStreetMap");
-const selectedTileUrl = computed(() => TILES[selectedTile.value]);
-</script>
 <style>
 .leaflet-div-icon {
   background: transparent;
