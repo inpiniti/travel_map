@@ -11,7 +11,7 @@ export type TravelPlan = {
 export const useTravelPlan = () => {
   // 여행계획
   // 계획명, 작성자, 작성일, 여행지역, 여행목적, 여행기간 등
-  const travelPlans = ref<
+  const travelPlans = useState<
     | TravelPlan[]
     | {
         id: number;
@@ -23,7 +23,7 @@ export const useTravelPlan = () => {
         travel_period: string;
       }[]
     | null
-  >(null);
+  >("travelPlans");
 
   const getTravelPlans = async () => {
     try {
