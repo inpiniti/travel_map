@@ -26,6 +26,31 @@ onMounted(() => {
 });
 
 const open = ref(false);
+const map = ref(null);
+
+const lat_lngs: any = computed(() => {
+  return spots.value?.map((spot) => [spot.latitude, spot.longitude]) || [];
+});
+const center = computed(() => {
+  if (!lat_lngs.value.length) return [0, 0];
+
+  let minLat = Infinity,
+    maxLat = -Infinity;
+  let minLng = Infinity,
+    maxLng = -Infinity;
+
+  lat_lngs.value.forEach(([lat, lng]: [lat: number, lng: number]) => {
+    if (lat < minLat) minLat = lat;
+    if (lat > maxLat) maxLat = lat;
+    if (lng < minLng) minLng = lng;
+    if (lng > maxLng) maxLng = lng;
+  });
+
+  const midLat = (minLat + maxLat) / 2;
+  const midLng = (minLng + maxLng) / 2;
+
+  return [midLat, midLng];
+});
 </script>
 
 <template>
@@ -75,8 +100,9 @@ const open = ref(false);
         <Full class="z-0">
           <LMap
             ref="map"
+            :bounds="lat_lngs"
             :zoom="zoom"
-            :center="[33.5813, 130.2394]"
+            :center="center"
             :use-global-leaflet="false"
           >
             <LTileLayer
@@ -131,10 +157,7 @@ const open = ref(false);
                 </LIcon>
               </LMarker>
             </LFeatureGroup>
-            <LPolyline
-              dashArray="10, 10"
-              :lat-lngs="spots?.map((spot) => [spot.latitude, spot.longitude])"
-            />
+            <LPolyline dashArray="10, 10" :lat-lngs="lat_lngs" />
           </LMap>
         </Full>
       </RowCover>
