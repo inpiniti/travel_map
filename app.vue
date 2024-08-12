@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { spots } from "./data/spots";
+const { spots } = useSpot();
 import ColCover from "./components/colCover.vue";
 
 const filter = useFilter();
@@ -114,15 +114,26 @@ const open = ref(false);
 
               <LMarker
                 :lat-lng="[spot.latitude, spot.longitude]"
-                v-for="spot in spots.후쿠오카"
+                v-for="spot in spots"
                 @click="open = true"
               />
+
+              <LMarker
+                :lat-lng="[spot.latitude, spot.longitude]"
+                v-for="spot in spots"
+              >
+                <LIcon :icon-size="[100, 50]">
+                  <div
+                    class="flex items-center justify-center w-full h-full pt-6"
+                  >
+                    {{ spot.spot_name }}
+                  </div>
+                </LIcon>
+              </LMarker>
             </LFeatureGroup>
             <LPolyline
               dashArray="10, 10"
-              :lat-lngs="
-                spots.후쿠오카.map((spot) => [spot.latitude, spot.longitude])
-              "
+              :lat-lngs="spots.map((spot) => [spot.latitude, spot.longitude])"
             />
           </LMap>
         </Full>
