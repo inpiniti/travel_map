@@ -1,5 +1,5 @@
 type Spot = {
-  id: number;
+  id?: number;
   spot_name: string;
   description: string;
   image: string;

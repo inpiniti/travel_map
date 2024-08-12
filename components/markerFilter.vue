@@ -1,11 +1,22 @@
 <template>
-  <div>
-    <Button>음식점</Button>
-    <Button variant="ghost">호텔</Button>
-    <Button variant="ghost">즐길 거리</Button>
-    <Button variant="ghost">박물관</Button>
-    <Button variant="ghost">대중교통</Button>
-    <Button variant="ghost">약국</Button>
-    <Button variant="ghost">ATM</Button>
+  <div class="flex gap-2 items-center">
+    <div class="px-2 font-bold text-lg">{{ useFilter().value.city }}</div>
+    <div>
+      <Button
+        v-for="category in [
+          '음식점',
+          '호텔',
+          '즐길 거리',
+          '박물관',
+          '대중교통',
+          '약국',
+          'ATM',
+        ]"
+        :variant="useFilter().value.category == category ? 'default' : 'ghost'"
+        @click="useFilter().value.category = category"
+      >
+        {{ category }}
+      </Button>
+    </div>
   </div>
 </template>

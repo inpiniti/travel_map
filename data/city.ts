@@ -1,4 +1,4 @@
-export const city = {
+export const city: any = {
   국내도시: [
     "가평,양평",
     "강릉,속초",

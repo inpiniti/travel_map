@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { city } from "../data/city";
-import dayjs from "dayjs";
-
 const { setSpot, status } = useSpot();
 const form = ref({
   spot_name: "",
   description: "",
   image: "",
-  latitude: "",
-  longitude: "",
+  latitude: 0,
+  longitude: 0,
   type: "",
   city: "",
 });
@@ -17,6 +14,11 @@ const saveSpot = async () => {
   await setSpot(form.value);
 };
 const open = ref(false);
+
+watchEffect(() => {
+  form.value.type = useFilter().value.category;
+  form.value.city = useFilter().value.city;
+});
 </script>
 <template>
   <Dialog :open="open" @update:open="open = $event">
@@ -34,47 +36,11 @@ const open = ref(false);
       <div class="grid gap-4 py-4">
         <div class="grid items-center grid-cols-4 gap-4">
           <Label class="text-right"> 장소 유형 </Label>
-          <Select v-model="form.type">
-            <SelectTrigger class="col-span-3">
-              <SelectValue placeholder="Select 유형..." />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem
-                  :value="type"
-                  v-for="type in [
-                    '음식점',
-                    '호텔',
-                    '즐길 거리',
-                    '박물관',
-                    '대중교통',
-                    '약국',
-                    'ATM',
-                  ]"
-                >
-                  {{ type }}
-                </SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+          <Input type="text" class="col-span-3" v-model="form.type" readonly />
         </div>
         <div class="grid items-center grid-cols-4 gap-4">
           <Label class="text-right"> 도시 </Label>
-          <Select v-model="form.city">
-            <SelectTrigger class="col-span-3">
-              <SelectValue placeholder="Select a city" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <template v-for="key in Object.keys(city)">
-                  <SelectLabel>{{ key }}</SelectLabel>
-                  <SelectItem :value="city_name" v-for="city_name in city[key]">
-                    {{ city_name }}
-                  </SelectItem>
-                </template>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+          <Input type="text" class="col-span-3" v-model="form.city" readonly />
         </div>
         <div class="grid items-center grid-cols-4 gap-4">
           <Label class="text-right"> 장소명 </Label>

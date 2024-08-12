@@ -3,8 +3,13 @@ import { city } from "../data/city";
 </script>
 <template>
   <div class="relative items-center w-full flex gap-2">
-    <Input id="search" type="text" placeholder="Search..." />
-    <Select>
+    <Input
+      id="search"
+      type="text"
+      placeholder="Search..."
+      v-model="useFilter().value.search"
+    />
+    <Select v-model="useFilter().value.city">
       <SelectTrigger>
         <SelectValue placeholder="Select a city" />
       </SelectTrigger>
