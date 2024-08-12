@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
-const { travelPlans } = useTravelPlan();
+const { selectedTravelPlan, travelPlans } = useTravelPlan();
 const getImg = (index: number) => {
   if (index === 0) return `/city/가평.png`;
   else if (index === 1) return `/city/강릉.png`;
@@ -13,7 +13,11 @@ const getImg = (index: number) => {
   <div class="flex flex-col gap-2 p-2">
     <Card
       v-for="(travelPlan, index) in travelPlans"
-      class="flex gap-2 p-4 text-xs"
+      class="flex gap-2 p-4 text-xs cursor-pointer hover:bg-neutral-100"
+      @click="selectedTravelPlan = travelPlan"
+      :class="{
+        'bg-neutral-100': selectedTravelPlan === travelPlan,
+      }"
     >
       <img
         :src="getImg(index)"

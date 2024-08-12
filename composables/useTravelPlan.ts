@@ -24,6 +24,8 @@ export const useTravelPlan = () => {
     | null
   >("travelPlans");
 
+  const selectedTravelPlan = useState<TravelPlan | null>("travelPlan");
+
   const getTravelPlans = async () => {
     try {
       travelPlans.value = (
@@ -32,6 +34,9 @@ export const useTravelPlan = () => {
           .select("*")
           .order("date_created", { ascending: false })
       ).data;
+      if (selectedTravelPlan.value == null && travelPlans.value != null) {
+        selectedTravelPlan.value = travelPlans.value[0];
+      }
       return true;
     } catch (error) {
       console.error("Error fetching travel plans", error);
@@ -58,5 +63,11 @@ export const useTravelPlan = () => {
     }
   };
 
-  return { travelPlans, getTravelPlans, setTravelPlan, status };
+  return {
+    selectedTravelPlan,
+    travelPlans,
+    getTravelPlans,
+    setTravelPlan,
+    status,
+  };
 };
