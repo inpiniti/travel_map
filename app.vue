@@ -10,7 +10,7 @@ const TILES: any = {
   openStreetMap: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
   cartoDb: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
 };
-const selectedTile = ref("openStreetMap");
+const selectedTile = ref("cartoDb");
 const selectedTileUrl = computed(() => TILES[selectedTile.value]);
 
 // 일정
@@ -34,15 +34,18 @@ const open = ref(false);
         <Fix class="p-4 w-96">여기어때</Fix>
         <Full class="flex justify-between p-2">
           <MarkerFilter />
-          <Button
-            variant="secondary"
-            @click="
-              selectedTile == 'openStreetMap'
-                ? (selectedTile = 'cartoDb')
-                : (selectedTile = 'openStreetMap')
-            "
-            >{{ selectedTile }}</Button
-          >
+          <div class="flex gap-2">
+            <SpotWriting />
+            <Button
+              variant="secondary"
+              @click="
+                selectedTile == 'openStreetMap'
+                  ? (selectedTile = 'cartoDb')
+                  : (selectedTile = 'openStreetMap')
+              "
+              >{{ selectedTile }}
+            </Button>
+          </div>
         </Full>
       </RowCover>
     </Fix>
@@ -165,20 +168,7 @@ const open = ref(false);
       </RowCover>
     </Full>
   </ColCover>
-  <Drawer :open="open" @update:open="open = $event">
-    <DrawerContent>
-      <DrawerHeader>
-        <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-        <DrawerDescription>This action cannot be undone.</DrawerDescription>
-      </DrawerHeader>
-      <DrawerFooter>
-        <Button>Submit</Button>
-        <DrawerClose>
-          <Button variant="outline"> Cancel </Button>
-        </DrawerClose>
-      </DrawerFooter>
-    </DrawerContent>
-  </Drawer>
+  <ItineraryWriting :open="open" @update:open="open = $event" />
 </template>
 
 <style>

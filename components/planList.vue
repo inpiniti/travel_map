@@ -18,10 +18,10 @@ const getImg = (index: number) => {
       <img
         :src="getImg(index)"
         alt="Travel Image"
-        class="w-32 h-full object-cover rounded-lg"
+        class="object-cover w-32 h-full rounded-lg"
       />
-      <div class="p-2 flex flex-col">
-        <div class="font-bold text-lg mb-2">
+      <div class="flex flex-col p-2">
+        <div class="mb-2 text-lg font-bold">
           {{ travelPlan.travel_region }}
           {{ travelPlan.travel_period }} 여행
         </div>
@@ -35,9 +35,6 @@ const getImg = (index: number) => {
         <div class="flex gap-2">
           <div class="flex items-center mb-1">
             <i class="fas fa-map-marker-alt"></i>{{ travelPlan.travel_region }}
-          </div>
-          <div class="flex items-center mb-1">
-            <i class="fas fa-flag"></i>{{ travelPlan.travel_purpose }}
           </div>
         </div>
         <div class="flex items-center">

@@ -44,16 +44,5 @@ export const useSpot = () => {
     }
   };
 
-  // 이미지 등록
-  const setStopImage = async (id: number, image: string) => {
-    try {
-      await useSupabase().from("spot").update({ image }).eq("id", id);
-      return true;
-    } catch (error) {
-      console.error("Error updating spot image", error);
-      return false;
-    }
-  };
-
   return { spots, getSpots };
 };
