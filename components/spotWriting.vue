@@ -2,21 +2,24 @@
 import { city } from "../data/city";
 import dayjs from "dayjs";
 
-const { setTravelPlan, status } = useTravelPlan();
+const { setSpot, status } = useSpot();
 const form = ref({
-  plan_name: "",
-  author: "",
-  travel_region: "",
-  travel_period: "",
-  date_created: dayjs().format("YYYY-MM-DD"),
+  spot_name: "",
+  description: "",
+  image: "",
+  latitude: "",
+  longitude: "",
+  type: "",
+  city: "",
 });
 
-const savePlan = () => {
-  setTravelPlan(form.value);
+const saveSpot = async () => {
+  await setSpot(form.value);
 };
+const open = ref(false);
 </script>
 <template>
-  <Dialog>
+  <Dialog :open="open" @update:open="open = $event">
     <DialogTrigger as-child>
       <Button> + 장소 등록하기 </Button>
     </DialogTrigger>
@@ -31,14 +34,14 @@ const savePlan = () => {
       <div class="grid gap-4 py-4">
         <div class="grid items-center grid-cols-4 gap-4">
           <Label class="text-right"> 장소 유형 </Label>
-          <Select>
+          <Select v-model="form.type">
             <SelectTrigger class="col-span-3">
               <SelectValue placeholder="Select 유형..." />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
                 <SelectItem
-                  :value="city_name"
+                  :value="type"
                   v-for="type in [
                     '음식점',
                     '호텔',
@@ -56,24 +59,8 @@ const savePlan = () => {
           </Select>
         </div>
         <div class="grid items-center grid-cols-4 gap-4">
-          <Label class="text-right"> 장소명 </Label>
-          <Input
-            class="col-span-3"
-            placeholder="서울 3박 4일 여행"
-            v-model="form.plan_name"
-          />
-        </div>
-        <div class="grid items-center grid-cols-4 gap-4">
-          <Label class="text-right"> 장소 설명 </Label>
-          <Input
-            class="col-span-3"
-            placeholder="홍길동"
-            v-model="form.author"
-          />
-        </div>
-        <div class="grid items-center grid-cols-4 gap-4">
-          <Label class="text-right"> 장소 이미지 ULR </Label>
-          <Select v-model="form.travel_region">
+          <Label class="text-right"> 도시 </Label>
+          <Select v-model="form.city">
             <SelectTrigger class="col-span-3">
               <SelectValue placeholder="Select a city" />
             </SelectTrigger>
@@ -90,25 +77,51 @@ const savePlan = () => {
           </Select>
         </div>
         <div class="grid items-center grid-cols-4 gap-4">
+          <Label class="text-right"> 장소명 </Label>
+          <Input
+            class="col-span-3"
+            placeholder="이치란 본점"
+            v-model="form.spot_name"
+          />
+        </div>
+        <div class="grid items-center grid-cols-4 gap-4">
+          <Label class="text-right"> 장소 설명 </Label>
+          <Input
+            class="col-span-3"
+            placeholder="후쿠오카를 대표하는 라멘 전문점
+칼칼하게 먹고 싶다면 비밀소스 3단계 이상 추천
+텐진 등 다른 곳에도 여러 매장이 있음"
+            v-model="form.description"
+          />
+        </div>
+        <div class="grid items-center grid-cols-4 gap-4">
+          <Label class="text-right"> 장소 이미지 ULR </Label>
+          <Input
+            class="col-span-3"
+            placeholder="https://www.google.com"
+            v-model="form.image"
+          />
+        </div>
+        <div class="grid items-center grid-cols-4 gap-4">
           <Label class="text-right"> 위도 </Label>
           <Input
             class="col-span-3"
-            placeholder="3박 4일"
-            v-model="form.travel_period"
+            placeholder="33.590355"
+            v-model="form.latitude"
           />
         </div>
         <div class="grid items-center grid-cols-4 gap-4">
           <Label class="text-right"> 경도 </Label>
           <Input
             class="col-span-3"
-            placeholder="3박 4일"
-            v-model="form.travel_period"
+            placeholder="130.401716"
+            v-model="form.longitude"
           />
         </div>
       </div>
       <DialogFooter>
         <Button v-if="status"> loading... </Button>
-        <Button v-else type="submit" @click="savePlan"> Save </Button>
+        <Button v-else type="submit" @click="saveSpot"> Save </Button>
       </DialogFooter>
     </DialogContent>
   </Dialog>
