@@ -11,7 +11,18 @@ const form = ref({
 });
 
 const saveSpot = async () => {
-  await setSpot(form.value);
+  const res = await setSpot(form.value);
+  if (res) {
+    form.value = {
+      ...form.value,
+      spot_name: "",
+      description: "",
+      image: "",
+      latitude: 0,
+      longitude: 0,
+    };
+    open.value = false;
+  }
 };
 const open = ref(false);
 

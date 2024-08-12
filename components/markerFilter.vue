@@ -4,6 +4,7 @@
     <div>
       <Button
         v-for="category in [
+          '명소',
           '음식점',
           '호텔',
           '즐길 거리',

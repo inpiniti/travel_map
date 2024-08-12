@@ -1,3 +1,9 @@
+<script setup lang="ts">
+const { spots, getSpots } = useSpot();
+onMounted(() => {
+  getSpots();
+});
+</script>
 <template>
   <Fix class="p-2">
     <div class="flex justify-between">
@@ -27,25 +33,23 @@
   <Full>
     <ScrollArea class="h-full">
       <div class="flex flex-col gap-2 p-2">
-        <Card v-for="item in 125" class="flex flex-col gap-2 p-2 text-xs">
+        <Card v-for="spot in spots" class="flex flex-col gap-2 p-2 text-xs">
           <div class="flex w-full h-full gap-2 overflow-hidden">
             <Full>
-              <div class="font-bold">토끼정</div>
-              <div>일식 센텀4로 15 신세계센텀시티몰 4F</div>
-              <div class="text-neutral-400 line-clamp-2">
-                오후 10:00에 영업종료 매장 내 식사 배달이 안 됨
+              <div class="font-bold">{{ spot.spot_name }}</div>
+              <div class="text-neutral-400 line-clamp-3">
+                {{ spot.description }}
               </div>
-              <div class="flex gap-2">
-                <Button size="xs" variant="ghost">음식점</Button>
-                <Button size="xs">영업중</Button>
-                <Button size="xs" variant="secondary"> important </Button>
+              <div class="flex gap-2 pt-2">
+                <Button size="xs" variant="secondary">{{ spot.type }}</Button>
+                <Button size="xs" variant="outline">{{ spot.city }}</Button>
               </div>
             </Full>
             <Fix>
               <img
-                class="w-20 h-20 overflow-hidden rounded"
-                src="https://via.placeholder.com/150"
-                alt="토끼정"
+                class="w-20 h-20 rounded object-cover"
+                :src="spot.image"
+                :alt="spot.spot_name"
               />
             </Fix>
           </div>
