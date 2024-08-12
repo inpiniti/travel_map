@@ -133,7 +133,7 @@ const open = ref(false);
             </LFeatureGroup>
             <LPolyline
               dashArray="10, 10"
-              :lat-lngs="spots.map((spot) => [spot.latitude, spot.longitude])"
+              :lat-lngs="spots?.map((spot) => [spot.latitude, spot.longitude])"
             />
           </LMap>
         </Full>
