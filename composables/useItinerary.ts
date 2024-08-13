@@ -23,14 +23,38 @@ export const useItinerary = () => {
   // CREATE INDEX idx_travel_plan_id ON itinerary (travel_plan_id);
   // CREATE INDEX idx_day ON itinerary (day);
 
-  const itineraries = ref<
-    | Itinerary[]
-    | {
-        id: number;
-        day: number;
-        travel_plan_id: number;
-        travel_spot_ids: number[];
-      }[]
-    | null
-  >(null);
+  const itineraries = useState<Itinerary[]>();
+
+  const getItinerary = async () => {
+    try {
+      itineraries.value = (
+        await useSupabase()
+          .from("itinerary")
+          .select("*")
+          .order("day", { ascending: true })
+      ).data as Itinerary[];
+      return true;
+    } catch (error) {
+      console.error("Error fetching itineraries", error);
+      return false;
+    }
+  };
+
+  const setItinerary = async (itinerary: Itinerary) => {
+    try {
+      const { error } = await useSupabase()
+        .from("itinerary")
+        .insert([itinerary]);
+      if (error) {
+        throw error;
+      }
+      await getItinerary();
+      return true;
+    } catch (error) {
+      console.error("Error adding itinerary", error);
+      return false;
+    }
+  };
+
+  return { itineraries, getItinerary, setItinerary };
 };

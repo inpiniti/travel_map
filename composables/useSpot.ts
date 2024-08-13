@@ -34,8 +34,24 @@ export const useSpot = () => {
   const status = useState("spotStatus", () => false);
 
   const getSpots = async () => {
+    console.log("category", useFilter().value.category);
     try {
-      spots.value = (await useSupabase().from("spot").select("*"))
+      spots.value = (
+        await useSupabase()
+          .from("spot")
+          .select("*")
+          .eq("type", useFilter().value.category)
+      ).data as Spot[];
+      return true;
+    } catch (error) {
+      console.error("Error fetching spots", error);
+      return false;
+    }
+  };
+
+  const getSpotsById = async (ids: number[]) => {
+    try {
+      spots.value = (await useSupabase().from("spot").select("*").in("id", ids))
         .data as Spot[];
       return true;
     } catch (error) {
