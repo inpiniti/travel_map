@@ -12,4 +12,5 @@ export default defineNuxtConfig({
     prefix: "",
     componentDir: "./components/ui",
   },
+  css: ["@/assets/css/custom.css"],
 });

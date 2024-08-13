@@ -74,18 +74,20 @@ const scheduleWritingOpen = (spot: Spot) => {
       </LMarker>
       <LMarker :lat-lng="[47, -1]" />
 
-      <LMarker
-        :lat-lng="[spot.latitude, spot.longitude]"
-        v-for="spot in spots"
-        @click="scheduleWritingOpen(spot)"
-      />
-
       <LMarker :lat-lng="[spot.latitude, spot.longitude]" v-for="spot in spots">
-        <LIcon :icon-size="[100, 50]">
+        <LIcon :icon-size="[100, 50]" class-name="cursor-default-important">
           <div class="flex items-center justify-center w-full h-full pt-6">
             {{ spot.spot_name }}
           </div>
         </LIcon>
+      </LMarker>
+
+      <LMarker
+        :lat-lng="[spot.latitude, spot.longitude]"
+        v-for="spot in spots"
+        @click="scheduleWritingOpen(spot)"
+      >
+        <LTooltip> {{ spot.spot_name }} </LTooltip>
       </LMarker>
     </LFeatureGroup>
     <LPolyline dashArray="10, 10" :lat-lngs="lat_lngs" />
