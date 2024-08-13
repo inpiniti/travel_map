@@ -1,6 +1,27 @@
 <script setup lang="ts">
-const { spots, getSpots } = useSpot();
+const { spots, getSpots, getSpotsById } = useSpot();
+const { schedules } = useSchedule();
 const { isMobile } = useDevice();
+
+const list: any = ref([]);
+
+const dayNSchedule = computed(() => {
+  return (schedules.value || []).filter((schedule) => {
+    return schedule.day === useFilter().value.day;
+  })[0];
+});
+
+watchEffect(async () => {
+  if (useFilter().value.type == "일정") {
+    if (dayNSchedule.value && dayNSchedule.value.travel_spot_ids) {
+      list.value = await getSpotsById(dayNSchedule.value.travel_spot_ids);
+    } else {
+      list.value = [];
+    }
+  } else {
+    list.value = spots.value;
+  }
+});
 
 onMounted(() => {
   getSpots();
@@ -35,7 +56,7 @@ onMounted(() => {
   <Full>
     <ScrollArea class="h-full">
       <div class="flex flex-col gap-2 p-2">
-        <Card v-for="spot in spots" class="flex flex-col gap-2 p-2 text-xs">
+        <Card v-for="spot in list" class="flex flex-col gap-2 p-2 text-xs">
           <div class="flex w-full h-full gap-2 overflow-hidden">
             <Full>
               <div class="font-bold">{{ spot.spot_name }}</div>

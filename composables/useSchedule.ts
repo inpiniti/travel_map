@@ -23,11 +23,11 @@ export const useSchedule = () => {
   // CREATE INDEX idx_travel_plan_id ON itinerary (travel_plan_id);
   // CREATE INDEX idx_day ON itinerary (day);
 
-  const itineraries = useState<Schedule[]>();
+  const schedules = useState<Schedule[]>();
 
   const getSchedule = async () => {
     try {
-      itineraries.value = (
+      schedules.value = (
         await useSupabase()
           .from("schedule")
           .select("*")
@@ -36,7 +36,7 @@ export const useSchedule = () => {
       ).data as Schedule[];
       return true;
     } catch (error) {
-      console.error("Error fetching itineraries", error);
+      console.error("Error fetching schedules", error);
       return false;
     }
   };
@@ -72,5 +72,5 @@ export const useSchedule = () => {
     }
   };
 
-  return { itineraries, getSchedule, setSchedule };
+  return { schedules, getSchedule, setSchedule, putSchedule };
 };

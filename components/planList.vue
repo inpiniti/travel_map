@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
 const { selectedTravelPlan, travelPlans } = useTravelPlan();
+const { getSchedule } = useSchedule();
 const filter = useFilter();
 const getImg = (index: number) => {
   if (index === 0) return `/city/가평.png`;
@@ -9,9 +10,10 @@ const getImg = (index: number) => {
   else
     return `https://img.freepik.com/free-vector/peullaes-dijain-jaedan-ui-nal-ilbon_23-2148810360.jpg`;
 };
-const click = (travelPlan: TravelPlan) => {
+const click = async (travelPlan: TravelPlan) => {
   selectedTravelPlan.value = travelPlan;
   filter.value.viewOnMobile = "schedule";
+  await getSchedule();
 };
 </script>
 <template>

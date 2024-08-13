@@ -51,12 +51,11 @@ export const useSpot = () => {
 
   const getSpotsById = async (ids: number[]) => {
     try {
-      spots.value = (await useSupabase().from("spot").select("*").in("id", ids))
+      return (await useSupabase().from("spot").select("*").in("id", ids))
         .data as Spot[];
-      return true;
     } catch (error) {
       console.error("Error fetching spots", error);
-      return false;
+      return [];
     }
   };
 
@@ -70,5 +69,5 @@ export const useSpot = () => {
     }
   };
 
-  return { spots, status, selectedSpot, getSpots, setSpot };
+  return { spots, status, selectedSpot, getSpots, setSpot, getSpotsById };
 };
