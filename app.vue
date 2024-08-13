@@ -8,6 +8,10 @@ const { isMobile } = useDevice();
 onMounted(() => {
   getTravelPlans();
 });
+
+const goBack = () => {
+  filter.value.viewOnMobile = "plan";
+};
 </script>
 
 <template>
@@ -17,15 +21,18 @@ onMounted(() => {
         <Fix
           class="flex items-center justify-between w-full p-2 md:p-4 md:w-56"
         >
-          <div v-if="isMobile && filter.viewOnMobile != 'plan'">
-            < {{ selectedTravelPlan.plan_name }}
+          <div v-if="isMobile && filter.viewOnMobile != 'plan'" @click="goBack">
+            < {{ selectedTravelPlan?.plan_name }}
           </div>
           <div v-else>여기어때</div>
-          <Tabs class="md:hidden" v-model="filter.viewOnMobile">
+          <Tabs
+            v-if="filter.viewOnMobile != 'plan'"
+            class="md:hidden"
+            v-model="filter.viewOnMobile"
+          >
             <TabsList>
-              <TabsTrigger value="plan"> plan </TabsTrigger>
-              <TabsTrigger value="schedule"> schedule </TabsTrigger>
-              <TabsTrigger value="map"> map </TabsTrigger>
+              <TabsTrigger value="schedule"> 스케쥴 </TabsTrigger>
+              <TabsTrigger value="map"> 지도 </TabsTrigger>
             </TabsList>
           </Tabs>
         </Fix>

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 const { spots, getSpots } = useSpot();
+const { isMobile } = useDevice();
+
 onMounted(() => {
   getSpots();
 });
@@ -22,7 +24,7 @@ onMounted(() => {
           >
         </Button>
       </div>
-      <Tabs v-model="useFilter().value.type">
+      <Tabs v-if="!isMobile" v-model="useFilter().value.type">
         <TabsList>
           <TabsTrigger value="일정"> 일정 </TabsTrigger>
           <TabsTrigger value="장소"> 장소 </TabsTrigger>
