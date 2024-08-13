@@ -24,7 +24,7 @@ export const useTravelPlan = () => {
     | null
   >("travelPlans");
 
-  const selectedTravelPlan = useState<TravelPlan | null>("travelPlan");
+  const selectedTravelPlan = useState<TravelPlan>("travelPlan");
 
   const getTravelPlans = async () => {
     try {

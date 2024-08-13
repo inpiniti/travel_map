@@ -1,4 +1,4 @@
-type Spot = {
+export type Spot = {
   id?: number;
   spot_name: string;
   description: string;
@@ -30,7 +30,7 @@ export const useSpot = () => {
   // 여행지
   // 여행지명, 설명, 이미지, 위도, 경도
   const spots = useState<Spot[]>("spots");
-
+  const selectedSpot = useState<Spot>("spot");
   const status = useState("spotStatus", () => false);
 
   const getSpots = async () => {
@@ -70,5 +70,5 @@ export const useSpot = () => {
     }
   };
 
-  return { spots, status, getSpots, setSpot };
+  return { spots, status, selectedSpot, getSpots, setSpot };
 };

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { spots } = useSpot();
+const { spots, selectedSpot } = useSpot();
 const filter = useFilter();
 
 const map = ref(null);
@@ -35,6 +35,11 @@ const center: any = computed(() => {
 
   return [midLat, midLng];
 });
+
+const scheduleWritingOpen = (spot: Spot) => {
+  selectedSpot.value = spot;
+  filter.value.scheduleWritingOpen = true;
+};
 </script>
 <template>
   <LMap
@@ -72,7 +77,7 @@ const center: any = computed(() => {
       <LMarker
         :lat-lng="[spot.latitude, spot.longitude]"
         v-for="spot in spots"
-        @click="filter.itineraryWritingOpen = true"
+        @click="scheduleWritingOpen(spot)"
       />
 
       <LMarker :lat-lng="[spot.latitude, spot.longitude]" v-for="spot in spots">

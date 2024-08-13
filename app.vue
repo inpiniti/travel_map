@@ -1,19 +1,11 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import ColCover from "./components/colCover.vue";
 
 const filter = useFilter();
 const { getTravelPlans } = useTravelPlan();
 
-// 일정
-const itinerary = ref<any>([]);
-
 onMounted(() => {
   getTravelPlans();
-
-  // const map = mapRef.value.mapObject;
-  // const bounds = spots.value.후쿠오카.map((spot) => [spot.latitude, spot.longitude]);
-  // map.fitBounds(bounds);
 });
 </script>
 
@@ -58,7 +50,7 @@ onMounted(() => {
         </Fix>
         <Fix class="w-96">
           <ColCover>
-            <ItineraryList />
+            <ScheduleList />
           </ColCover>
         </Fix>
         <Full class="z-0">
@@ -67,9 +59,9 @@ onMounted(() => {
       </RowCover>
     </Full>
   </ColCover>
-  <ItineraryWriting
-    :open="filter.itineraryWritingOpen"
-    @update:open="filter.itineraryWritingOpen = $event"
+  <ScheduleWriting
+    :open="filter.scheduleWritingOpen"
+    @update:open="filter.scheduleWritingOpen = $event"
   />
 </template>
 

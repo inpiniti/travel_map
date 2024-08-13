@@ -7,6 +7,6 @@ export const useFilter = () =>
       type: "일정",
       category: "명소",
       selectedTile: "cartoDb",
-      itineraryWritingOpen: false,
+      scheduleWritingOpen: false,
     };
   });
