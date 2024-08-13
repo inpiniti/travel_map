@@ -47,7 +47,7 @@ onMounted(() => {
             </Full>
             <Fix>
               <img
-                class="w-20 h-20 rounded object-cover"
+                class="object-cover w-20 h-20 rounded"
                 :src="spot.image"
                 :alt="spot.spot_name"
               />

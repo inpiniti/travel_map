@@ -8,5 +8,6 @@ export const useFilter = () =>
       category: "명소",
       selectedTile: "cartoDb",
       scheduleWritingOpen: false,
+      viewOnMobile: "plan", // plan, schedule, map
     };
   });

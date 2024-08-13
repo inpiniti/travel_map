@@ -31,6 +31,7 @@ export const useSchedule = () => {
         await useSupabase()
           .from("schedule")
           .select("*")
+          .eq("travel_plan_id", useTravelPlan().selectedTravelPlan.value.id)
           .order("day", { ascending: true })
       ).data as Schedule[];
       return true;
@@ -50,6 +51,23 @@ export const useSchedule = () => {
       return true;
     } catch (error) {
       console.error("Error adding schedule", error);
+      return false;
+    }
+  };
+
+  const putSchedule = async (schedule: Schedule) => {
+    try {
+      const { error } = await useSupabase()
+        .from("schedule")
+        .update({ travel_spot_ids: schedule.travel_spot_ids })
+        .eq("id", schedule.id);
+      if (error) {
+        throw error;
+      }
+      await getSchedule();
+      return true;
+    } catch (error) {
+      console.error("Error updating schedule", error);
       return false;
     }
   };

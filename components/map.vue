@@ -2,7 +2,7 @@
 const { spots, selectedSpot } = useSpot();
 const filter = useFilter();
 
-const map = ref(null);
+const map: any = ref(null);
 const zoom = ref(10);
 
 const TILES: any = {
@@ -40,6 +40,19 @@ const scheduleWritingOpen = (spot: Spot) => {
   selectedSpot.value = spot;
   filter.value.scheduleWritingOpen = true;
 };
+
+onMounted(() => {
+  console.log("map mounted");
+});
+
+watch(
+  () => filter.value.viewOnMobile,
+  () => {
+    setTimeout(() => {
+      zoom.value = 11;
+    }, 1000);
+  }
+);
 </script>
 <template>
   <LMap
