@@ -19,9 +19,14 @@ const goBack = () => {
     <Fix>
       <RowCover>
         <Fix
-          class="flex items-center justify-between w-full p-2 md:p-4 md:w-56"
+          class="flex items-center justify-between w-full md:p-4 md:w-56"
+          :class="filter.viewOnMobile == 'plan' ? 'p-4' : 'p-2'"
         >
-          <div v-if="isMobile && filter.viewOnMobile != 'plan'" @click="goBack">
+          <div
+            v-if="isMobile && filter.viewOnMobile != 'plan'"
+            @click="goBack"
+            class="font-bold"
+          >
             < {{ selectedTravelPlan?.plan_name }}
           </div>
           <div v-else>여기어때</div>

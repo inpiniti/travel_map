@@ -19,7 +19,7 @@ const click = (travelPlan: TravelPlan) => {
     <Card
       v-for="(travelPlan, index) in travelPlans"
       class="flex gap-2 p-2 text-xs cursor-pointer hover:bg-neutral-100"
-      @click="click"
+      @click="click(travelPlan)"
       :class="{
         'bg-neutral-100': selectedTravelPlan === travelPlan,
       }"
