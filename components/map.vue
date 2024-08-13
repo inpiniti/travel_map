@@ -75,8 +75,8 @@ const scheduleWritingOpen = (spot: Spot) => {
       <LMarker :lat-lng="[47, -1]" />
 
       <LMarker :lat-lng="[spot.latitude, spot.longitude]" v-for="spot in spots">
-        <LIcon :icon-size="[100, 50]" class-name="cursor-default-important">
-          <div class="flex items-center justify-center w-full h-full pt-6">
+        <LIcon :icon-size="[100, 100]" class-name="cursor-default-important">
+          <div class="flex items-center justify-center w-full h-full pt-14">
             {{ spot.spot_name }}
           </div>
         </LIcon>
@@ -88,6 +88,30 @@ const scheduleWritingOpen = (spot: Spot) => {
         @click="scheduleWritingOpen(spot)"
       >
         <LTooltip> {{ spot.spot_name }} </LTooltip>
+      </LMarker>
+
+      <LMarker
+        :lat-lng="[spot.latitude, spot.longitude]"
+        v-for="spot in spots"
+        @click="scheduleWritingOpen(spot)"
+      >
+        <LIcon :icon-size="[29, 29]" class-name="cursor-default-important">
+          <div
+            class="flex items-center justify-center w-8 h-8 text-white bg-blue-400 rounded-full"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="16"
+              width="16"
+              viewBox="0 0 512 512"
+            >
+              <path
+                fill="#ffffff"
+                d="M240.1 4.2c9.8-5.6 21.9-5.6 31.8 0l171.8 98.1L448 104l0 .9 47.9 27.4c12.6 7.2 18.8 22 15.1 36s-16.4 23.8-30.9 23.8L32 192c-14.5 0-27.2-9.8-30.9-23.8s2.5-28.8 15.1-36L64 104.9l0-.9 4.4-1.6L240.1 4.2zM64 224l64 0 0 192 40 0 0-192 64 0 0 192 48 0 0-192 64 0 0 192 40 0 0-192 64 0 0 196.3c.6 .3 1.2 .7 1.8 1.1l48 32c11.7 7.8 17 22.4 12.9 35.9S494.1 512 480 512L32 512c-14.1 0-26.5-9.2-30.6-22.7s1.1-28.1 12.9-35.9l48-32c.6-.4 1.2-.7 1.8-1.1L64 224z"
+              />
+            </svg>
+          </div>
+        </LIcon>
       </LMarker>
     </LFeatureGroup>
     <LPolyline dashArray="10, 10" :lat-lngs="lat_lngs" />
