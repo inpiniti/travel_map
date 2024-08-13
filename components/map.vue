@@ -117,3 +117,15 @@ const scheduleWritingOpen = (spot: Spot) => {
     <LPolyline dashArray="10, 10" :lat-lngs="lat_lngs" />
   </LMap>
 </template>
+<!-- 
+landmark 랜드마크
+bag-shopping 쇼핑
+train 기차
+train-subway 지하철
+utensils
+plane 비행기
+hotel 호텔
+
+
+trash 삭제
+-->
