@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { spots, selectedSpot } = useSpot();
+const { spots, selectedSpot, getSpots } = useSpot();
 const filter = useFilter();
 
 const map: any = ref(null);
@@ -40,19 +40,6 @@ const scheduleWritingOpen = (spot: Spot) => {
   selectedSpot.value = spot;
   filter.value.scheduleWritingOpen = true;
 };
-
-onMounted(() => {
-  console.log("map mounted");
-});
-
-watch(
-  () => filter.value.viewOnMobile,
-  () => {
-    setTimeout(() => {
-      zoom.value = 11;
-    }, 1000);
-  }
-);
 </script>
 <template>
   <LMap

@@ -69,8 +69,8 @@ onMounted(() => {
           </ColCover>
         </Fix>
         <Full
-          class="z-0 w-full md:block"
-          :class="filter.viewOnMobile == 'map' ? '' : 'hidden'"
+          class="z-0 w-full md:block md:relative md:top-0"
+          :class="filter.viewOnMobile == 'map' ? '' : 'absolute top-[99999px]'"
         >
           <Map />
         </Full>
