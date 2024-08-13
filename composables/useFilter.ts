@@ -5,6 +5,8 @@ export const useFilter = () =>
       city: "가평,양평",
       day: 1,
       type: "일정",
-      category: "음식점",
+      category: "명소",
+      selectedTile: "cartoDb",
+      itineraryWritingOpen: false,
     };
   });
