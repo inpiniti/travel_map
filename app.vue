@@ -10,7 +10,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <ColCover class="h-svh">
+  <ColCover class="absolute h-svh">
     <Fix>
       <RowCover>
         <Fix class="flex items-center justify-between w-full p-4 md:w-56">
