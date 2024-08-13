@@ -2,7 +2,8 @@
 import ColCover from "./components/colCover.vue";
 
 const filter = useFilter();
-const { getTravelPlans } = useTravelPlan();
+const { getTravelPlans, selectedTravelPlan } = useTravelPlan();
+const { isMobile } = useDevice();
 
 onMounted(() => {
   getTravelPlans();
@@ -13,8 +14,13 @@ onMounted(() => {
   <ColCover class="absolute h-svh">
     <Fix>
       <RowCover>
-        <Fix class="flex items-center justify-between w-full p-4 md:w-56">
-          <div>여기어때</div>
+        <Fix
+          class="flex items-center justify-between w-full p-2 md:p-4 md:w-56"
+        >
+          <div v-if="isMobile && filter.viewOnMobile != 'plan'">
+            < {{ selectedTravelPlan.plan_name }}
+          </div>
+          <div v-else>여기어때</div>
           <Tabs class="md:hidden" v-model="filter.viewOnMobile">
             <TabsList>
               <TabsTrigger value="plan"> plan </TabsTrigger>
@@ -23,7 +29,7 @@ onMounted(() => {
             </TabsList>
           </Tabs>
         </Fix>
-        <Full class="flex justify-between hidden p-2 md:block">
+        <Full class="justify-between hidden p-2 md:flex">
           <MarkerFilter />
           <div class="flex gap-2">
             <SpotWriting />
@@ -43,14 +49,14 @@ onMounted(() => {
     <Full>
       <RowCover>
         <Fix
-          class="w-full md:w-56 md:block"
+          class="w-full md:w-56 md:flex"
           :class="filter.viewOnMobile == 'plan' ? '' : 'hidden '"
         >
           <ColCover>
             <Fix class="p-2">
               <PlanFilter />
             </Fix>
-            <Fix class="hidden p-2 md:block">
+            <Fix class="hidden p-2 md:flex">
               <PlanWriting />
             </Fix>
             <Full>
@@ -61,7 +67,7 @@ onMounted(() => {
           </ColCover>
         </Fix>
         <Fix
-          class="w-full md:w-96 md:block"
+          class="w-full md:w-96 md:flex"
           :class="filter.viewOnMobile == 'schedule' ? '' : 'hidden'"
         >
           <ColCover>
@@ -69,7 +75,7 @@ onMounted(() => {
           </ColCover>
         </Fix>
         <Full
-          class="z-0 w-full md:block md:relative md:top-0"
+          class="z-0 w-full md:flex md:relative md:top-0"
           :class="filter.viewOnMobile == 'map' ? '' : 'absolute top-[99999px]'"
         >
           <Map />
