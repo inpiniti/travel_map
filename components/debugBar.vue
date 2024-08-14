@@ -5,8 +5,7 @@ const filter = useFilter();
 <template>
   <div class="border-b w-full p-1">
     <div>해야 할일</div>
-    <div>데스크탑에서는 지도에 탭이 안보이고</div>
-    <div>모바일에서는 보이되, 1일차 선택하는게 보이게</div>
+    <div>일정 추가 모바일일에서 너무 크게 나옴</div>
     <div class="flex gap-1">
       <Dialog>
         <DialogTrigger> <Button>schedules</Button> </DialogTrigger>
