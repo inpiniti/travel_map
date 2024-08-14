@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { selectedTravelPlan } = useTravelPlan();
 const { selectedSpot } = useSpot();
-const { schedules, setSchedule, putSchedule } = useSchedule();
+const { schedules, dayNSchedule, setSchedule, putSchedule } = useSchedule();
 const filter = useFilter();
 
 const props = defineProps<{
@@ -13,22 +13,21 @@ const emit = defineEmits(["update:open"]);
 const addSchedule = () => {
   emit("update:open", false);
 
-  const dayNSchedule: any = (schedules.value || []).filter((schedule) => {
-    return schedule.day === useFilter().value.day;
-  })[0];
-
   if (dayNSchedule == undefined) {
     setSchedule({
       day: filter.value.day,
       travel_plan_id: selectedTravelPlan.value.id,
-      travel_spot_ids: [selectedSpot.value.id || 0],
+      travel_spot_ids: [selectedSpot.value.id ?? 0],
     });
   } else {
     putSchedule({
-      id: dayNSchedule.id,
+      id: dayNSchedule.value.id,
       day: filter.value.day,
       travel_plan_id: selectedTravelPlan.value.id,
-      travel_spot_ids: [...dayNSchedule.travel_spot_ids, selectedSpot.value.id],
+      travel_spot_ids: [
+        ...dayNSchedule.value?.travel_spot_ids,
+        selectedSpot.value?.id ?? 0,
+      ],
     });
   }
 };

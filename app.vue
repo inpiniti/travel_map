@@ -2,14 +2,21 @@
 import ColCover from "./components/colCover.vue";
 
 const filter = useFilter();
-const { getTravelPlans } = useTravelPlan();
+const { travelPlans, getTravelPlans } = useTravelPlan();
+const { getSchedule } = useSchedule();
 
-onMounted(() => {
-  getTravelPlans();
+onMounted(async () => {
+  await getTravelPlans();
+  if (travelPlans.value && travelPlans.value?.length > 0) {
+    getSchedule();
+  }
 });
 </script>
 
 <template>
+  <DevOnly>
+    <DebugBar />
+  </DevOnly>
   <ColCover class="absolute h-svh">
     <Fix>
       <RowCover>

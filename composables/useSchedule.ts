@@ -6,6 +6,8 @@ export type Schedule = {
 };
 
 export const useSchedule = () => {
+  const { spots, getSpotsById } = useSpot();
+
   // 여행 일정
   // 여행계획아이디, 일차, 여행지ids
   // ex) 12, 1, [1, 2, 3]
@@ -24,6 +26,27 @@ export const useSchedule = () => {
   // CREATE INDEX idx_day ON itinerary (day);
 
   const schedules = useState<Schedule[]>();
+  const schedulesSpots = useState<Spot[]>();
+
+  const dayNSchedule = computed(() => {
+    return (schedules.value ?? []).filter((schedule) => {
+      return schedule.day === useFilter().value.day;
+    })[0];
+  });
+
+  watchEffect(async () => {
+    if (useFilter().value.type == "일정") {
+      if (dayNSchedule.value && dayNSchedule.value.travel_spot_ids) {
+        schedulesSpots.value = await getSpotsById(
+          dayNSchedule.value.travel_spot_ids
+        );
+      } else {
+        schedulesSpots.value = [];
+      }
+    } else {
+      schedulesSpots.value = spots.value;
+    }
+  });
 
   const getSchedule = async () => {
     try {
@@ -72,5 +95,12 @@ export const useSchedule = () => {
     }
   };
 
-  return { schedules, getSchedule, setSchedule, putSchedule };
+  return {
+    schedules,
+    schedulesSpots,
+    dayNSchedule,
+    getSchedule,
+    setSchedule,
+    putSchedule,
+  };
 };
