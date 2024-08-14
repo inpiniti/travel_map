@@ -2,16 +2,11 @@
 import ColCover from "./components/colCover.vue";
 
 const filter = useFilter();
-const { getTravelPlans, selectedTravelPlan } = useTravelPlan();
-const { isMobile } = useDevice();
+const { getTravelPlans } = useTravelPlan();
 
 onMounted(() => {
   getTravelPlans();
 });
-
-const goBack = () => {
-  filter.value.viewOnMobile = "plan";
-};
 </script>
 
 <template>
@@ -22,32 +17,7 @@ const goBack = () => {
           class="flex items-center justify-between w-full md:p-4 md:w-56"
           :class="filter.viewOnMobile == 'plan' ? 'p-4' : 'p-2'"
         >
-          <div
-            v-if="isMobile && filter.viewOnMobile != 'plan'"
-            @click="goBack"
-            class="font-bold"
-          >
-            <font-awesome class="px-2" icon="chevron-left" />
-            {{ selectedTravelPlan?.plan_name }}
-          </div>
-          <div class="flex items-center gap-1 text-xl font-bold" v-else>
-            <font-awesome icon="map" bounce />
-            <h1>여행지도</h1>
-          </div>
-          <Tabs
-            v-if="filter.viewOnMobile != 'plan'"
-            class="md:hidden"
-            v-model="filter.viewOnMobile"
-          >
-            <TabsList>
-              <TabsTrigger value="schedule">
-                <font-awesome icon="calendar" />
-              </TabsTrigger>
-              <TabsTrigger value="map">
-                <font-awesome icon="map" />
-              </TabsTrigger>
-            </TabsList>
-          </Tabs>
+          <TopMenuBar />
         </Fix>
         <Full class="justify-between hidden p-2 md:flex">
           <MarkerFilter />
@@ -98,7 +68,12 @@ const goBack = () => {
           class="z-0 w-full md:flex md:relative md:top-0"
           :class="filter.viewOnMobile == 'map' ? '' : 'absolute top-[99999px]'"
         >
-          <Map />
+          <ColCover>
+            <Fix><PlanFilter /></Fix>
+            <Full>
+              <Map />
+            </Full>
+          </ColCover>
         </Full>
       </RowCover>
     </Full>
