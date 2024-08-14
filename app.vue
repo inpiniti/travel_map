@@ -27,17 +27,25 @@ const goBack = () => {
             @click="goBack"
             class="font-bold"
           >
-            < {{ selectedTravelPlan?.plan_name }}
+            <font-awesome class="px-2" icon="chevron-left" />
+            {{ selectedTravelPlan?.plan_name }}
           </div>
-          <div v-else>여기어때</div>
+          <div class="flex items-center gap-1 text-xl font-bold" v-else>
+            <font-awesome icon="map" bounce />
+            <h1>여행지도</h1>
+          </div>
           <Tabs
             v-if="filter.viewOnMobile != 'plan'"
             class="md:hidden"
             v-model="filter.viewOnMobile"
           >
             <TabsList>
-              <TabsTrigger value="schedule"> 스케쥴 </TabsTrigger>
-              <TabsTrigger value="map"> 지도 </TabsTrigger>
+              <TabsTrigger value="schedule">
+                <font-awesome icon="calendar" />
+              </TabsTrigger>
+              <TabsTrigger value="map">
+                <font-awesome icon="map" />
+              </TabsTrigger>
             </TabsList>
           </Tabs>
         </Fix>

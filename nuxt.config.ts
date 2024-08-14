@@ -7,10 +7,29 @@ export default defineNuxtConfig({
     "shadcn-nuxt",
     "@nuxtjs/tailwindcss",
     "@nuxtjs/device",
+    "@vesp/nuxt-fontawesome",
   ],
   shadcn: {
     prefix: "",
     componentDir: "./components/ui",
   },
   css: ["@/assets/css/custom.css"],
+  fontawesome: {
+    icons: {
+      solid: [
+        "landmark",
+        "bag-shopping",
+        "train",
+        "train-subway",
+        "utensils",
+        "plane",
+        "hotel",
+        "trash",
+        "map",
+        "chevron-left",
+        "calendar",
+      ],
+      regular: ["user"],
+    },
+  },
 });
