@@ -10,6 +10,7 @@ const click = (category: string) => {
     <div>
       <Button
         v-for="category in [
+          '공항',
           '명소',
           '근교명소',
           '음식점',
