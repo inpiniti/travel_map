@@ -11,9 +11,7 @@ const props = defineProps<{
 const emit = defineEmits(["update:open"]);
 
 const addSchedule = () => {
-  emit("update:open", false);
-
-  if (dayNSchedule == undefined) {
+  if (dayNSchedule.value == undefined) {
     setSchedule({
       day: filter.value.day,
       travel_plan_id: selectedTravelPlan.value.id,
@@ -30,6 +28,10 @@ const addSchedule = () => {
       ],
     });
   }
+
+  filter.value.category = "일정";
+
+  emit("update:open", false);
 };
 </script>
 <template>
