@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const filter = useFilter();
+
 const click = (category: string) => {
   useFilter().value.category = category;
   useSpot().getSpots();
@@ -27,5 +29,17 @@ const click = (category: string) => {
         {{ category }}
       </Button>
     </div>
+  </div>
+  <div class="flex gap-2">
+    <SpotWriting />
+    <Button
+      variant="secondary"
+      @click="
+        filter.selectedTile == 'openStreetMap'
+          ? (filter.selectedTile = 'cartoDb')
+          : (filter.selectedTile = 'openStreetMap')
+      "
+      >{{ filter.selectedTile }}
+    </Button>
   </div>
 </template>

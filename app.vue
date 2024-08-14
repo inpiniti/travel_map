@@ -24,22 +24,10 @@ onMounted(async () => {
           class="flex items-center justify-between w-full md:p-4 md:w-56"
           :class="filter.viewOnMobile == 'plan' ? 'p-4' : 'p-2'"
         >
-          <TopMenuBar />
+          <Logo />
         </Fix>
         <Full class="justify-between hidden p-2 md:flex">
-          <MarkerFilter />
-          <div class="flex gap-2">
-            <SpotWriting />
-            <Button
-              variant="secondary"
-              @click="
-                filter.selectedTile == 'openStreetMap'
-                  ? (filter.selectedTile = 'cartoDb')
-                  : (filter.selectedTile = 'openStreetMap')
-              "
-              >{{ filter.selectedTile }}
-            </Button>
-          </div>
+          <MenuBar />
         </Full>
       </RowCover>
     </Fix>
@@ -68,7 +56,12 @@ onMounted(async () => {
           :class="filter.viewOnMobile == 'schedule' ? '' : 'hidden'"
         >
           <ColCover>
-            <ScheduleList />
+            <Fix class="p-2">
+              <ScheduleFilter />
+            </Fix>
+            <Full>
+              <ScheduleList />
+            </Full>
           </ColCover>
         </Fix>
         <Full
@@ -76,7 +69,9 @@ onMounted(async () => {
           :class="filter.viewOnMobile == 'map' ? '' : 'absolute top-[99999px]'"
         >
           <ColCover>
-            <Fix><PlanFilter /></Fix>
+            <Fix class="p-2 md:hidden block">
+              <ScheduleFilter />
+            </Fix>
             <Full>
               <Map />
             </Full>
