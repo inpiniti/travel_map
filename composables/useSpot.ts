@@ -9,6 +9,21 @@ export type Spot = {
   city: string;
 };
 
+export const ICON: any = {
+  공항: "plane",
+  명소: "landmark",
+  근교명소: "landmark",
+  음식점: "utensils",
+  카페: "mug-saucer",
+  호텔: "hotel",
+  쇼핑: "bag-shopping",
+  "즐길 거리": "map",
+  박물관: "landmark",
+  대중교통: "train",
+  약국: "hospital",
+  ATM: "money-bill",
+};
+
 // postgres 생성 쿼리 만들어줘
 // CREATE TABLE spot (
 //   id SERIAL PRIMARY KEY,

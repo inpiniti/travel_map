@@ -101,7 +101,7 @@ const scheduleWritingOpen = (spot: Spot) => {
           <div
             class="flex items-center justify-center w-8 h-8 text-white bg-blue-400 rounded-full"
           >
-            <font-awesome icon="landmark" />
+            <font-awesome :icon="ICON[spot.type]" />
           </div>
         </LIcon>
       </LMarker>
