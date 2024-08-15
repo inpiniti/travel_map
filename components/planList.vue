@@ -11,6 +11,10 @@ const click = async (travelPlan: TravelPlan) => {
   filter.value.viewOnMobile = "schedule";
   await getSchedule();
 };
+
+const handleImageError = (event: any) => {
+  event.target.src = `/여행.jpg`;
+};
 </script>
 <template>
   <div class="flex flex-col gap-2 p-2">
@@ -25,7 +29,8 @@ const click = async (travelPlan: TravelPlan) => {
       <img
         :src="getImg(travelPlan.travel_region)"
         alt="Travel Image"
-        class="object-cover h-full rounded-lg w-14 shrink-0"
+        class="object-cover rounded-lg h-14 w-14 shrink-0"
+        @error="handleImageError"
       />
       <div class="flex flex-col justify-between grow-[0] w-full">
         <div class="flex flex-col">

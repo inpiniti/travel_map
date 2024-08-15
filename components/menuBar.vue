@@ -9,8 +9,7 @@ const click = (category: string) => {
 };
 
 const handleImageError = (event: any) => {
-  event.target.src =
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1JepYYB5twXB54wCLR6kBdRj3FNzbAlxmnQ&s";
+  event.target.src = `/여행.jpg`;
 };
 </script>
 <template>

@@ -2,7 +2,7 @@ export const useFilter = () =>
   useState("filter", () => {
     return {
       search: "",
-      city: "전체",
+      city: "후쿠오카",
       day: 1,
       type: "일정",
       category: "명소",

@@ -50,7 +50,6 @@ export const useSpot = () => {
   const { toast } = useToast();
 
   const getSpots = async () => {
-    console.log("category", useFilter().value.category);
     try {
       spots.value = (
         await useSupabase()
