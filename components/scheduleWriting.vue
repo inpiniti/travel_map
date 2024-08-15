@@ -37,10 +37,10 @@ const addSchedule = () => {
 <template>
   <Drawer :open="open" @update:open="emit('update:open', $event)">
     <DrawerContent>
-      <RowCover class="divide-x-0 pl-2">
+      <RowCover class="pl-2 divide-x-0">
         <Fix>
           <img
-            class="object-cover rounded-full w-20 h-20 md:w-36 md:h-36"
+            class="object-cover w-20 h-20 rounded-full md:w-36 md:h-36"
             :src="selectedSpot.image"
           />
         </Fix>
@@ -62,7 +62,9 @@ const addSchedule = () => {
             </DrawerDescription>
           </DrawerHeader>
           <DrawerFooter>
-            <Button @click="addSchedule">일정 추가</Button>
+            <Button @click="addSchedule" :disabled="(filter.type = '일정')">
+              일정 추가
+            </Button>
           </DrawerFooter>
         </Full>
       </RowCover>
