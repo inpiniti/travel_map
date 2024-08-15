@@ -59,7 +59,7 @@ onMounted(async () => {
             <Fix class="p-2">
               <ScheduleFilter />
             </Fix>
-            <Fix class="p-2">
+            <Fix class="p-2" v-if="filter.type == '장소'">
               <SpotWriting />
             </Fix>
             <Full>
