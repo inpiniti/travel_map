@@ -68,6 +68,19 @@ const scheduleWritingOpen = (spot: Spot) => {
     :markerZoomAnimation="false"
   >
     <LTileLayer :url="selectedTileUrl" layer-type="base" name="OpenStreetMap" />
+
+    <LControl>
+      <Button
+        size="sm"
+        @click="
+          filter.selectedTile == 'openStreetMap'
+            ? (filter.selectedTile = 'cartoDb')
+            : (filter.selectedTile = 'openStreetMap')
+        "
+        >{{ filter.selectedTile }}
+      </Button>
+    </LControl>
+
     <LFeatureGroup>
       <!-- 마커 글씨 -->
       <LMarker

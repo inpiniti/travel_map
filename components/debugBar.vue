@@ -5,7 +5,7 @@ const filter = useFilter();
 <template>
   <div class="border-b w-full p-1">
     <div>해야 할일</div>
-    <div>일정 탭인 경우에는 장소등록하기가 안보이게</div>
+    <div>지도 변경 버튼은 지도내에 삽입</div>
     <div class="flex gap-1">
       <Dialog>
         <DialogTrigger> <Button>schedules</Button> </DialogTrigger>

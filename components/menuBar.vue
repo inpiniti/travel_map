@@ -10,8 +10,14 @@ const click = (category: string) => {
 </script>
 <template>
   <div class="flex items-center gap-2">
+    <img
+      :src="`/city/${filter.city}.png`"
+      alt="Travel Image"
+      class="object-cover h-full rounded-lg w-11 shrink-0"
+    />
     <div>
       <Button
+        class="px-2"
         v-for="category in [
           '공항',
           '명소',
@@ -29,19 +35,11 @@ const click = (category: string) => {
         :variant="useFilter().value.category == category ? 'default' : 'ghost'"
         @click="click(category)"
       >
-        {{ category }}
+        <div class="flex flex-col">
+          <font-awesome :icon="ICON[category]" />
+          {{ category }}
+        </div>
       </Button>
     </div>
-  </div>
-  <div class="flex gap-2">
-    <Button
-      variant="secondary"
-      @click="
-        filter.selectedTile == 'openStreetMap'
-          ? (filter.selectedTile = 'cartoDb')
-          : (filter.selectedTile = 'openStreetMap')
-      "
-      >{{ filter.selectedTile }}
-    </Button>
   </div>
 </template>
