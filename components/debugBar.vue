@@ -5,7 +5,7 @@ const filter = useFilter();
 <template>
   <div class="w-full p-1 border-b">
     <div>해야 할일</div>
-    <div>지도에 아이콘이 뭉쳐 있는 경우 클릭이 안됨</div>
+    <div>이미지가 없는 경우 처리</div>
     <div class="flex gap-1">
       <Dialog>
         <DialogTrigger> <Button>schedules</Button> </DialogTrigger>
