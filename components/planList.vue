@@ -9,6 +9,7 @@ const getImg = (travel_region: string) => {
 const click = async (travelPlan: TravelPlan) => {
   selectedTravelPlan.value = travelPlan;
   filter.value.viewOnMobile = "schedule";
+  filter.value.type = "일정";
   await getSchedule();
 };
 
