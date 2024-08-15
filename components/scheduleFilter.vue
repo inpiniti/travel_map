@@ -63,10 +63,11 @@ function incrementDay() {
     </div>
     <div class="flex gap-2">
       <Button
+        class="px-2"
         :variant="filter.isDraggable ? 'default' : 'outline'"
         @click="filter.isDraggable = !filter.isDraggable"
       >
-        <font-awesome class="px-2" icon="diagram-next" />
+        <font-awesome icon="wrench" />
       </Button>
       <Tabs v-model="useFilter().value.type">
         <TabsList>

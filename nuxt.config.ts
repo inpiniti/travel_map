@@ -32,7 +32,7 @@ export default defineNuxtConfig({
         "money-bill",
         "mug-saucer",
         "glass-cheers",
-        "diagram-next",
+        "wrench",
       ],
       regular: ["user"],
     },
