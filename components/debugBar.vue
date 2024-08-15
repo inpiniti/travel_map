@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { schedules, schedulesSpots, dayNSchedule } = useSchedule();
+const { isMobile } = useDevice();
 const filter = useFilter();
 </script>
 <template>
