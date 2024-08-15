@@ -15,7 +15,7 @@ const addSchedule = () => {
     setSchedule({
       day: filter.value.day,
       travel_plan_id: selectedTravelPlan.value.id,
-      travel_spot_ids: [selectedSpot.value.id ?? 0],
+      travel_spot_ids: [selectedSpot.value.id] as number[],
     });
   } else {
     putSchedule({
@@ -23,8 +23,10 @@ const addSchedule = () => {
       day: filter.value.day,
       travel_plan_id: selectedTravelPlan.value.id,
       travel_spot_ids: [
-        ...dayNSchedule.value?.travel_spot_ids,
-        selectedSpot.value?.id ?? 0,
+        ...new Set([
+          ...dayNSchedule.value?.travel_spot_ids,
+          selectedSpot.value?.id ?? 0,
+        ]),
       ],
     });
   }

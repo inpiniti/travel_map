@@ -66,8 +66,19 @@ export const useSpot = () => {
 
   const getSpotsById = async (ids: number[]) => {
     try {
-      return (await useSupabase().from("spot").select("*").in("id", ids))
-        .data as Spot[];
+      // Supabase에서 데이터 조회
+      const { data: spots, error } = await useSupabase()
+        .from("spot")
+        .select("*")
+        .in("id", ids);
+
+      // ids 배열의 순서에 따라 spots 배열 재정렬
+      const orderedSpots = ids
+        .map((id) => spots?.find((spot) => spot.id === id))
+        .filter((spot) => spot !== undefined) as Spot[];
+
+      // orderedSpots는 이제 ids 배열의 순서대로 정렬된 Spot[] 타입입니다.
+      return orderedSpots;
     } catch (error) {
       console.error("Error fetching spots", error);
       return [];

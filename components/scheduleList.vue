@@ -1,11 +1,24 @@
 <script setup lang="ts">
+import draggable from "vuedraggable";
+
+const { selectedTravelPlan } = useTravelPlan();
 const { getSpots, selectedSpot } = useSpot();
-const { schedulesSpots } = useSchedule();
+const { schedulesSpots, dayNSchedule, putSchedule } = useSchedule();
 const filter = useFilter();
 
 onMounted(() => {
   getSpots();
 });
+
+function onEnd() {
+  // 드래그 앤 드롭이 끝났을 때 호출될 함수
+  putSchedule({
+    id: dayNSchedule.value.id,
+    day: filter.value.day,
+    travel_plan_id: selectedTravelPlan.value.id,
+    travel_spot_ids: schedulesSpots.value.map((spot) => spot.id) as number[],
+  });
+}
 
 const scheduleWritingOpen = (spot: Spot) => {
   selectedSpot.value = spot;
@@ -19,32 +32,37 @@ const scheduleWritingOpen = (spot: Spot) => {
         scheduleList
       </div>
     </DevOnly>
-    <div class="flex flex-col gap-2 p-2">
-      <Card
-        v-for="spot in schedulesSpots"
-        class="flex flex-col gap-2 p-2 text-xs cursor-pointer hover:bg-neutral-100"
-        @click="scheduleWritingOpen(spot)"
-      >
-        <div class="flex w-full h-full gap-2 overflow-hidden">
-          <Full>
-            <div class="font-bold">{{ spot.spot_name }}</div>
-            <div class="text-neutral-400 line-clamp-3">
-              {{ spot.description }}
-            </div>
-            <div class="flex items-center gap-2 pt-2">
-              <Badge variant="secondary">{{ spot.type }}</Badge>
-              <Badge variant="outline">{{ spot.city }}</Badge>
-            </div>
-          </Full>
-          <Fix>
-            <img
-              class="object-cover w-20 h-20 rounded"
-              :src="spot.image"
-              :alt="spot.spot_name"
-            />
-          </Fix>
-        </div>
-      </Card>
-    </div>
+    <draggable
+      v-model="schedulesSpots"
+      class="flex flex-col gap-2 p-2 dragArea"
+      @end="onEnd"
+    >
+      <template #item="{ element: spot }">
+        <Card
+          class="flex flex-col gap-2 p-2 text-xs cursor-pointer hover:bg-neutral-100"
+          @click="scheduleWritingOpen(spot)"
+        >
+          <div class="flex w-full h-full gap-2 overflow-hidden">
+            <Full>
+              <div class="font-bold">{{ spot.spot_name }}</div>
+              <div class="text-neutral-400 line-clamp-3">
+                {{ spot.description }}
+              </div>
+              <div class="flex items-center gap-2 pt-2">
+                <Badge variant="secondary">{{ spot.type }}</Badge>
+                <Badge variant="outline">{{ spot.city }}</Badge>
+              </div>
+            </Full>
+            <Fix>
+              <img
+                class="object-cover w-20 h-20 rounded"
+                :src="spot.image"
+                :alt="spot.spot_name"
+              />
+            </Fix>
+          </div>
+        </Card>
+      </template>
+    </draggable>
   </ScrollArea>
 </template>

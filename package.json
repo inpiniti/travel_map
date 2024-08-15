@@ -24,7 +24,8 @@
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
     "vaul-vue": "^0.2.0",
-    "vue": "latest"
+    "vue": "latest",
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@fortawesome/free-brands-svg-icons": "^6.6.0",

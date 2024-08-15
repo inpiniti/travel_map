@@ -9,8 +9,8 @@ export const useSchedule = () => {
   const { spots, getSpotsById } = useSpot();
   const { toast } = useToast();
 
-  const schedules = useState<Schedule[]>();
-  const schedulesSpots = useState<Spot[]>();
+  const schedules = useState<Schedule[]>("schedules", () => []);
+  const schedulesSpots = useState<Spot[]>("schedulesSpots", () => []);
 
   const dayNSchedule = computed(() => {
     return (schedules.value ?? []).filter((schedule) => {
