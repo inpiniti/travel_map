@@ -67,7 +67,10 @@ function incrementDay() {
         :variant="filter.isDraggable ? 'default' : 'outline'"
         @click="filter.isDraggable = !filter.isDraggable"
       >
-        <font-awesome icon="wrench" />
+        <div class="flex flex-col">
+          <font-awesome icon="wrench" />
+          드래그
+        </div>
       </Button>
       <Tabs v-model="useFilter().value.type">
         <TabsList>
