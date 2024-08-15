@@ -84,6 +84,7 @@ onMounted(async () => {
     :open="filter.scheduleWritingOpen"
     @update:open="filter.scheduleWritingOpen = $event"
   />
+  <Toaster />
 </template>
 
 <style>

@@ -47,6 +47,7 @@ export const useSpot = () => {
   const spots = useState<Spot[]>("spots");
   const selectedSpot = useState<Spot>("spot");
   const status = useState("spotStatus", () => false);
+  const { toast } = useToast();
 
   const getSpots = async () => {
     console.log("category", useFilter().value.category);
@@ -77,9 +78,16 @@ export const useSpot = () => {
   const setSpot = async (spot: Spot) => {
     try {
       await useSupabase().from("spot").insert([spot]);
+      toast({
+        title: "여행지가 추가되었습니다.",
+      });
       return true;
     } catch (error) {
-      console.error("Error inserting spot", error);
+      toast({
+        title: "여행지 추가에 실패했습니다.",
+        variant: "destructive",
+        description: `Error: ${error}`,
+      });
       return false;
     }
   };
