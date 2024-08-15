@@ -52,6 +52,8 @@ const center: any = computed(() => {
 });
 
 const scheduleWritingOpen = (spot: Spot) => {
+  console.log("drawSpot", drawSpot);
+  console.log("spot", spot);
   selectedSpot.value = spot;
   filter.value.scheduleWritingOpen = true;
 };
@@ -108,6 +110,7 @@ const scheduleWritingOpen = (spot: Spot) => {
       <LMarker
         :lat-lng="[spot.latitude, spot.longitude]"
         v-for="spot in drawSpot"
+        :key="spot.id"
         @click="scheduleWritingOpen(spot)"
       >
         <LIcon :icon-size="[29, 29]" class-name="cursor-default-important">

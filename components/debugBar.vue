@@ -5,7 +5,7 @@ const filter = useFilter();
 <template>
   <div class="w-full p-1 border-b">
     <div>해야 할일</div>
-    <div>일정리스트에서도 추가 가능하도록 단 장소 탭에서만 가능하게</div>
+    <div>지도에서 일정 등록이 엉뚱한게 뜨는 경우가 있음?</div>
     <div class="flex gap-1">
       <Dialog>
         <DialogTrigger> <Button>schedules</Button> </DialogTrigger>
