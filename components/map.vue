@@ -52,8 +52,6 @@ const center: any = computed(() => {
 });
 
 const scheduleWritingOpen = (spot: Spot) => {
-  console.log("drawSpot", drawSpot);
-  console.log("spot", spot);
   selectedSpot.value = spot;
   filter.value.scheduleWritingOpen = true;
 };
@@ -84,18 +82,6 @@ const scheduleWritingOpen = (spot: Spot) => {
     </LControl>
 
     <LFeatureGroup>
-      <!-- 마커 글씨 -->
-      <LMarker
-        :lat-lng="[spot.latitude, spot.longitude]"
-        v-for="spot in drawSpot"
-      >
-        <LIcon :icon-size="[100, 100]" class-name="cursor-default-important">
-          <div class="flex items-center justify-center w-full h-full pt-14">
-            {{ spot.spot_name }}
-          </div>
-        </LIcon>
-      </LMarker>
-
       <!-- 마커 및 툴팁 
       <LMarker
         :lat-lng="[spot.latitude, spot.longitude]"
@@ -113,11 +99,32 @@ const scheduleWritingOpen = (spot: Spot) => {
         :key="spot.id"
         @click="scheduleWritingOpen(spot)"
       >
-        <LIcon :icon-size="[29, 29]" class-name="cursor-default-important">
+        <LIcon
+          :icon-size="[32, 32]"
+          class-name="cursor-default-important bg-blue-800 z-10"
+        >
           <div
-            class="flex items-center justify-center w-8 h-8 text-white bg-blue-400 rounded-full"
+            class="flex items-center justify-center w-8 h-8 text-white bg-blue-400 rounded-full cursor-pointer"
           >
             <font-awesome :icon="ICON[spot.type]" />
+          </div>
+        </LIcon>
+        <LTooltip> {{ spot.spot_name }} </LTooltip>
+      </LMarker>
+
+      <!-- 마커 글씨 -->
+      <LMarker
+        :lat-lng="[spot.latitude, spot.longitude]"
+        v-for="spot in drawSpot"
+      >
+        <LIcon
+          :icon-size="[0, 0]"
+          class-name="cursor-default-important pointer-events-none"
+        >
+          <div
+            class="flex items-center justify-center w-full h-full pt-7 whitespace-nowrap"
+          >
+            {{ spot.spot_name }}
           </div>
         </LIcon>
       </LMarker>

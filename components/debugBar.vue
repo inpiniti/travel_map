@@ -5,7 +5,7 @@ const filter = useFilter();
 <template>
   <div class="w-full p-1 border-b">
     <div>해야 할일</div>
-    <div>지도에서 일정 등록이 엉뚱한게 뜨는 경우가 있음?</div>
+    <div>지도에 아이콘이 뭉쳐 있는 경우 클릭이 안됨</div>
     <div class="flex gap-1">
       <Dialog>
         <DialogTrigger> <Button>schedules</Button> </DialogTrigger>
