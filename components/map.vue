@@ -99,10 +99,7 @@ const scheduleWritingOpen = (spot: Spot) => {
         :key="spot.id"
         @click="scheduleWritingOpen(spot)"
       >
-        <LIcon
-          :icon-size="[32, 32]"
-          class-name="cursor-default-important bg-blue-800 z-10"
-        >
+        <LIcon :icon-size="[32, 32]" class-name="cursor-default-important ">
           <div
             class="flex items-center justify-center w-8 h-8 text-white bg-blue-400 rounded-full cursor-pointer"
           >
