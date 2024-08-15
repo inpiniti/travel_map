@@ -5,7 +5,7 @@ const filter = useFilter();
 <template>
   <div class="border-b w-full p-1">
     <div>해야 할일</div>
-    <div>저장완료하고 나서 메시지</div>
+    <div>장소변경시에 장소 탭으로</div>
     <div class="flex gap-1">
       <Dialog>
         <DialogTrigger> <Button>schedules</Button> </DialogTrigger>

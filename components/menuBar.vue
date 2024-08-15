@@ -2,7 +2,9 @@
 const filter = useFilter();
 
 const click = (category: string) => {
-  useFilter().value.category = category;
+  filter.value.category = category;
+  filter.value.type = "장소";
+
   useSpot().getSpots();
 };
 </script>
