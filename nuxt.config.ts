@@ -31,6 +31,7 @@ export default defineNuxtConfig({
         "calendar",
         "money-bill",
         "mug-saucer",
+        "glass-cheers",
       ],
       regular: ["user"],
     },

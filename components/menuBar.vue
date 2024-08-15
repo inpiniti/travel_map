@@ -31,11 +31,7 @@ const handleImageError = (event: any) => {
           '카페',
           '호텔',
           '쇼핑',
-          '즐길 거리',
-          '박물관',
-          '대중교통',
-          '약국',
-          'ATM',
+          '선술집',
         ]"
         :variant="useFilter().value.category == category ? 'default' : 'ghost'"
         @click="click(category)"

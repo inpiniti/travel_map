@@ -17,11 +17,7 @@ export const ICON: any = {
   카페: "mug-saucer",
   호텔: "hotel",
   쇼핑: "bag-shopping",
-  "즐길 거리": "map",
-  박물관: "landmark",
-  대중교통: "train",
-  약국: "hospital",
-  ATM: "money-bill",
+  선술집: "glass-cheers",
 };
 
 // postgres 생성 쿼리 만들어줘
