@@ -33,6 +33,7 @@ export default defineNuxtConfig({
         "mug-saucer",
         "glass-cheers",
         "wrench",
+        "umbrella-beach",
       ],
       regular: ["user"],
     },

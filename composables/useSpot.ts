@@ -12,6 +12,7 @@ export type Spot = {
 export const ICON: any = {
   공항: "plane",
   명소: "landmark",
+  관광: "umbrella-beach",
   근교명소: "landmark",
   음식점: "utensils",
   카페: "mug-saucer",
