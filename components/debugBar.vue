@@ -5,7 +5,7 @@ const filter = useFilter();
 <template>
   <div class="border-b w-full p-1">
     <div>해야 할일</div>
-    <div>장소변경시에 장소 탭으로</div>
+    <div>도시선택중 전체도 있어야 하고, 셀렉팅 기능도 동작하도록</div>
     <div class="flex gap-1">
       <Dialog>
         <DialogTrigger> <Button>schedules</Button> </DialogTrigger>

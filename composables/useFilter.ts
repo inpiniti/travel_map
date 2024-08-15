@@ -2,7 +2,7 @@ export const useFilter = () =>
   useState("filter", () => {
     return {
       search: "",
-      city: "가평,양평",
+      city: "전체",
       day: 1,
       type: "일정",
       category: "명소",

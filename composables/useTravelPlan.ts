@@ -29,13 +29,24 @@ export const useTravelPlan = () => {
   const selectedTravelPlan = useState<TravelPlan>("travelPlan");
 
   const getTravelPlans = async () => {
+    const promise = useSupabase()
+      .from("travel_plan")
+      .select("*")
+      .order("date_created", { ascending: false });
+    if (useFilter().value.city != "전체") {
+      promise.eq("travel_region", useFilter().value.city);
+    }
+
+    if (useFilter().value.search != "") {
+      promise.or(
+        `plan_name.ilike.%${useFilter().value.search}%,author.ilike.%${
+          useFilter().value.search
+        }%`
+      );
+    }
+
     try {
-      travelPlans.value = (
-        await useSupabase()
-          .from("travel_plan")
-          .select("*")
-          .order("date_created", { ascending: false })
-      ).data;
+      travelPlans.value = (await promise).data;
       if (selectedTravelPlan.value == null && travelPlans.value != null) {
         selectedTravelPlan.value = travelPlans.value[0];
       }

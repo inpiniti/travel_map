@@ -10,7 +10,6 @@ const click = (category: string) => {
 </script>
 <template>
   <div class="flex items-center gap-2">
-    <div class="px-2 text-lg font-bold">{{ useFilter().value.city }}</div>
     <div>
       <Button
         v-for="category in [
