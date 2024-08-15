@@ -22,7 +22,7 @@ const handleImageError = (event: any) => {
     />
     <div>
       <Button
-        class="px-2"
+        class="px-2 py-6"
         v-for="category in [
           '공항',
           '명소',
