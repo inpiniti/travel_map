@@ -7,6 +7,11 @@ const click = (category: string) => {
 
   useSpot().getSpots();
 };
+
+const handleImageError = (event: any) => {
+  event.target.src =
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1JepYYB5twXB54wCLR6kBdRj3FNzbAlxmnQ&s";
+};
 </script>
 <template>
   <div class="flex items-center gap-2">
@@ -14,6 +19,7 @@ const click = (category: string) => {
       :src="`/city/${filter.city}.png`"
       alt="Travel Image"
       class="object-cover h-full rounded-lg w-11 shrink-0"
+      @error="handleImageError"
     />
     <div>
       <Button

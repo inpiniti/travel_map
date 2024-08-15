@@ -11,6 +11,11 @@ const scheduleWritingOpen = (spot: Spot) => {
   selectedSpot.value = spot;
   filter.value.scheduleWritingOpen = true;
 };
+
+const handleImageError = (event: any) => {
+  event.target.src =
+    "https://static.news.zumst.com/images/111/2020/06/12/a58cfbd9bef24a63972da202cb8a1dd9.jpg";
+};
 </script>
 <template>
   <ScrollArea class="h-full">
@@ -41,6 +46,7 @@ const scheduleWritingOpen = (spot: Spot) => {
               class="object-cover w-20 h-20 rounded"
               :src="spot.image"
               :alt="spot.spot_name"
+              @error="handleImageError"
             />
           </Fix>
         </div>
