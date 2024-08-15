@@ -1,11 +1,16 @@
 <script setup lang="ts">
-const { getSpots } = useSpot();
+const { getSpots, selectedSpot } = useSpot();
 const { schedulesSpots } = useSchedule();
-const { isMobile } = useDevice();
+const filter = useFilter();
 
 onMounted(() => {
   getSpots();
 });
+
+const scheduleWritingOpen = (spot: Spot) => {
+  selectedSpot.value = spot;
+  filter.value.scheduleWritingOpen = true;
+};
 </script>
 <template>
   <ScrollArea class="h-full">
@@ -17,7 +22,8 @@ onMounted(() => {
     <div class="flex flex-col gap-2 p-2">
       <Card
         v-for="spot in schedulesSpots"
-        class="flex flex-col gap-2 p-2 text-xs"
+        class="flex flex-col gap-2 p-2 text-xs cursor-pointer hover:bg-neutral-100"
+        @click="scheduleWritingOpen(spot)"
       >
         <div class="flex w-full h-full gap-2 overflow-hidden">
           <Full>
@@ -25,7 +31,7 @@ onMounted(() => {
             <div class="text-neutral-400 line-clamp-3">
               {{ spot.description }}
             </div>
-            <div class="flex gap-2 pt-2">
+            <div class="flex items-center gap-2 pt-2">
               <Badge variant="secondary">{{ spot.type }}</Badge>
               <Badge variant="outline">{{ spot.city }}</Badge>
             </div>
