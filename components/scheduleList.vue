@@ -5,16 +5,12 @@ const { selectedTravelPlan } = useTravelPlan();
 const { getSpots, selectedSpot } = useSpot();
 const { schedulesSpots, dayNSchedule, putSchedule } = useSchedule();
 const filter = useFilter();
-const { isMobile } = useDevice();
 
 onMounted(() => {
   getSpots();
 });
 
 function onEnd() {
-  // 드래그 앤 드롭이 끝났을 때 호출될 함수
-  if (isMobile) return;
-
   putSchedule({
     id: dayNSchedule.value.id,
     day: filter.value.day,
@@ -39,6 +35,7 @@ const scheduleWritingOpen = (spot: Spot) => {
       v-model="schedulesSpots"
       class="flex flex-col gap-2 p-2 dragArea"
       @end="onEnd"
+      :disabled="!filter.isDraggable || filter.type !== '일정'"
     >
       <template #item="{ element: spot }">
         <Card

@@ -6,7 +6,7 @@ const filter = useFilter();
 <template>
   <div class="w-full p-1 border-b">
     <div>해야 할일</div>
-    <div>드래그 기능</div>
+    <div>드래그 기능 막기</div>
     <div class="flex gap-1">
       <Dialog>
         <DialogTrigger> <Button>schedules</Button> </DialogTrigger>

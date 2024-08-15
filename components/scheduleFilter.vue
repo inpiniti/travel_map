@@ -61,11 +61,19 @@ function incrementDay() {
         </Select>
       </template>
     </div>
-    <Tabs v-model="useFilter().value.type">
-      <TabsList>
-        <TabsTrigger value="일정"> 일정 </TabsTrigger>
-        <TabsTrigger value="장소"> 장소 </TabsTrigger>
-      </TabsList>
-    </Tabs>
+    <div class="flex gap-2">
+      <Button
+        :variant="filter.isDraggable ? 'default' : 'outline'"
+        @click="filter.isDraggable = !filter.isDraggable"
+      >
+        <font-awesome class="px-2" icon="diagram-next" />
+      </Button>
+      <Tabs v-model="useFilter().value.type">
+        <TabsList>
+          <TabsTrigger value="일정"> 일정 </TabsTrigger>
+          <TabsTrigger value="장소"> 장소 </TabsTrigger>
+        </TabsList>
+      </Tabs>
+    </div>
   </div>
 </template>

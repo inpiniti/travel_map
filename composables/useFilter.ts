@@ -9,5 +9,6 @@ export const useFilter = () =>
       selectedTile: "cartoDb",
       scheduleWritingOpen: false,
       viewOnMobile: "plan", // plan, schedule, map
+      isDraggable: false,
     };
   });
