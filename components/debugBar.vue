@@ -3,9 +3,9 @@ const { schedules, schedulesSpots, dayNSchedule } = useSchedule();
 const filter = useFilter();
 </script>
 <template>
-  <div class="border-b w-full p-1">
+  <div class="w-full p-1 border-b">
     <div>해야 할일</div>
-    <div>지도 변경 버튼은 지도내에 삽입</div>
+    <div>일정의 버튼 작게</div>
     <div class="flex gap-1">
       <Dialog>
         <DialogTrigger> <Button>schedules</Button> </DialogTrigger>

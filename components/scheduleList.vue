@@ -9,6 +9,11 @@ onMounted(() => {
 </script>
 <template>
   <ScrollArea class="h-full">
+    <DevOnly>
+      <div class="absolute top-0 left-0 text-xs bg-opacity-50">
+        scheduleList
+      </div>
+    </DevOnly>
     <div class="flex flex-col gap-2 p-2">
       <Card
         v-for="spot in schedulesSpots"
@@ -21,8 +26,8 @@ onMounted(() => {
               {{ spot.description }}
             </div>
             <div class="flex gap-2 pt-2">
-              <Button size="xs" variant="secondary">{{ spot.type }}</Button>
-              <Button size="xs" variant="outline">{{ spot.city }}</Button>
+              <Badge variant="secondary">{{ spot.type }}</Badge>
+              <Badge variant="outline">{{ spot.city }}</Badge>
             </div>
           </Full>
           <Fix>
