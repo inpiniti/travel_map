@@ -3,12 +3,8 @@ import dayjs from "dayjs";
 const { selectedTravelPlan, travelPlans } = useTravelPlan();
 const { getSchedule } = useSchedule();
 const filter = useFilter();
-const getImg = (index: number) => {
-  if (index === 0) return `/city/가평.png`;
-  else if (index === 1) return `/city/강릉.png`;
-  else if (index === 2) return `/city/경주.png`;
-  else
-    return `https://img.freepik.com/free-vector/peullaes-dijain-jaedan-ui-nal-ilbon_23-2148810360.jpg`;
+const getImg = (travel_region: string) => {
+  return `/city/${travel_region}.png`;
 };
 const click = async (travelPlan: TravelPlan) => {
   selectedTravelPlan.value = travelPlan;
@@ -27,7 +23,7 @@ const click = async (travelPlan: TravelPlan) => {
       }"
     >
       <img
-        :src="getImg(index)"
+        :src="getImg(travelPlan.travel_region)"
         alt="Travel Image"
         class="object-cover h-full rounded-lg w-14 shrink-0"
       />
