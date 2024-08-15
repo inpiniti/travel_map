@@ -34,7 +34,6 @@ const click = (category: string) => {
     </div>
   </div>
   <div class="flex gap-2">
-    <SpotWriting />
     <Button
       variant="secondary"
       @click="

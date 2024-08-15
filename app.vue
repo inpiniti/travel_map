@@ -41,7 +41,7 @@ onMounted(async () => {
             <Fix class="p-2">
               <PlanFilter />
             </Fix>
-            <Fix class="hidden p-2 md:flex">
+            <Fix class="p-2">
               <PlanWriting />
             </Fix>
             <Full>
@@ -58,6 +58,9 @@ onMounted(async () => {
           <ColCover>
             <Fix class="p-2">
               <ScheduleFilter />
+            </Fix>
+            <Fix class="p-2">
+              <SpotWriting />
             </Fix>
             <Full>
               <ScheduleList />

@@ -34,7 +34,7 @@ watchEffect(() => {
 <template>
   <Dialog :open="open" @update:open="open = $event">
     <DialogTrigger as-child>
-      <Button> + 장소 등록하기 </Button>
+      <Button class="w-full"> + 장소 등록하기 </Button>
     </DialogTrigger>
     <DialogContent class="sm:max-w-[425px]">
       <DialogHeader>
