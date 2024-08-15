@@ -5,7 +5,7 @@ const filter = useFilter();
 <template>
   <div class="w-full p-1 border-b">
     <div>해야 할일</div>
-    <div>계획 선택시 일정 리스트의 탭을 일정으로 변경</div>
+    <div>0일차로 안내려가고, 계획 비어 있는 경우 다음 일차로 안넘어가도록</div>
     <div class="flex gap-1">
       <Dialog>
         <DialogTrigger> <Button>schedules</Button> </DialogTrigger>
