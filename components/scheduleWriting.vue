@@ -62,7 +62,7 @@ const addSchedule = () => {
             </DrawerDescription>
           </DrawerHeader>
           <DrawerFooter>
-            <Button @click="addSchedule" :disabled="(filter.type = '일정')">
+            <Button @click="addSchedule" :disabled="filter.type == '일정'">
               일정 추가
             </Button>
           </DrawerFooter>
