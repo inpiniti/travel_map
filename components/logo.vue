@@ -16,7 +16,11 @@ const goBack = () => {
     <font-awesome class="px-2" icon="chevron-left" />
     {{ selectedTravelPlan?.plan_name }}
   </div>
-  <div class="flex items-center gap-1 text-xl font-bold" v-else>
+  <div
+    class="flex items-center gap-1 text-xl font-bold"
+    @click="filter.viewOnMobile = 'plan'"
+    v-else
+  >
     <font-awesome icon="map" bounce />
     <h1>여행지도</h1>
   </div>

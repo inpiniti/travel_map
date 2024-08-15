@@ -5,7 +5,7 @@ const filter = useFilter();
 <template>
   <div class="border-b w-full p-1">
     <div>해야 할일</div>
-    <div>장소등록하기를 장소 리스트에 보이도록</div>
+    <div>로고 클릭시 viewOnMobile 을 plan으로</div>
     <div class="flex gap-1">
       <Dialog>
         <DialogTrigger> <Button>schedules</Button> </DialogTrigger>
