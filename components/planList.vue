@@ -21,16 +21,16 @@ const handleImageError = (event: any) => {
   <div class="flex flex-col gap-2 p-2">
     <Card
       v-for="(travelPlan, index) in travelPlans"
-      class="flex gap-2 p-2 text-xs cursor-pointer hover:bg-neutral-100"
+      class="flex gap-2 p-2 text-xs cursor-pointer"
       @click="click(travelPlan)"
       :class="{
-        'bg-neutral-100': selectedTravelPlan === travelPlan,
+        'bg-sky-100': selectedTravelPlan === travelPlan,
       }"
     >
       <img
         :src="getImg(travelPlan.travel_region)"
         alt="Travel Image"
-        class="object-cover rounded-lg h-14 w-14 shrink-0"
+        class="object-cover w-16 h-16 rounded-lg shrink-0"
         @error="handleImageError"
       />
       <div class="flex flex-col justify-between grow-[0] w-full">
@@ -44,8 +44,8 @@ const handleImageError = (event: any) => {
           </div>
         </div>
         <div class="flex items-center justify-between w-full">
-          <div><i class="fas fa-user"></i>{{ travelPlan.author }}</div>
-          <div>{{ dayjs(travelPlan.date_created).format("YYYY-MM-DD") }}</div>
+          <div>{{ travelPlan.author }}</div>
+          <div>{{ dayjs(travelPlan.date_created).format("YY.MM.DD") }}</div>
         </div>
       </div>
     </Card>

@@ -21,7 +21,7 @@ onMounted(async () => {
     <Fix>
       <RowCover>
         <Fix
-          class="flex items-center justify-between w-full md:p-4 md:w-56"
+          class="flex items-center justify-between w-full text-white md:p-4 md:w-56 bg-sky-400"
           :class="filter.viewOnMobile == 'plan' ? 'p-4' : 'p-2'"
         >
           <Logo />
@@ -72,7 +72,7 @@ onMounted(async () => {
           :class="filter.viewOnMobile == 'map' ? '' : 'absolute top-[99999px]'"
         >
           <ColCover>
-            <Fix class="p-2 md:hidden block">
+            <Fix class="block p-2 md:hidden">
               <ScheduleFilter />
             </Fix>
             <Full>

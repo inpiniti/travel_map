@@ -5,6 +5,7 @@ const { selectedTravelPlan } = useTravelPlan();
 const { getSpots, selectedSpot } = useSpot();
 const { schedulesSpots, dayNSchedule, putSchedule } = useSchedule();
 const filter = useFilter();
+const { isMobile } = useDevice();
 
 onMounted(() => {
   getSpots();
@@ -12,6 +13,8 @@ onMounted(() => {
 
 function onEnd() {
   // 드래그 앤 드롭이 끝났을 때 호출될 함수
+  if (isMobile) return;
+
   putSchedule({
     id: dayNSchedule.value.id,
     day: filter.value.day,
@@ -39,13 +42,13 @@ const scheduleWritingOpen = (spot: Spot) => {
     >
       <template #item="{ element: spot }">
         <Card
-          class="flex flex-col gap-2 p-2 text-xs cursor-pointer hover:bg-neutral-100"
+          class="flex flex-col gap-2 p-2 text-xs cursor-pointer"
           @click="scheduleWritingOpen(spot)"
         >
           <div class="flex w-full h-full gap-2 overflow-hidden">
             <Full>
               <div class="font-bold">{{ spot.spot_name }}</div>
-              <div class="text-neutral-400 line-clamp-3">
+              <div class="text-zinc-400 line-clamp-3">
                 {{ spot.description }}
               </div>
               <div class="flex items-center gap-2 pt-2">

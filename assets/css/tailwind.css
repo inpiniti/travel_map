@@ -1,73 +1,72 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
- 
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
- 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
- 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
- 
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
- 
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
- 
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
- 
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
- 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
- 
-    --ring: 0 0% 3.9%;
- 
-    --radius: 0.5rem;
+    --foreground: 220 15% 20%; /* Darker text for better readability */
+
+    --card: 197 100% 95%; /* Light sky blue card background */
+    --card-foreground: 220 15% 20%; /* Darker text for better readability */
+    --card-hover: 197 100% 85%; /* Slightly darker sky blue for hover */
+
+    --popover: 197 100% 95%; /* Light sky blue popover background */
+    --popover-foreground: 220 15% 20%; /* Darker text for better readability */
+
+    --primary: 197 100% 60%; /* Sky blue primary color */
+    --primary-foreground: 210 40% 98%; /* Light foreground text */
+
+    --secondary: 197 80% 85%; /* Lighter sky blue secondary color */
+    --secondary-foreground: 220 15% 20%; /* Darker text for better readability */
+
+    --muted: 197 80% 85%; /* Muted light sky blue */
+    --muted-foreground: 215 16.3% 46.9%; /* Muted gray text */
+
+    --accent: 197 80% 85%; /* Same as secondary for consistency */
+    --accent-foreground: 220 15% 20%; /* Darker text for better readability */
+
+    --destructive: 0 84.2% 60.2%; /* Keeping the red for destructive actions */
+    --destructive-foreground: 210 40% 98%; /* Light foreground text */
+
+    --border: 197 80% 90%; /* Light sky blue border */
+    --input: 197 80% 90%; /* Light sky blue input background */
+    --ring: 197 100% 60%; /* Sky blue ring */
+    --radius: 1rem;
   }
- 
+
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
- 
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
- 
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
- 
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
- 
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
- 
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
- 
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
- 
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
- 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
- 
-    --ring: 0 0% 83.1%;
+    --background: 220 15% 10%; /* Very dark background for dark mode */
+    --foreground: 210 100% 95%; /* Light text for better readability */
+
+    --card: 210 100% 15%; /* Darker sky blue card background */
+    --card-foreground: 210 100% 95%; /* Light text for better readability */
+    --card-hover: 210 100% 25%; /* Slightly lighter sky blue for hover in dark mode */
+
+    --popover: 210 100% 15%; /* Darker sky blue popover background */
+    --popover-foreground: 210 100% 95%; /* Light text for better readability */
+
+    --primary: 197 100% 60%; /* Sky blue primary color */
+    --primary-foreground: 210 100% 95%; /* Light text for better readability */
+
+    --secondary: 210 50% 30%; /* Darker muted sky blue */
+    --secondary-foreground: 210 100% 95%; /* Light text for better readability */
+
+    --muted: 210 50% 30%; /* Darker muted sky blue */
+    --muted-foreground: 215 20.2% 65.1%; /* Muted lighter gray text */
+
+    --accent: 210 50% 30%; /* Darker sky blue accent */
+    --accent-foreground: 210 100% 95%; /* Light text for better readability */
+
+    --destructive: 0 62.8% 30.6%; /* Darker red for destructive actions */
+    --destructive-foreground: 210 100% 95%; /* Light text for better readability */
+
+    --border: 210 50% 30%; /* Darker sky blue border */
+    --input: 210 50% 30%; /* Darker sky blue input background */
+    --ring: 197 100% 60%; /* Sky blue ring */
   }
 }
- 
+
 @layer base {
   * {
     @apply border-border;
