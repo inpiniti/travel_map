@@ -21,6 +21,7 @@ const handleImageError = (event: any) => {
       @error="handleImageError"
     />
     <div>
+      <CategorySelect />
       <Button
         class="px-2 py-6"
         v-for="category in [
