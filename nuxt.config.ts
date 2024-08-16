@@ -34,6 +34,7 @@ export default defineNuxtConfig({
         "glass-cheers",
         "wrench",
         "umbrella-beach",
+        "location-dot",
       ],
       regular: ["user"],
     },

@@ -52,7 +52,7 @@ export const useSpot = () => {
         await useSupabase()
           .from("spot")
           .select("*")
-          .eq("type", useFilter().value.category)
+          .in("type", useFilter().value.category)
       ).data as Spot[];
       return true;
     } catch (error) {

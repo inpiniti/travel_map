@@ -31,7 +31,7 @@ const addSchedule = () => {
     });
   }
 
-  filter.value.category = "일정";
+  filter.value.type = "일정";
 
   emit("update:open", false);
 };

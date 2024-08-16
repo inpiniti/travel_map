@@ -11,24 +11,27 @@ const CATEGORYS = [
   "쇼핑",
   "선술집",
 ];
-const selectedCategorys = ref(["공항", "명소"]);
-const selectedValues = ref(new Set(selectedCategorys.value));
+const filter = useFilter();
+
+const selectedValues = computed(() => new Set(filter.value.category));
 const toggleCategory = (category: string) => {
   if (selectedValues.value.has(category)) {
-    selectedValues.value.delete(category);
+    filter.value.category = filter.value.category.filter((v) => v !== category);
   } else {
-    selectedValues.value.add(category);
+    filter.value.category.push(category);
   }
+
+  filter.value.type = "장소";
+  useSpot().getSpots();
 };
 </script>
 <template>
   <Popover>
     <PopoverTrigger as-child>
-      <Button variant="outline" class="border-dashed">
-        <font-awesome icon="wrench" />
+      <Button variant="outline" class="gap-2 border-dashed">
+        <font-awesome icon="location-dot" />
         {{ title }}
         <template v-if="selectedValues.size > 0">
-          <Separator orientation="vertical" class="h-4 mx-2" />
           <div class="space-x-1">
             <Badge
               v-if="selectedValues.size > 2"

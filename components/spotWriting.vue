@@ -27,7 +27,7 @@ const saveSpot = async () => {
 const open = ref(false);
 
 watchEffect(() => {
-  form.value.type = useFilter().value.category;
+  form.value.type = useFilter().value.category[0];
   form.value.city = useFilter().value.city;
 });
 </script>

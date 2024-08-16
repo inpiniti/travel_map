@@ -31,35 +31,7 @@ function incrementDay() {
         <Button variant="secondary" @click="incrementDay"> > </Button>
       </template>
       <template v-else>
-        <Select
-          v-model="useFilter().value.category"
-          @update:model-value="changeCategory"
-        >
-          <SelectTrigger>
-            <SelectValue placeholder="select..." />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>카테고리</SelectLabel>
-              <SelectItem
-                :value="item"
-                v-for="item in [
-                  '공항',
-                  '명소',
-                  '관광',
-                  '근교명소',
-                  '음식점',
-                  '카페',
-                  '호텔',
-                  '쇼핑',
-                  '선술집',
-                ]"
-              >
-                {{ item }}
-              </SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+        <CategorySelect />
       </template>
     </div>
     <div class="flex gap-2">
