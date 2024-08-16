@@ -60,6 +60,9 @@ onMounted(async () => {
               <ScheduleFilter />
             </Fix>
             <Fix class="p-2" v-if="filter.type == '장소'">
+              <ScheduleSearch />
+            </Fix>
+            <Fix class="p-2" v-if="filter.type == '장소'">
               <SpotWriting />
             </Fix>
             <Full>
@@ -74,6 +77,9 @@ onMounted(async () => {
           <ColCover>
             <Fix class="block p-2 md:hidden">
               <ScheduleFilter />
+            </Fix>
+            <Fix class="block p-2 md:hidden" v-if="filter.type == '장소'">
+              <ScheduleSearch />
             </Fix>
             <Full>
               <Map />

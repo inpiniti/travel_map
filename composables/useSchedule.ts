@@ -28,7 +28,9 @@ export const useSchedule = () => {
         schedulesSpots.value = [];
       }
     } else {
-      schedulesSpots.value = spots.value;
+      schedulesSpots.value = spots.value.filter((spot) => {
+        return spot.spot_name.includes(useFilter().value.scheduleSearch);
+      });
     }
   });
 

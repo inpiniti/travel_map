@@ -2,6 +2,7 @@ export const useFilter = () =>
   useState("filter", () => {
     return {
       search: "",
+      scheduleSearch: "",
       city: "후쿠오카",
       day: 1,
       type: "일정",
