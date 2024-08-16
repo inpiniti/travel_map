@@ -11,18 +11,18 @@ const goBack = () => {
   <div
     v-if="isMobile && filter.viewOnMobile != 'plan'"
     @click="goBack"
-    class="font-bold"
+    class="flex items-center gap-1 font-bold"
   >
     <font-awesome class="px-2" icon="chevron-left" />
     {{ selectedTravelPlan?.plan_name }}
   </div>
   <div
-    class="flex items-center gap-1 text-xl font-bold"
+    class="flex items-center gap-1 font-bold"
     @click="filter.viewOnMobile = 'plan'"
     v-else
   >
-    <font-awesome icon="map" bounce />
-    <h1>여행지도</h1>
+    <font-awesome class="px-2" icon="map" bounce />
+    여행지도
   </div>
   <Tabs
     v-if="filter.viewOnMobile != 'plan'"
