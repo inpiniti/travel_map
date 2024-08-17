@@ -9,6 +9,18 @@ export type Spot = {
   city: string;
 };
 
+export const CATEGORYS = [
+  "공항",
+  "명소",
+  "관광",
+  "근교명소",
+  "음식점",
+  "카페",
+  "호텔",
+  "쇼핑",
+  "선술집",
+];
+
 export const ICON: any = {
   공항: "plane",
   명소: "landmark",

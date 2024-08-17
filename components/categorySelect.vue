@@ -1,16 +1,6 @@
 <script setup lang="ts">
 const title = ref("카테고리");
-const CATEGORYS = [
-  "공항",
-  "명소",
-  "관광",
-  "근교명소",
-  "음식점",
-  "카페",
-  "호텔",
-  "쇼핑",
-  "선술집",
-];
+
 const filter = useFilter();
 
 const selectedValues = computed(() => new Set(filter.value.category));

@@ -25,14 +25,14 @@ const lat_lngs: any = computed(() => {
   ]);
   const 장소 = spots.value?.map((spot) => [spot.latitude, spot.longitude]);
   if (filter.value.type == "일정") {
-    return 일정 ?? 장소;
+    return 일정?.length == 0 ? 장소 : 일정;
   } else {
-    return 장소 ?? 일정;
+    return 장소?.length == 0 ? 일정 : 장소;
   }
 });
 
 const center: any = computed(() => {
-  if (!lat_lngs.value.length) return [0, 0];
+  if (!lat_lngs.value?.length) return [0, 0];
 
   let minLat = Infinity,
     maxLat = -Infinity;
@@ -80,6 +80,10 @@ const scheduleWritingOpen = (spot: Spot) => {
         "
         >{{ filter.selectedTile }}
       </Button>
+    </LControl>
+
+    <LControl position="topleft">
+      <MapToolbar />
     </LControl>
 
     <LLayerGroup>
