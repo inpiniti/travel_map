@@ -82,7 +82,7 @@ const scheduleWritingOpen = (spot: Spot) => {
       </Button>
     </LControl>
 
-    <LFeatureGroup>
+    <LLayerGroup>
       <!-- 마커 및 툴팁 
       <LMarker
         :lat-lng="[spot.latitude, spot.longitude]"
@@ -101,18 +101,18 @@ const scheduleWritingOpen = (spot: Spot) => {
         @click="scheduleWritingOpen(spot)"
       >
         <LIcon
-          :icon-size="[32, 32]"
-          class-name="cursor-default-important z-0-important"
+          :icon-size="[20, 20]"
+          class-name="cursor-default-important z-0-important "
         >
           <div
-            class="flex items-center justify-center w-8 h-8 text-white bg-neutral-300 rounded-full cursor-pointer z-10"
+            class="flex items-center justify-center w-5 h-5 hover:bg-blue-400 text-white bg-neutral-400 rounded-full cursor-pointer"
           >
-            <font-awesome :icon="ICON[spot.type]" />
+            <font-awesome size="xs" :icon="ICON[spot.type]" />
           </div>
         </LIcon>
         <LTooltip> {{ spot.spot_name }} </LTooltip>
       </LMarker>
-    </LFeatureGroup>
+    </LLayerGroup>
 
     <!-- 일정 -->
     <LLayerGroup>
@@ -125,12 +125,12 @@ const scheduleWritingOpen = (spot: Spot) => {
       >
         <LIcon
           :icon-size="[32, 32]"
-          class-name="cursor-default-important z-10-important"
+          class-name="cursor-default-important z-20-important"
         >
           <div
             class="flex items-center justify-center w-8 h-8 text-white bg-blue-400 rounded-full cursor-pointer"
           >
-            <font-awesome :icon="ICON[spot.type]" />
+            <font-awesome size="lg" :icon="ICON[spot.type]" />
           </div>
         </LIcon>
         <LTooltip> {{ spot.spot_name }} </LTooltip>
