@@ -18,24 +18,35 @@ export default defineEventHandler(async (event) => {
     const jsonData = JSON.parse(data);
 
     // 필요한 정보 추출
-    const latitude = jsonData[0]?.[1]?.[0]?.[14]?.[9]?.[2] ?? null;
-    const longitude = jsonData[0]?.[1]?.[0]?.[14]?.[9]?.[3] ?? null;
-    const type = jsonData?.[0]?.[1]?.[0]?.[14]?.[13]?.[0] ?? null;
-    const description =
-      (jsonData?.[0]?.[1]?.[0]?.[14]?.[32]?.[1]?.[1] ||
-        jsonData?.[0]?.[1]?.[0]?.[14]?.[32]?.[0]?.[1]) ??
-      null;
+    let result = parseLocationData(jsonData);
+    if (result.latitude === null || result.longitude === null) {
+      result = parseLocationData(jsonData, 1);
+    }
 
     // 추출한 정보 반환
     return {
-      latitude,
-      longitude,
-      type,
-      description,
-      data: `https://lh5.googleusercontent.com/p/${jsonData[0][1][0][14][72][0][0][0]}`,
+      ...result,
+      data: jsonData,
     };
   } catch (error) {
     console.error("Error parsing the data:", error);
     return null;
   }
 });
+
+const parseLocationData = (jsonData: any, index: number = 0) => {
+  const latitude = jsonData[0]?.[1]?.[index]?.[14]?.[9]?.[2] ?? null;
+  const longitude = jsonData[0]?.[1]?.[index]?.[14]?.[9]?.[3] ?? null;
+  const type = jsonData?.[0]?.[1]?.[index]?.[14]?.[13]?.[0] ?? null;
+  const description =
+    (jsonData?.[0]?.[1]?.[index]?.[14]?.[32]?.[1]?.[1] ||
+      jsonData?.[0]?.[1]?.[index]?.[14]?.[32]?.[0]?.[1]) ??
+    null;
+
+  const imageId = jsonData?.[0]?.[1]?.[index]?.[14]?.[72]?.[0]?.[0]?.[0];
+  const image = imageId
+    ? `https://lh5.googleusercontent.com/p/${imageId}`
+    : null;
+
+  return { latitude, longitude, type, description, image };
+};
