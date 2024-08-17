@@ -12,21 +12,22 @@ const TILES: any = {
 };
 const selectedTileUrl = computed(() => TILES[filter.value.selectedTile]);
 
-const drawSpot = computed(() => {
-  if (filter.value.type == "일정") {
-    return schedulesSpots.value;
-  } else {
-    return spots.value;
-  }
+const schedulesSpotsLine: any = computed(() => {
+  return (
+    schedulesSpots.value?.map((spot) => [spot.latitude, spot.longitude]) || []
+  );
 });
 
 const lat_lngs: any = computed(() => {
+  const 일정 = schedulesSpots.value?.map((spot) => [
+    spot.latitude,
+    spot.longitude,
+  ]);
+  const 장소 = spots.value?.map((spot) => [spot.latitude, spot.longitude]);
   if (filter.value.type == "일정") {
-    return (
-      schedulesSpots.value?.map((spot) => [spot.latitude, spot.longitude]) || []
-    );
+    return 일정 ?? 장소;
   } else {
-    return spots.value?.map((spot) => [spot.latitude, spot.longitude]) || [];
+    return 장소 ?? 일정;
   }
 });
 
@@ -92,14 +93,40 @@ const scheduleWritingOpen = (spot: Spot) => {
       </LMarker>
       -->
 
-      <!-- icon 마커 -->
+      <!-- icon 마커 장소 -->
       <LMarker
         :lat-lng="[spot.latitude, spot.longitude]"
-        v-for="spot in drawSpot"
+        v-for="spot in spots"
         :key="spot.id"
         @click="scheduleWritingOpen(spot)"
       >
-        <LIcon :icon-size="[32, 32]" class-name="cursor-default-important ">
+        <LIcon
+          :icon-size="[32, 32]"
+          class-name="cursor-default-important z-0-important"
+        >
+          <div
+            class="flex items-center justify-center w-8 h-8 text-white bg-neutral-300 rounded-full cursor-pointer z-10"
+          >
+            <font-awesome :icon="ICON[spot.type]" />
+          </div>
+        </LIcon>
+        <LTooltip> {{ spot.spot_name }} </LTooltip>
+      </LMarker>
+    </LFeatureGroup>
+
+    <!-- 일정 -->
+    <LLayerGroup>
+      <!-- icon 마커 -->
+      <LMarker
+        :lat-lng="[spot.latitude, spot.longitude]"
+        v-for="spot in schedulesSpots"
+        :key="spot.id"
+        @click="scheduleWritingOpen(spot)"
+      >
+        <LIcon
+          :icon-size="[32, 32]"
+          class-name="cursor-default-important z-10-important"
+        >
           <div
             class="flex items-center justify-center w-8 h-8 text-white bg-blue-400 rounded-full cursor-pointer"
           >
@@ -112,7 +139,7 @@ const scheduleWritingOpen = (spot: Spot) => {
       <!-- 마커 글씨 -->
       <LMarker
         :lat-lng="[spot.latitude, spot.longitude]"
-        v-for="spot in drawSpot"
+        v-for="spot in schedulesSpots"
       >
         <LIcon
           :icon-size="[0, 0]"
@@ -127,14 +154,11 @@ const scheduleWritingOpen = (spot: Spot) => {
       </LMarker>
 
       <!-- 경로 -->
-      <LPolyline
-        v-if="filter.type == '일정'"
-        dashArray="10, 10"
-        :lat-lngs="lat_lngs"
-      />
-    </LFeatureGroup>
+      <LPolyline dashArray="10, 10" :lat-lngs="schedulesSpotsLine" />
+    </LLayerGroup>
   </LMap>
 </template>
+<style></style>
 <!-- 
 landmark 랜드마크
 bag-shopping 쇼핑

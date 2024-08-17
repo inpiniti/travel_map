@@ -1,3 +1,9 @@
 .cursor-default-important {
   cursor: default !important;
 }
+.z-0-important {
+  z-index: 0 !important;
+}
+.z-10-important {
+  z-index: 10 !important;
+}

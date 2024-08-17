@@ -2,7 +2,7 @@
 import draggable from "vuedraggable";
 
 const { selectedTravelPlan } = useTravelPlan();
-const { getSpots, selectedSpot } = useSpot();
+const { getSpots, selectedSpot, spots } = useSpot();
 const { schedulesSpots, dayNSchedule, putSchedule } = useSchedule();
 const filter = useFilter();
 
@@ -23,6 +23,16 @@ const scheduleWritingOpen = (spot: Spot) => {
   selectedSpot.value = spot;
   filter.value.scheduleWritingOpen = true;
 };
+
+const scheduleList = computed(() => {
+  if (filter.value.type == "일정") {
+    return schedulesSpots.value;
+  } else {
+    return spots.value.filter((spot) => {
+      return spot.spot_name.includes(useFilter().value.scheduleSearch);
+    });
+  }
+});
 </script>
 <template>
   <ScrollArea class="h-full">
@@ -32,7 +42,7 @@ const scheduleWritingOpen = (spot: Spot) => {
       </div>
     </DevOnly>
     <draggable
-      v-model="schedulesSpots"
+      v-model="scheduleList"
       class="flex flex-col gap-2 p-2 dragArea"
       @end="onEnd"
       :disabled="!filter.isDraggable || filter.type !== '일정'"

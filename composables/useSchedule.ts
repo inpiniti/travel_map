@@ -19,18 +19,10 @@ export const useSchedule = () => {
   });
 
   watchEffect(async () => {
-    if (useFilter().value.type == "일정") {
-      if (dayNSchedule.value && dayNSchedule.value.travel_spot_ids) {
-        schedulesSpots.value = await getSpotsById(
-          dayNSchedule.value.travel_spot_ids
-        );
-      } else {
-        schedulesSpots.value = [];
-      }
-    } else {
-      schedulesSpots.value = spots.value.filter((spot) => {
-        return spot.spot_name.includes(useFilter().value.scheduleSearch);
-      });
+    if (dayNSchedule.value && dayNSchedule.value.travel_spot_ids) {
+      schedulesSpots.value = await getSpotsById(
+        dayNSchedule.value.travel_spot_ids
+      );
     }
   });
 

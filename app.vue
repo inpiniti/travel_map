@@ -19,7 +19,10 @@ onMounted(async () => {
     <DebugBar />
   </DevOnly>
   <RowCover class="absolute h-svh">
-    <Fix class="w-full md:w-56 md:flex" v-if="filter.viewOnMobile == 'plan'">
+    <Fix
+      class="w-full md:w-56 md:flex"
+      v-if="!isMobile || filter.viewOnMobile == 'plan'"
+    >
       <ColCover>
         <Fix
           class="flex items-center justify-between w-full text-white md:h-14 md:w-56 bg-sky-400 h-14 px-2"
