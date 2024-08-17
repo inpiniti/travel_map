@@ -24,10 +24,7 @@ export default defineEventHandler(async (event) => {
     }
 
     // 추출한 정보 반환
-    return {
-      ...result,
-      data: jsonData,
-    };
+    return result;
   } catch (error) {
     console.error("Error parsing the data:", error);
     return null;
@@ -35,18 +32,56 @@ export default defineEventHandler(async (event) => {
 });
 
 const parseLocationData = (jsonData: any, index: number = 0) => {
-  const latitude = jsonData[0]?.[1]?.[index]?.[14]?.[9]?.[2] ?? null;
-  const longitude = jsonData[0]?.[1]?.[index]?.[14]?.[9]?.[3] ?? null;
-  const type = jsonData?.[0]?.[1]?.[index]?.[14]?.[13]?.[0] ?? null;
-  const description =
-    (jsonData?.[0]?.[1]?.[index]?.[14]?.[32]?.[1]?.[1] ||
-      jsonData?.[0]?.[1]?.[index]?.[14]?.[32]?.[0]?.[1]) ??
-    null;
+  const data = jsonData?.[0]?.[1]?.[index]?.[14];
 
-  const imageId = jsonData?.[0]?.[1]?.[index]?.[14]?.[72]?.[0]?.[0]?.[0];
+  const extractData = (filterCondition: (time: any) => boolean) =>
+    data?.[84]?.[0]?.[0]?.[1]
+      .filter(filterCondition)
+      .map((time: any) => time[4]) || null;
+
+  const rating = data?.[4]?.[7];
+  const reviews = data?.[4]?.[8];
+  const latitude = data?.[9]?.[2] ?? null;
+  const longitude = data?.[9]?.[3] ?? null;
+  const name = data?.[11] ?? null;
+  const type = data?.[13]?.[0] ?? null;
+  const description = (data?.[32]?.[1]?.[1] || data?.[32]?.[0]?.[1]) ?? null;
+  const opening = data?.[34]?.[1]?.[0]?.[1]?.[0] || null;
+  const veryRelaxed = extractData((time: any) => {
+    return time[1] > 0 && time[1] <= 20;
+  });
+  const relaxed = extractData((time: any) => {
+    return time[1] > 20 && time[1] <= 40;
+  });
+  const moderate = extractData((time: any) => {
+    return time[1] > 40 && time[1] <= 60;
+  });
+  const somewhatCrowded = extractData((time: any) => {
+    return time[1] > 60 && time[1] <= 80;
+  });
+  const veryCrowded = extractData((time: any) => {
+    return time[1] > 80;
+  });
+
+  const imageId = data?.[72]?.[0]?.[0]?.[0];
   const image = imageId
     ? `https://lh5.googleusercontent.com/p/${imageId}`
     : null;
 
-  return { latitude, longitude, type, description, image };
+  return {
+    rating,
+    reviews,
+    latitude,
+    longitude,
+    name,
+    type,
+    description,
+    image,
+    opening,
+    veryRelaxed,
+    relaxed,
+    moderate,
+    somewhatCrowded,
+    veryCrowded,
+  };
 };
