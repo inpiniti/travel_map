@@ -10,10 +10,7 @@ export default defineEventHandler(async (event) => {
       // axios를 사용하여 웹 페이지의 HTML을 가져옵니다.
       const { data } = await axios.get(url, {
         headers: {
-          "User-Agent":
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
           "Content-Type": "text/html",
-          Referer: "https://namu.wiki/",
         },
         responseType: "text",
       });
