@@ -23,6 +23,8 @@ export const useSchedule = () => {
       schedulesSpots.value = await getSpotsById(
         dayNSchedule.value.travel_spot_ids
       );
+    } else {
+      schedulesSpots.value = [];
     }
   });
 
