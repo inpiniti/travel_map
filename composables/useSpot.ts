@@ -73,6 +73,15 @@ export const useSpot = () => {
     }
   };
 
+  const getSpotOfGoogle = async (word: string) => {
+    try {
+      return (await fetch(`/api/google/search/${word}`)).json();
+    } catch (error) {
+      console.error("Error fetching spots", error);
+      return false;
+    }
+  };
+
   const getSpotsById = async (ids: number[]) => {
     try {
       // Supabase에서 데이터 조회
@@ -111,5 +120,13 @@ export const useSpot = () => {
     }
   };
 
-  return { spots, status, selectedSpot, getSpots, setSpot, getSpotsById };
+  return {
+    spots,
+    status,
+    selectedSpot,
+    getSpots,
+    setSpot,
+    getSpotsById,
+    getSpotOfGoogle,
+  };
 };

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { setSpot, status } = useSpot();
+const { setSpot, status, getSpotOfGoogle } = useSpot();
 const form = ref({
   spot_name: "",
   description: "",
@@ -30,6 +30,19 @@ watchEffect(() => {
   form.value.type = useFilter().value.category[0];
   form.value.city = useFilter().value.city;
 });
+
+const getSpot = async () => {
+  const res: any = await getSpotOfGoogle(form.value.spot_name);
+  if (res) {
+    form.value = {
+      ...form.value,
+      description: res.description,
+      image: res.image,
+      latitude: res.latitude,
+      longitude: res.longitude,
+    };
+  }
+};
 </script>
 <template>
   <Dialog :open="open" @update:open="open = $event">
@@ -56,10 +69,11 @@ watchEffect(() => {
         <div class="grid items-center grid-cols-4 gap-4">
           <Label class="text-right"> 장소명 </Label>
           <Input
-            class="col-span-3"
+            class="col-span-2"
             placeholder="이치란 본점"
             v-model="form.spot_name"
           />
+          <Button class="col-span-1" @click="getSpot">가져오기</Button>
         </div>
         <div class="grid items-center grid-cols-4 gap-4">
           <Label class="text-right"> 장소 설명 </Label>
