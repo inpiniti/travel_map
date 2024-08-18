@@ -128,7 +128,20 @@ export const useSpot = () => {
 
   const setSpot = async (spot: Spot) => {
     try {
-      await useSupabase().from("spot").insert([spot]);
+      const { error } = await useSupabase().from("spot").insert([spot]);
+      const newSpot = await useSupabase()
+        .from("spot")
+        .select("*")
+        .eq("spot_name", spot.spot_name)
+        .eq("latitude", spot.latitude)
+        .eq("longitude", spot.longitude);
+
+      selectedSpot.value = newSpot.data?.[0] as Spot;
+
+      if (error) {
+        throw error;
+      }
+
       toast({
         title: "여행지가 추가되었습니다.",
       });

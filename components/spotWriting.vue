@@ -20,9 +20,12 @@ const form = ref({
   veryCrowded: "", // 매우 혼잡한 시간대
   detailType: "", // 상세타입
 });
+const loading = ref(false);
 
 const saveSpot = async () => {
+  loading.value = true;
   const res = await setSpot(form.value);
+  loading.value = false;
   if (res) {
     form.value = {
       ...form.value,
@@ -34,6 +37,8 @@ const saveSpot = async () => {
     };
     open.value = false;
   }
+  // 장소 팝업창 뜨기
+  useFilter().value.scheduleWritingOpen = true;
 };
 const open = ref(false);
 
@@ -47,6 +52,7 @@ const getSpot = async () => {
   if (res) {
     form.value = {
       ...form.value,
+      spot_name: res.name,
       description: res.description,
       image: res.image,
       latitude: res.latitude,
@@ -117,7 +123,12 @@ const getSpot = async () => {
         <div class="grid items-center grid-cols-4 gap-4">
           <Label class="text-right"> 장소명 </Label>
           <Input class="col-span-2" v-model="form.spot_name" />
-          <Button class="col-span-1" @click="getSpot">가져오기</Button>
+          <Button class="col-span-1" @click="getSpot">
+            <template v-if="loading">
+              <font-awesome icon="circle-notch" spin />
+            </template>
+            <template v-else> 가져오기 </template>
+          </Button>
         </div>
         <div class="grid items-center grid-cols-4 gap-4">
           <Label class="text-right">상세 유형</Label>
