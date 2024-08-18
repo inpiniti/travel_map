@@ -24,7 +24,7 @@ const handleImageError = (event: any) => {
       class="flex gap-2 p-2 text-xs cursor-pointer"
       @click="click(travelPlan)"
       :class="{
-        'bg-sky-100': selectedTravelPlan === travelPlan,
+        'bg-sky-500 text-white': selectedTravelPlan === travelPlan,
       }"
     >
       <img
