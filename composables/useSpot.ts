@@ -145,6 +145,7 @@ export const useSpot = () => {
       toast({
         title: "여행지가 수정되었습니다.",
       });
+      getSpots();
       return true;
     } catch (error) {
       toast({

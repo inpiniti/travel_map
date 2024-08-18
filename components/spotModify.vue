@@ -62,7 +62,7 @@ const getSpot = async () => {
   loading.value.get = false;
   if (res) {
     form.value.spot_name = res.name;
-    form.value.description = res.description;
+    form.value.description = form.value.description ?? res.description;
     form.value.image = res.image;
     form.value.latitude = res.latitude;
     form.value.longitude = res.longitude;

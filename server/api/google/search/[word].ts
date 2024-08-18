@@ -36,8 +36,8 @@ const parseLocationData = (jsonData: any, index: number = 0) => {
 
   const extractData = (filterCondition: (time: any) => boolean) =>
     data?.[84]?.[0]?.[0]?.[1]
-      .filter(filterCondition)
-      .map((time: any) => time[4]) || null;
+      ?.filter(filterCondition)
+      ?.map((time: any) => time[4]) || null;
 
   const rating = data?.[4]?.[7];
   const reviews = data?.[4]?.[8];
