@@ -11,5 +11,6 @@ export const useFilter = () =>
       scheduleWritingOpen: false,
       viewOnMobile: "plan", // plan, schedule, map
       isDraggable: false,
+      spotWritingOpen: false,
     };
   });

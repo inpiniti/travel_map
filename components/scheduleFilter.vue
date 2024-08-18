@@ -36,16 +36,14 @@ function incrementDay() {
     </div>
     <div class="flex gap-2">
       <Button
+        v-if="useFilter().value.type == '일정'"
         class="px-2"
         :variant="filter.isDraggable ? 'default' : 'outline'"
         @click="filter.isDraggable = !filter.isDraggable"
       >
-        <div class="flex flex-col">
-          <font-awesome icon="wrench" />
-          드래그
-        </div>
+        순서 변경
       </Button>
-      <Tabs v-model="useFilter().value.type">
+      <Tabs v-else v-model="useFilter().value.type">
         <TabsList>
           <TabsTrigger value="일정"> 일정 </TabsTrigger>
           <TabsTrigger value="장소"> 장소 </TabsTrigger>

@@ -74,7 +74,12 @@ export const useSpot = () => {
         .select("*")
         .eq("city", useFilter().value.city);
 
-      if (useFilter().value.category.length > 0) {
+      if (useFilter().value.scheduleSearch) {
+        query = query.ilike(
+          "spot_name",
+          `%${useFilter().value.scheduleSearch}%`
+        );
+      } else if (useFilter().value.category.length > 0) {
         query = query.in("type", useFilter().value.category);
       }
 

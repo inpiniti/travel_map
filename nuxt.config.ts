@@ -38,6 +38,7 @@ export default defineNuxtConfig({
         "pen",
         "calendar-plus",
         "circle-notch",
+        "plus",
       ],
       regular: ["user"],
     },

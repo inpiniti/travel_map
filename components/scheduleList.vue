@@ -28,9 +28,7 @@ const scheduleList = computed(() => {
   if (filter.value.type == "일정") {
     return schedulesSpots.value;
   } else {
-    return spots.value.filter((spot) => {
-      return spot.spot_name.includes(useFilter().value.scheduleSearch);
-    });
+    return spots.value;
   }
 });
 </script>

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { city } from "../data/city";
 const { setSpot, status, getSpotOfGoogle } = useSpot();
+const { toast } = useToast();
+const filter = useFilter();
 
 const form = ref({
   spot_name: "",
@@ -20,12 +22,22 @@ const form = ref({
   veryCrowded: "", // 매우 혼잡한 시간대
   detailType: "", // 상세타입
 });
-const loading = ref(false);
+const loading = ref({
+  save: false,
+  get: false,
+});
 
 const saveSpot = async () => {
-  loading.value = true;
+  if (form.value.type == "") {
+    toast({
+      title: "장소 유형을 선택해주세요.",
+      variant: "destructive",
+    });
+    return;
+  }
+  loading.value.save = true;
   const res = await setSpot(form.value);
-  loading.value = false;
+  loading.value.save = false;
   if (res) {
     form.value = {
       ...form.value,
@@ -35,20 +47,32 @@ const saveSpot = async () => {
       latitude: 0,
       longitude: 0,
     };
-    open.value = false;
+    filter.value.spotWritingOpen = false;
   }
   // 장소 팝업창 뜨기
   useFilter().value.scheduleWritingOpen = true;
 };
-const open = ref(false);
+//const open = ref(false);
 
 watchEffect(() => {
-  form.value.type = useFilter().value.category[0];
+  form.value.spot_name = useFilter().value.scheduleSearch;
+  //form.value.type = useFilter().value.category[0];
   form.value.city = useFilter().value.city;
 });
 
 const getSpot = async () => {
+  loading.value.get = true;
   const res: any = await getSpotOfGoogle(form.value.spot_name);
+  loading.value.get = false;
+  console.log("res.name", res.name);
+  if (ref.name == null) {
+    toast({
+      title: `구글에 "${form.value.spot_name}" 라는 장소가 없습니다.`,
+      variant: "destructive",
+    });
+    return;
+  }
+
   if (res) {
     form.value = {
       ...form.value,
@@ -72,16 +96,16 @@ const getSpot = async () => {
 };
 </script>
 <template>
-  <Dialog :open="open" @update:open="open = $event">
-    <DialogTrigger as-child>
-      <Button class="w-full"> + 장소 등록하기 </Button>
-    </DialogTrigger>
+  <Dialog
+    :open="filter.spotWritingOpen"
+    @update:open="filter.spotWritingOpen = $event"
+  >
     <DialogContent class="sm:max-w-[425px]">
       <DialogHeader>
         <DialogTitle>장소 등록하기</DialogTitle>
         <DialogDescription>
-          등록된 장소가 없는 경우 여기에서 장소를 등록해보세요. 완료되면 저장을
-          클릭하세요.
+          등록된 장소가 없습니다. 가져오기 버튼을 눌른 뒤 Save 버튼을 눌러
+          장소를 등록해 주세요.
         </DialogDescription>
       </DialogHeader>
       <div class="grid gap-4 py-4">
@@ -124,7 +148,7 @@ const getSpot = async () => {
           <Label class="text-right"> 장소명 </Label>
           <Input class="col-span-2" v-model="form.spot_name" />
           <Button class="col-span-1" @click="getSpot">
-            <template v-if="loading">
+            <template v-if="loading.get">
               <font-awesome icon="circle-notch" spin />
             </template>
             <template v-else> 가져오기 </template>
@@ -164,8 +188,12 @@ const getSpot = async () => {
         </div>
       </div>
       <DialogFooter>
-        <Button v-if="status"> loading... </Button>
-        <Button v-else type="submit" @click="saveSpot"> Save </Button>
+        <Button type="submit" @click="saveSpot">
+          <template v-if="status">
+            <font-awesome icon="circle-notch" spin />
+          </template>
+          <template v-else> Save </template>
+        </Button>
       </DialogFooter>
     </DialogContent>
   </Dialog>

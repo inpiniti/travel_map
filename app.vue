@@ -61,9 +61,19 @@ onMounted(async () => {
         </Fix>
         <Fix class="p-2" v-if="filter.type == '장소'">
           <ScheduleSearch />
-        </Fix>
-        <Fix class="p-2" v-if="filter.type == '장소'">
           <SpotWriting />
+        </Fix>
+        <Fix class="p-2 flex" v-else>
+          <Button
+            class="flex gap-2 w-full"
+            @click="
+              useFilter().value.type =
+                useFilter().value.type == '일정' ? '장소' : '일정'
+            "
+          >
+            <font-awesome icon="plus" />
+            일정 등록하기
+          </Button>
         </Fix>
         <Full>
           <ScheduleList />

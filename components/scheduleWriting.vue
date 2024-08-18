@@ -65,11 +65,7 @@ const addSchedule = () => {
           </DrawerHeader>
           <DrawerFooter>
             <div class="flex gap-2">
-              <Button
-                class="flex gap-2"
-                @click="addSchedule"
-                :disabled="filter.type == '일정'"
-              >
+              <Button class="flex gap-2" @click="addSchedule">
                 <font-awesome icon="calendar-plus" />
                 일정 추가
               </Button>
