@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { city } from "../data/city";
 const { getTravelPlans } = useTravelPlan();
+const { getSpots } = useSpot();
+
+const changeFilter = (value: any) => {
+  getTravelPlans();
+  getSpots();
+};
 </script>
 <template>
   <div class="relative items-center w-full flex gap-2">
@@ -11,10 +17,7 @@ const { getTravelPlans } = useTravelPlan();
       v-model="useFilter().value.search"
       @input="getTravelPlans"
     />
-    <Select
-      v-model="useFilter().value.city"
-      @update:model-value="getTravelPlans"
-    >
+    <Select v-model="useFilter().value.city" @update:model-value="changeFilter">
       <SelectTrigger>
         <SelectValue placeholder="Select a city" />
       </SelectTrigger>

@@ -116,11 +116,7 @@ const getSpot = async () => {
         </div>
         <div class="grid items-center grid-cols-4 gap-4">
           <Label class="text-right"> 장소명 </Label>
-          <Input
-            class="col-span-2"
-            placeholder="이치란 본점"
-            v-model="form.spot_name"
-          />
+          <Input class="col-span-2" v-model="form.spot_name" />
           <Button class="col-span-1" @click="getSpot">가져오기</Button>
         </div>
         <div class="grid items-center grid-cols-4 gap-4">
@@ -129,53 +125,31 @@ const getSpot = async () => {
         </div>
         <div class="grid items-center grid-cols-4 gap-4">
           <Label class="text-right"> 장소 설명 </Label>
-          <Input
-            class="col-span-3"
-            placeholder="후쿠오카를 대표하는 라멘 전문점
-칼칼하게 먹고 싶다면 비밀소스 3단계 이상 추천
-텐진 등 다른 곳에도 여러 매장이 있음"
-            v-model="form.description"
-          />
+          <Input class="col-span-3" v-model="form.description" />
         </div>
         <div class="grid items-center grid-cols-4 gap-4">
           <Label class="text-right"> 장소 이미지 ULR </Label>
-          <Input
-            class="col-span-3"
-            placeholder="https://www.google.com"
-            v-model="form.image"
-          />
+          <Input class="col-span-3" v-model="form.image" />
         </div>
         <div class="grid items-center grid-cols-4 gap-4">
           <Label class="text-right"> 위도 </Label>
-          <Input
-            class="col-span-3"
-            placeholder="33.590355"
-            v-model="form.latitude"
-          />
+          <Input class="col-span-3" v-model="form.latitude" />
         </div>
         <div class="grid items-center grid-cols-4 gap-4">
           <Label class="text-right"> 경도 </Label>
-          <Input
-            class="col-span-3"
-            placeholder="130.401716"
-            v-model="form.longitude"
-          />
+          <Input class="col-span-3" v-model="form.longitude" />
         </div>
         <div class="grid items-center grid-cols-4 gap-4">
           <Label class="text-right"> 평점 </Label>
-          <Input class="col-span-3" placeholder="4.5" v-model="form.rating" />
+          <Input class="col-span-3" v-model="form.rating" />
         </div>
         <div class="grid items-center grid-cols-4 gap-4">
           <Label class="text-right"> 리뷰수 </Label>
-          <Input class="col-span-3" placeholder="345" v-model="form.reviews" />
+          <Input class="col-span-3" v-model="form.reviews" />
         </div>
         <div class="grid items-center grid-cols-4 gap-4">
           <Label class="text-right"> 영업시간 </Label>
-          <Input
-            class="col-span-3"
-            placeholder="오전 9:30~오후 6:15"
-            v-model="form.opening"
-          />
+          <Input class="col-span-3" v-model="form.opening" />
         </div>
       </div>
       <DialogFooter>

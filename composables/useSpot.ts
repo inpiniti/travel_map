@@ -69,12 +69,16 @@ export const useSpot = () => {
 
   const getSpots = async () => {
     try {
-      spots.value = (
-        await useSupabase()
-          .from("spot")
-          .select("*")
-          .in("type", useFilter().value.category)
-      ).data as Spot[];
+      let query = useSupabase()
+        .from("spot")
+        .select("*")
+        .eq("city", useFilter().value.city);
+
+      if (useFilter().value.category.length > 0) {
+        query = query.in("type", useFilter().value.category);
+      }
+
+      spots.value = (await query).data as Spot[];
       return true;
     } catch (error) {
       console.error("Error fetching spots", error);
@@ -128,6 +132,7 @@ export const useSpot = () => {
       toast({
         title: "여행지가 추가되었습니다.",
       });
+      getSpots();
       return true;
     } catch (error) {
       toast({
@@ -157,6 +162,27 @@ export const useSpot = () => {
     }
   };
 
+  const deleteSpot = async () => {
+    try {
+      await useSupabase()
+        .from("spot")
+        .delete()
+        .match({ id: selectedSpot.value.id });
+      toast({
+        title: "여행지가 삭제되었습니다.",
+      });
+      getSpots();
+      return true;
+    } catch (error) {
+      toast({
+        title: "여행지 삭제에 실패했습니다.",
+        variant: "destructive",
+        description: `Error: ${error}`,
+      });
+      return false;
+    }
+  };
+
   return {
     spots,
     status,
@@ -166,5 +192,6 @@ export const useSpot = () => {
     updateSpot,
     getSpotsById,
     getSpotOfGoogle,
+    deleteSpot,
   };
 };

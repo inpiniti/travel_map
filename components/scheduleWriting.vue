@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const { selectedTravelPlan } = useTravelPlan();
-const { selectedSpot } = useSpot();
+const { selectedSpot, deleteSpot } = useSpot();
 const { dayNSchedule, setSchedule, putSchedule } = useSchedule();
 const filter = useFilter();
 
@@ -75,6 +75,7 @@ const addSchedule = () => {
               </Button>
               <SpotModify />
               <NamuwikiView />
+              <Button variant="destructive" @click="deleteSpot">삭제</Button>
             </div>
           </DrawerFooter>
         </Full>
