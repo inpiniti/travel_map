@@ -64,10 +64,18 @@ const addSchedule = () => {
             </DrawerDescription>
           </DrawerHeader>
           <DrawerFooter>
-            <Button @click="addSchedule" :disabled="filter.type == '일정'">
-              일정 추가
-            </Button>
-            <NamuwikiView />
+            <div class="flex gap-2">
+              <Button
+                class="flex gap-2"
+                @click="addSchedule"
+                :disabled="filter.type == '일정'"
+              >
+                <font-awesome icon="calendar-plus" />
+                일정 추가
+              </Button>
+              <SpotModify />
+              <NamuwikiView />
+            </div>
           </DrawerFooter>
         </Full>
       </RowCover>

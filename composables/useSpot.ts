@@ -7,6 +7,15 @@ export type Spot = {
   longitude: number;
   type: string;
   city: string;
+  rating?: number;
+  reviews?: number;
+  opening?: string;
+  veryRelaxed?: string;
+  relaxed?: string;
+  moderate?: string;
+  somewhatCrowded?: string;
+  veryCrowded?: string;
+  detailType?: string;
 };
 
 export const CATEGORYS = [
@@ -75,7 +84,17 @@ export const useSpot = () => {
 
   const getSpotOfGoogle = async (word: string) => {
     try {
-      return (await fetch(`/api/google/search/${word}`)).json();
+      //return (await fetch(`/api/google/search/${word}`)).json();
+
+      const response = await fetch(`/api/google/search/${word}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const text = await response.text();
+      if (!text) {
+        throw new Error("Empty response body");
+      }
+      return JSON.parse(text);
     } catch (error) {
       console.error("Error fetching spots", error);
       return false;
@@ -120,12 +139,30 @@ export const useSpot = () => {
     }
   };
 
+  const updateSpot = async (spot: Spot) => {
+    try {
+      await useSupabase().from("spot").update(spot).match({ id: spot.id });
+      toast({
+        title: "여행지가 수정되었습니다.",
+      });
+      return true;
+    } catch (error) {
+      toast({
+        title: "여행지 수정에 실패했습니다.",
+        variant: "destructive",
+        description: `Error: ${error}`,
+      });
+      return false;
+    }
+  };
+
   return {
     spots,
     status,
     selectedSpot,
     getSpots,
     setSpot,
+    updateSpot,
     getSpotsById,
     getSpotOfGoogle,
   };
