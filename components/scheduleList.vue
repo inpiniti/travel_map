@@ -11,6 +11,8 @@ onMounted(() => {
 });
 
 function onEnd() {
+  console.log("onEnd");
+  console.log(schedulesSpots.value.map((spot) => spot.id) as number[]);
   putSchedule({
     id: dayNSchedule.value.id,
     day: filter.value.day,
@@ -23,14 +25,6 @@ const scheduleWritingOpen = (spot: Spot) => {
   selectedSpot.value = spot;
   filter.value.scheduleWritingOpen = true;
 };
-
-const scheduleList = computed(() => {
-  if (filter.value.type == "일정") {
-    return schedulesSpots.value;
-  } else {
-    return spots.value;
-  }
-});
 </script>
 <template>
   <ScrollArea class="h-full">
@@ -40,7 +34,8 @@ const scheduleList = computed(() => {
       </div>
     </DevOnly>
     <draggable
-      v-model="scheduleList"
+      v-if="filter.type == '일정'"
+      v-model="schedulesSpots"
       class="flex flex-col gap-2 p-2 dragArea"
       @end="onEnd"
       :disabled="!filter.isDraggable || filter.type !== '일정'"
@@ -58,7 +53,7 @@ const scheduleList = computed(() => {
                   <Badge variant="secondary">{{ spot.type }}</Badge>
                 </div>
                 <div>
-                  <div class="font-bold text-sm">{{ spot.spot_name }}</div>
+                  <div class="text-sm font-bold">{{ spot.spot_name }}</div>
                 </div>
                 <div class="text-zinc-400 line-clamp-3">
                   {{ spot.description }}
@@ -79,7 +74,57 @@ const scheduleList = computed(() => {
             </Full>
             <Fix>
               <img
-                class="object-cover w-20 h-28 rounded-lg"
+                class="object-cover w-20 rounded-lg h-28"
+                :src="spot.image"
+                :alt="spot.spot_name"
+              />
+            </Fix>
+          </div>
+        </Card>
+      </template>
+    </draggable>
+    <draggable
+      v-else
+      v-model="spots"
+      class="flex flex-col gap-2 p-2 dragArea"
+      @end="onEnd"
+      :disabled="!filter.isDraggable || filter.type !== '일정'"
+    >
+      <template #item="{ element: spot }">
+        <Card
+          class="flex flex-col gap-2 p-2 text-xs cursor-pointer"
+          @click="scheduleWritingOpen(spot)"
+        >
+          <div class="flex w-full h-full gap-2 overflow-hidden">
+            <Full>
+              <div class="flex flex-col gap-1">
+                <div class="flex items-center gap-2">
+                  <Badge variant="outline">{{ spot.city }}</Badge>
+                  <Badge variant="secondary">{{ spot.type }}</Badge>
+                </div>
+                <div>
+                  <div class="text-sm font-bold">{{ spot.spot_name }}</div>
+                </div>
+                <div class="text-zinc-400 line-clamp-3">
+                  {{ spot.description }}
+                </div>
+                <div class="text-zinc-600 line-clamp-3">
+                  {{ spot.opening }}
+                </div>
+                <div class="flex items-center gap-2 pt-2">
+                  <Badge v-if="spot.detailType">{{ spot.detailType }}</Badge>
+                  <Badge v-if="spot.rating" variant="outline">{{
+                    spot.rating
+                  }}</Badge>
+                  <Badge v-if="spot.reviews" variant="secondary">{{
+                    spot.reviews
+                  }}</Badge>
+                </div>
+              </div>
+            </Full>
+            <Fix>
+              <img
+                class="object-cover w-20 rounded-lg h-28"
                 :src="spot.image"
                 :alt="spot.spot_name"
               />
