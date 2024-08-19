@@ -54,18 +54,20 @@ const saveSpot = async () => {
 };
 //const open = ref(false);
 
-watchEffect(() => {
-  form.value.spot_name = useFilter().value.scheduleSearch;
-  //form.value.type = useFilter().value.category[0];
-  form.value.city = useFilter().value.city;
-});
+watch(
+  () => filter.value.spotWritingOpen,
+  () => {
+    form.value.spot_name = useFilter().value.scheduleSearch;
+    //form.value.type = useFilter().value.category[0];
+    form.value.city = useFilter().value.city;
+  }
+);
 
 const getSpot = async () => {
   loading.value.get = true;
   const res: any = await getSpotOfGoogle(form.value.spot_name);
   loading.value.get = false;
-  console.log("res.name", res.name);
-  if (ref.name == null) {
+  if (!res.name) {
     toast({
       title: `구글에 "${form.value.spot_name}" 라는 장소가 없습니다.`,
       variant: "destructive",
