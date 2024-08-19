@@ -2,7 +2,7 @@
 import ColCover from "./components/colCover.vue";
 
 const filter = useFilter();
-const { travelPlans, getTravelPlans } = useTravelPlan();
+const { travelPlans, getTravelPlans, selectedTravelPlan } = useTravelPlan();
 const { getSchedule } = useSchedule();
 const { isMobile } = useDevice();
 
@@ -11,7 +11,15 @@ onMounted(async () => {
   if (travelPlans.value && travelPlans.value?.length > 0) {
     getSchedule();
   }
+
+  window.addEventListener("popstate", handlePopState);
 });
+
+onUnmounted(() => {
+  window.removeEventListener("popstate", handlePopState);
+});
+
+const handlePopState = (event: any) => useWindowHistory().pop(event);
 </script>
 
 <template>
@@ -25,7 +33,7 @@ onMounted(async () => {
     >
       <ColCover>
         <Fix
-          class="flex items-center justify-between w-full text-white md:h-14 md:w-56 bg-sky-400 h-14 px-2"
+          class="flex items-center justify-between w-full px-2 text-white md:h-14 md:w-56 bg-sky-400 h-14"
         >
           <!-- 데스크탑 -->
           <Logo />
@@ -51,7 +59,7 @@ onMounted(async () => {
       <ColCover>
         <Fix
           v-if="isMobile"
-          class="flex items-center justify-between w-full text-white md:hidden bg-sky-400 h-14 px-2"
+          class="flex items-center justify-between w-full px-2 text-white md:hidden bg-sky-400 h-14"
         >
           <!-- 모바일 -->
           <Logo />
@@ -63,9 +71,9 @@ onMounted(async () => {
           <ScheduleSearch />
           <SpotWriting />
         </Fix>
-        <Fix class="p-2 flex" v-else>
+        <Fix class="flex p-2" v-else>
           <Button
-            class="flex gap-2 w-full"
+            class="flex w-full gap-2"
             @click="
               useFilter().value.type =
                 useFilter().value.type == '일정' ? '장소' : '일정'
@@ -87,7 +95,7 @@ onMounted(async () => {
       <ColCover>
         <Fix
           v-if="isMobile"
-          class="flex items-center justify-between w-full text-white md:hidden bg-sky-400 h-14 px-2"
+          class="flex items-center justify-between w-full px-2 text-white md:hidden bg-sky-400 h-14"
         >
           <!-- 모바일 -->
           <Logo />

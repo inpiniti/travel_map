@@ -1,8 +1,13 @@
 <script setup lang="ts">
-// event.node.res.setHeader("Content-Type", "text/html; charset=utf-8");
-const { data: content } = await useFetch("/api/namuwiki");
+const { selectedSpot } = useSpot();
+const { data: content } = await useFetch(
+  `/api/namuwiki/${selectedSpot.value.spot_name}`
+);
 </script>
 <template>
+  <DevOnly>
+    <Button class="bg-teal-600 hover:bg-teal-500"> 나무위키 업데이트 </Button>
+  </DevOnly>
   <Dialog>
     <DialogTrigger as-child>
       <Button class="bg-teal-600 hover:bg-teal-500">

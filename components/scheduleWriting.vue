@@ -64,14 +64,20 @@ const addSchedule = () => {
             </DrawerDescription>
           </DrawerHeader>
           <DrawerFooter>
-            <div class="flex gap-2">
+            <div class="flex flex-wrap w-1/2 gap-2 md:w-1/4">
               <Button class="flex gap-2" @click="addSchedule">
                 <font-awesome icon="calendar-plus" />
                 일정 추가
               </Button>
-              <SpotModify />
-              <NamuwikiView />
-              <Button variant="destructive" @click="deleteSpot">삭제</Button>
+              <SpotModify class="w-1/2 md:w-1/4" />
+              <NamuwikiView class="w-1/2 md:w-1/4" />
+              <Button
+                class="w-1/2 md:w-1/4"
+                variant="destructive"
+                @click="deleteSpot"
+              >
+                삭제
+              </Button>
             </div>
           </DrawerFooter>
         </Full>

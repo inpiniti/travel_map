@@ -11,6 +11,8 @@ const click = async (travelPlan: TravelPlan) => {
   filter.value.viewOnMobile = "schedule";
   filter.value.type = "일정";
   await getSchedule();
+
+  useWindowHistory().push();
 };
 
 const handleImageError = (event: any) => {
@@ -24,7 +26,7 @@ const handleImageError = (event: any) => {
       class="flex gap-2 p-2 text-xs cursor-pointer"
       @click="click(travelPlan)"
       :class="{
-        'bg-sky-500 text-white': selectedTravelPlan === travelPlan,
+        'bg-sky-500 text-white': selectedTravelPlan.id == travelPlan.id,
       }"
     >
       <img

@@ -109,7 +109,7 @@ const scheduleWritingOpen = (spot: Spot) => {
           class-name="cursor-default-important z-0-important "
         >
           <div
-            class="flex items-center justify-center w-5 h-5 hover:bg-blue-400 text-white bg-neutral-400 rounded-full cursor-pointer"
+            class="flex items-center justify-center w-5 h-5 text-white rounded-full cursor-pointer hover:bg-blue-400 bg-neutral-400"
           >
             <font-awesome size="xs" :icon="ICON[spot.type]" />
           </div>
@@ -162,16 +162,3 @@ const scheduleWritingOpen = (spot: Spot) => {
     </LLayerGroup>
   </LMap>
 </template>
-<style></style>
-<!-- 
-landmark 랜드마크
-bag-shopping 쇼핑
-train 기차
-train-subway 지하철
-utensils
-plane 비행기
-hotel 호텔
-
-
-trash 삭제
--->
