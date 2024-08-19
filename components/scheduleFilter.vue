@@ -43,12 +43,6 @@ function incrementDay() {
       >
         순서 변경
       </Button>
-      <Tabs v-else v-model="useFilter().value.type">
-        <TabsList>
-          <TabsTrigger value="일정"> 일정 </TabsTrigger>
-          <TabsTrigger value="장소"> 장소 </TabsTrigger>
-        </TabsList>
-      </Tabs>
     </div>
   </div>
 </template>

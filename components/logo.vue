@@ -9,12 +9,22 @@ const goBack = () => {
 </script>
 <template>
   <div
-    v-if="isMobile && filter.viewOnMobile != 'plan'"
+    v-if="isMobile && filter.viewOnMobile != 'plan' && filter.type == '일정'"
     @click="goBack"
     class="flex items-center gap-1 font-bold"
   >
     <font-awesome class="px-2" icon="chevron-left" />
     {{ selectedTravelPlan?.plan_name }}
+  </div>
+  <div
+    v-else-if="
+      isMobile && filter.viewOnMobile != 'plan' && filter.type == '장소'
+    "
+    @click="filter.type = '일정'"
+    class="flex items-center gap-1 font-bold"
+  >
+    <font-awesome class="px-2" icon="chevron-left" />
+    일정 등록하기
   </div>
   <div
     class="flex items-center gap-1 font-bold"
