@@ -2,9 +2,9 @@ import axios from "axios";
 import * as cheerio from "cheerio";
 
 export default defineEventHandler(async (event) => {
+  const word = getRouterParam(event, "word");
   const scrapeNamuWiki = async () => {
-    const url =
-      "https://namu.wiki/w/%ED%9B%84%EC%BF%A0%EC%98%A4%EC%B9%B4%EC%8B%9C?from=%ED%9B%84%EC%BF%A0%EC%98%A4%EC%B9%B4";
+    const url = `https://namu.wiki/w/${word}`;
 
     try {
       // axios를 사용하여 웹 페이지의 HTML을 가져옵니다.
