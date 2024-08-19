@@ -1,7 +1,7 @@
 <script setup lang="ts">
+const { selectedTravelPlan } = useTravelPlan();
 const { schedules, schedulesSpots, dayNSchedule } = useSchedule();
 const { spots } = useSpot();
-const { isMobile } = useDevice();
 const filter = useFilter();
 </script>
 <template>
@@ -12,6 +12,12 @@ const filter = useFilter();
       안등록된건 회색으로 표시하기, 일정은 무조건 표시하기
     </div>
     <div class="flex gap-1">
+      <Dialog>
+        <DialogTrigger> <Button>selectedTravelPlan</Button> </DialogTrigger>
+        <DialogContent>
+          <pre>{{ JSON.stringify(selectedTravelPlan, null, 2) }}</pre>
+        </DialogContent>
+      </Dialog>
       <Dialog>
         <DialogTrigger> <Button>spots</Button> </DialogTrigger>
         <DialogContent>
