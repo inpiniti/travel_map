@@ -19,24 +19,48 @@ export default defineEventHandler(async (event) => {
       const $ = cheerio.load(data);
 
       // .Xg8bWR6v 클래스를 가진 모든 div 요소를 선택합니다.
-      const class1Divs = $("div.Xg8bWR6v");
+      const class1Divs = $("h2.wiki-heading");
 
       // .Imb4r44D 클래스를 가진 모든 div 요소를 선택합니다.
-      const class2Divs = $("div.Imb4r44D");
+      const class2Divs = $("div.wiki-paragraph");
+
+      // table.AVEibs0x 요소도 선택해서 추가하게 해줘
+      const class3Divs = $("table.wiki-table");
 
       // 두 선택 결과를 합칩니다.
-      const allDivs = class1Divs.add(class2Divs);
+      const allDivs = class1Divs.add(class2Divs).add(class3Divs);
 
       // 선택된 모든 div 요소들의 HTML 문자열을 합쳐서 반환합니다.
       let combinedHtml = "";
+      let lastHeading: any = null;
+      let tableDisplayed = false;
+
       allDivs.each((index, element) => {
-        combinedHtml += $.html(element);
+        if ($(element).is("h2.wiki-heading")) {
+          lastHeading = element;
+          combinedHtml += $.html(element);
+          tableDisplayed = false; // 새로운 헤딩이 나오면 테이블 표시 여부를 초기화
+        } else if ($(element).is("table.wiki-table")) {
+          if (lastHeading) {
+            combinedHtml += $.html(element);
+            tableDisplayed = true; // 테이블이 표시되었음을 기록
+          }
+        } else if ($(element).is("div.wiki-paragraph")) {
+          if (lastHeading && !tableDisplayed) {
+            combinedHtml += $.html(element);
+          }
+        }
       });
+
+      // combinedHtml = "";
+      // class3Divs.each((index, element) => {
+      //   combinedHtml += $.html(element);
+      // });
 
       return combinedHtml;
     } catch (error) {
       console.error("Error:", error);
-      return "스크래핑 중 오류가 발생했습니다.";
+      return false;
     }
   };
 
@@ -50,6 +74,6 @@ export default defineEventHandler(async (event) => {
     return content;
   } catch (error) {
     console.error("Error:", error);
-    return "스크래핑 중 오류가 발생했습니다.";
+    return false;
   }
 });

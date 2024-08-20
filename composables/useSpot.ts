@@ -16,6 +16,7 @@ export type Spot = {
   somewhatCrowded?: string;
   veryCrowded?: string;
   detailType?: string;
+  namu?: string;
 };
 
 export const CATEGORYS = [
