@@ -8,8 +8,7 @@ const filter = useFilter();
   <div class="w-full p-1 border-b">
     <div>해야 할일</div>
     <div>
-      일정 검색하기, 카테고리 두개이상 선택가능하도록, 지도에서 등록된건 파란색,
-      안등록된건 회색으로 표시하기, 일정은 무조건 표시하기
+      일정 등록에서 검색시에 없는경우 구글에서 조회해와서 추가해서 보여주기
     </div>
     <div class="flex gap-1">
       <Dialog>

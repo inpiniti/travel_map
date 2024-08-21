@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { city } from "../data/city";
-const { setSpot, status, getSpotOfGoogle } = useSpot();
+const {
+  setSpot,
+  getSpots,
+  status,
+  getSpotOfGoogle,
+  isGetSpotByLatitudeLongitudeName,
+} = useSpot();
 const { toast } = useToast();
 const filter = useFilter();
 
@@ -28,13 +34,6 @@ const loading = ref({
 });
 
 const saveSpot = async () => {
-  if (form.value.type == "") {
-    toast({
-      title: "장소 유형을 선택해주세요.",
-      variant: "destructive",
-    });
-    return;
-  }
   loading.value.save = true;
   const res = await setSpot(form.value);
   loading.value.save = false;
@@ -54,23 +53,43 @@ const saveSpot = async () => {
 };
 //const open = ref(false);
 
-watchEffect(() => {
-  form.value.spot_name = useFilter().value.scheduleSearch;
-  //form.value.type = useFilter().value.category[0];
-  form.value.city = useFilter().value.city;
-});
+watch(
+  () => filter.value.spotWritingOpen,
+  async () => {
+    if (filter.value.spotWritingOpen) {
+      form.value.spot_name = `${useFilter().value.city} ${
+        useFilter().value.scheduleSearch
+      }`;
+
+      // 구글 검샘
+      const res = await getSpot();
+      if (res) {
+        // 디비에 이미 있는지 확인
+        const isSpot = await isGetSpotByLatitudeLongitudeName(form.value);
+        if (!isSpot) {
+          // 없는 경우 새 장소 등록
+          await saveSpot();
+        }
+
+        // 화면 닫고, 새 장소 또는 저장된 장소를 보여줌
+        useFilter().value.scheduleSearch = form.value.spot_name;
+        await getSpots();
+        filter.value.spotWritingOpen = false;
+      }
+    }
+  }
+);
 
 const getSpot = async () => {
   loading.value.get = true;
   const res: any = await getSpotOfGoogle(form.value.spot_name);
   loading.value.get = false;
-  console.log("res.name", res.name);
   if (ref.name == null) {
     toast({
       title: `구글에 "${form.value.spot_name}" 라는 장소가 없습니다.`,
       variant: "destructive",
     });
-    return;
+    return false;
   }
 
   if (res) {
@@ -93,6 +112,8 @@ const getSpot = async () => {
       detailType: res.type,
     };
   }
+
+  return true;
 };
 </script>
 <template>
@@ -104,8 +125,8 @@ const getSpot = async () => {
       <DialogHeader>
         <DialogTitle>장소 등록하기</DialogTitle>
         <DialogDescription>
-          등록된 장소가 없습니다. 가져오기 버튼을 눌른 뒤 Save 버튼을 눌러
-          장소를 등록해 주세요.
+          등록된 장소가 없어 구글지도에서 가져오는 중입니다. 잠시만
+          기다려주세요.
         </DialogDescription>
       </DialogHeader>
       <div class="grid gap-4 py-4">

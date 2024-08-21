@@ -131,6 +131,27 @@ export const useSpot = () => {
     }
   };
 
+  const isGetSpotByLatitudeLongitudeName = async (spot: Spot) => {
+    try {
+      // Supabase에서 데이터 조회
+      const { data: spots, error } = await useSupabase()
+        .from("spot")
+        .select("*")
+        .eq("spot_name", spot.spot_name)
+        .eq("latitude", spot.latitude)
+        .eq("longitude", spot.longitude);
+
+      if (spots?.length == 0) {
+        return false;
+      } else {
+        return true;
+      }
+    } catch (error) {
+      console.error("Error fetching spots", error);
+      return false;
+    }
+  };
+
   const setSpot = async (spot: Spot) => {
     try {
       const { error } = await useSupabase().from("spot").insert([spot]);
@@ -209,6 +230,7 @@ export const useSpot = () => {
     setSpot,
     updateSpot,
     getSpotsById,
+    isGetSpotByLatitudeLongitudeName,
     getSpotOfGoogle,
     deleteSpot,
   };

@@ -11,8 +11,6 @@ onMounted(() => {
 });
 
 function onEnd() {
-  console.log("onEnd");
-  console.log(schedulesSpots.value.map((spot) => spot.id) as number[]);
   putSchedule({
     id: dayNSchedule.value.id,
     day: filter.value.day,
