@@ -94,7 +94,6 @@ const getSpot = async () => {
 
   if (res) {
     form.value = {
-      ...form.value,
       spot_name: res.name,
       description: res.description,
       image: res.image,
@@ -110,6 +109,9 @@ const getSpot = async () => {
       somewhatCrowded: res.somewhatCrowded,
       veryCrowded: res.veryCrowded,
       detailType: res.type,
+
+      type: form.value.type,
+      city: form.value.city,
     };
   }
 

@@ -10,3 +10,7 @@
 .z-20-important {
   z-index: 20 !important;
 }
+img[alt*="아이콘"] {
+  width: 10px;
+  height: 10px;
+}

@@ -1,16 +1,38 @@
 <script setup lang="ts">
-const { selectedSpot } = useSpot();
-const { data: content } = await useFetch(
-  `/api/namuwiki/${selectedSpot.value.spot_name}`
-);
+const { selectedSpot, updateSpot } = useSpot();
+
+const content = ref();
+
+if (selectedSpot.value.namu === null) {
+  const { data } = await useFetch(
+    `/api/namuwiki/${selectedSpot.value.spot_name}`
+  );
+  content.value = data;
+}
+
+const updateNamuwiki = () => {
+  console.log(content.value);
+  if (content.value) {
+    updateSpot({
+      ...selectedSpot.value,
+      namu: content.value,
+    });
+  }
+};
 </script>
 <template>
   <DevOnly>
-    <Button class="bg-teal-600 hover:bg-teal-500"> 나무위키 업데이트 </Button>
+    <Button
+      class="bg-teal-600 hover:bg-teal-500"
+      @click="updateNamuwiki"
+      v-if="!selectedSpot.namu && content"
+    >
+      나무위키 업데이트
+    </Button>
   </DevOnly>
   <Dialog>
     <DialogTrigger as-child>
-      <Button class="bg-teal-600 hover:bg-teal-500">
+      <Button class="bg-teal-600 hover:bg-teal-500" v-if="selectedSpot.namu">
         <img src="/나무위키.png" class="h-7" />
       </Button>
     </DialogTrigger>
@@ -22,7 +44,7 @@ const { data: content } = await useFetch(
         </DialogDescription>
       </DialogHeader>
       <div class="grid gap-4 py-4">
-        <div v-html="content" class="overflow-hidden"></div>
+        <div v-html="selectedSpot.namu" class="overflow-hidden"></div>
       </div>
       <DialogFooter class="sm:justify-start">
         <DialogClose as-child>
