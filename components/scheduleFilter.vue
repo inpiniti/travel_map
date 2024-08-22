@@ -31,6 +31,7 @@ function incrementDay() {
         <Button variant="secondary" @click="incrementDay"> > </Button>
       </template>
       <template v-else>
+        <!-- 일정 등록화면에서 보이는 영역 -->
         <CategorySelect />
       </template>
     </div>

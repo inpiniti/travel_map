@@ -14,6 +14,12 @@ const toggleCategory = (category: string) => {
   filter.value.type = "장소";
   useSpot().getSpots();
 };
+
+const onClear = () => {
+  filter.value.category = [];
+  filter.value.type = "장소";
+  useSpot().getSpots();
+};
 </script>
 <template>
   <Popover>
@@ -24,7 +30,7 @@ const toggleCategory = (category: string) => {
         <template v-if="selectedValues.size > 0">
           <div class="space-x-1">
             <Badge
-              v-if="selectedValues.size > 2"
+              v-if="selectedValues.size > 4"
               variant="secondary"
               class="px-1 font-normal rounded-sm"
             >
@@ -61,6 +67,15 @@ const toggleCategory = (category: string) => {
             <div v-else><font-awesome icon="circle" /></div>
             <font-awesome :icon="ICON[category]" />
             <span>{{ category }}</span>
+          </CommandItem>
+        </CommandList>
+        <CommandList class="p-1 border-t max-h-none">
+          <CommandItem
+            value="all"
+            class="flex items-center justify-center"
+            @click="onClear"
+          >
+            Clear filter
           </CommandItem>
         </CommandList>
       </Command>

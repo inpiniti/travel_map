@@ -70,10 +70,11 @@ export const useSpot = () => {
 
   const getSpots = async () => {
     try {
-      let query = useSupabase()
-        .from("spot")
-        .select("*")
-        .eq("city", useFilter().value.city);
+      let query = useSupabase().from("spot").select("*");
+
+      if (useFilter().value.city !== "전체") {
+        query = query.eq("city", useFilter().value.city);
+      }
 
       if (useFilter().value.scheduleSearch) {
         query = query.ilike(
