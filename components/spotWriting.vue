@@ -53,9 +53,13 @@ const saveSpot = async () => {
 };
 //const open = ref(false);
 
+const confirmationResult = ref(false);
 watch(
   () => filter.value.spotWritingOpen,
   async () => {
+    confirmationResult.value = false;
+    form.value.city = useFilter().value.city;
+    form.value.type = useFilter().value.type;
     if (filter.value.spotWritingOpen) {
       form.value.spot_name = `${useFilter().value.city} ${
         useFilter().value.scheduleSearch
@@ -67,8 +71,24 @@ watch(
         // 디비에 이미 있는지 확인
         const isSpot = await isGetSpotByLatitudeLongitudeName(form.value);
         if (!isSpot) {
-          // 없는 경우 새 장소 등록
-          await saveSpot();
+          // 새 장소 등록하기전에 alert 같은걸 띄워서 city, type 확인하는 절차를 가지게 할수 있을까?
+          // 가능하면 코드 작성해줘
+          await new Promise((resolve) => {
+            const unwatch = watch(confirmationResult, (newValue) => {
+              console.log("newValue", newValue);
+              if (newValue !== null) {
+                resolve(newValue);
+                unwatch();
+              }
+            });
+          });
+
+          if (confirmationResult.value) {
+            // 없는 경우 새 장소 등록
+            await saveSpot();
+          } else {
+            return false;
+          }
         }
 
         // 화면 닫고, 새 장소 또는 저장된 장소를 보여줌
@@ -127,8 +147,11 @@ const getSpot = async () => {
       <DialogHeader>
         <DialogTitle>장소 등록하기</DialogTitle>
         <DialogDescription>
-          등록된 장소가 없어 구글지도에서 가져오는 중입니다. 잠시만
-          기다려주세요.
+          {{
+            form.latitude
+              ? "구글지도에서 데이터를 가져왔습니다. 장소 유형 및 도시를 선택하여주세요."
+              : "등록된 장소가 없어 구글지도에서 가져오는 중입니다. 잠시만 기다려주세요."
+          }}
         </DialogDescription>
       </DialogHeader>
       <div class="grid gap-4 py-4">
@@ -169,15 +192,15 @@ const getSpot = async () => {
         </div>
         <div class="grid items-center grid-cols-4 gap-4">
           <Label class="text-right"> 장소명 </Label>
-          <Input class="col-span-2" v-model="form.spot_name" />
-          <Button class="col-span-1" @click="getSpot">
+          <Input class="col-span-3" v-model="form.spot_name" />
+          <!-- <Button class="col-span-1" @click="getSpot">
             <template v-if="loading.get">
               <font-awesome icon="circle-notch" spin />
             </template>
             <template v-else> 가져오기 </template>
-          </Button>
+          </Button> -->
         </div>
-        <div class="grid items-center grid-cols-4 gap-4">
+        <!-- <div class="grid items-center grid-cols-4 gap-4">
           <Label class="text-right">상세 유형</Label>
           <Input type="text" class="col-span-3" v-model="form.detailType" />
         </div>
@@ -208,15 +231,16 @@ const getSpot = async () => {
         <div class="grid items-center grid-cols-4 gap-4">
           <Label class="text-right"> 영업시간 </Label>
           <Input class="col-span-3" v-model="form.opening" />
-        </div>
+        </div> -->
       </div>
       <DialogFooter>
-        <Button type="submit" @click="saveSpot">
+        <Button @click="confirmationResult = !confirmationResult">OK</Button>
+        <!-- <Button type="submit" @click="saveSpot">
           <template v-if="status">
             <font-awesome icon="circle-notch" spin />
           </template>
           <template v-else> Save </template>
-        </Button>
+        </Button> -->
       </DialogFooter>
     </DialogContent>
   </Dialog>
