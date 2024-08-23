@@ -7,10 +7,7 @@ const filter = useFilter();
 <template>
   <div class="w-full p-1 border-b">
     <div>해야 할일</div>
-    <div>
-      일정 제거, 카테고리가 전체라고 되어 있을때는 모든 장소가 보이게,
-      리스트에서 카테고리는 하나씩 선택할수 있게
-    </div>
+    <div>일정 제거</div>
     <div class="flex gap-1">
       <Dialog>
         <DialogTrigger> <Button>selectedTravelPlan</Button> </DialogTrigger>
