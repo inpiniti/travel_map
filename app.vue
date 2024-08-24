@@ -64,14 +64,21 @@ const handlePopState = (event: any) => useWindowHistory().pop(event);
           <!-- 모바일 -->
           <Logo />
         </Fix>
-        <Fix class="p-2">
+        <!-- 데스크탑 -->
+        <Fix
+          class="md:flex items-center w-full px-2 hidden h-14"
+          v-if="filter.type == '장소'"
+        >
+          <ScheduleStatusbar />
+        </Fix>
+        <Fix class="p-2 flex gap-2">
           <ScheduleFilter />
+          <template v-if="filter.type == '장소'">
+            <ScheduleSearch />
+            <SpotWriting />
+          </template>
         </Fix>
-        <Fix class="p-2" v-if="filter.type == '장소'">
-          <ScheduleSearch />
-          <SpotWriting />
-        </Fix>
-        <Fix class="flex p-2" v-else>
+        <Fix class="flex p-2" v-if="filter.type != '장소'">
           <Button
             class="flex w-full gap-2"
             @click="

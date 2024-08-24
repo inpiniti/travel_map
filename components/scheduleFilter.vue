@@ -23,7 +23,7 @@ function incrementDay() {
 }
 </script>
 <template>
-  <div class="flex justify-between">
+  <div class="flex justify-between w-full">
     <div class="flex items-center gap-2">
       <template v-if="useFilter().value.type == '일정'">
         <Button variant="secondary" @click="decrementDay"> < </Button>
