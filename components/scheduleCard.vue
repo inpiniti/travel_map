@@ -1,8 +1,46 @@
 <script setup lang="ts">
+const filter = useFilter();
+const { selectedTravelPlan } = useTravelPlan();
+const { dayNSchedule, schedules, setSchedule, putSchedule } = useSchedule();
+
 const props = defineProps<{
   spot: Spot;
 }>();
 const emit = defineEmits(["scheduleWritingOpen"]);
+
+const addSchedule = (day: number) => {
+  const daySchedule = schedules.value.find((schedule) => {
+    return schedule.day == day;
+  });
+
+  if (daySchedule == undefined) {
+    setSchedule({
+      day: day,
+      travel_plan_id: selectedTravelPlan.value.id,
+      travel_spot_ids: [props.spot.id] as number[],
+    });
+  } else {
+    putSchedule({
+      id: daySchedule.id,
+      day: day,
+      travel_plan_id: selectedTravelPlan.value.id,
+      travel_spot_ids: [
+        ...new Set([...daySchedule?.travel_spot_ids, props.spot?.id ?? 0]),
+      ],
+    });
+  }
+};
+
+const deleteSchedule = () => {
+  putSchedule({
+    id: dayNSchedule.value.id,
+    day: filter.value.day,
+    travel_plan_id: selectedTravelPlan.value.id,
+    travel_spot_ids: dayNSchedule.value.travel_spot_ids.filter(
+      (spotId) => spotId !== props.spot.id
+    ),
+  });
+};
 </script>
 <template>
   <Card
@@ -32,28 +70,28 @@ const emit = defineEmits(["scheduleWritingOpen"]);
               <DropdownMenuContent class="w-56">
                 <DropdownMenuLabel>일정 수정</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem class="gap-2">
+                <DropdownMenuItem class="gap-2" @click="deleteSchedule">
                   <font-awesome icon="trash-can" />
                   <span>일정에서 삭제</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem class="gap-2">
+                <DropdownMenuItem class="gap-2" @click="addSchedule(2)">
                   <font-awesome icon="plus" />
                   <span>2일차에 등록</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem class="gap-2">
+                <DropdownMenuItem class="gap-2" @click="addSchedule(3)">
                   <font-awesome icon="plus" />
                   <span>3일차에 등록</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem class="gap-2">
+                <DropdownMenuItem class="gap-2" @click="addSchedule(4)">
                   <font-awesome icon="plus" />
                   <span>4일차에 등록</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem class="gap-2">
+                <DropdownMenuItem class="gap-2" @click="addSchedule(5)">
                   <font-awesome icon="plus" />
                   <span>5일차에 등록</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem class="gap-2">
+                <DropdownMenuItem class="gap-2" @click="addSchedule(6)">
                   <font-awesome icon="plus" />
                   <span>6일차에 등록</span>
                 </DropdownMenuItem>
