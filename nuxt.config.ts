@@ -39,6 +39,8 @@ export default defineNuxtConfig({
         "calendar-plus",
         "circle-notch",
         "plus",
+        "ellipsis",
+        "trash-can",
       ],
       regular: ["user"],
     },

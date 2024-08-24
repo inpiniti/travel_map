@@ -39,7 +39,10 @@ const scheduleWritingOpen = (spot: Spot) => {
       :disabled="!filter.isDraggable || filter.type !== '일정'"
     >
       <template #item="{ element: spot }">
-        <ScheduleCard :spot="spot" @click="scheduleWritingOpen(spot)" />
+        <ScheduleCard
+          :spot="spot"
+          @scheduleWritingOpen="scheduleWritingOpen(spot)"
+        />
       </template>
     </draggable>
     <draggable
@@ -50,7 +53,10 @@ const scheduleWritingOpen = (spot: Spot) => {
       :disabled="!filter.isDraggable || filter.type !== '일정'"
     >
       <template #item="{ element: spot }">
-        <ScheduleCard :spot="spot" @click="scheduleWritingOpen(spot)" />
+        <ScheduleCard
+          :spot="spot"
+          @scheduleWritingOpen="scheduleWritingOpen(spot)"
+        />
       </template>
     </draggable>
   </ScrollArea>
