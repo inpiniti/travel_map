@@ -49,6 +49,9 @@ const handlePopState = (event: any) => useWindowHistory().pop(event);
             <PlanList />
           </ScrollArea>
         </Full>
+        <Fix class="p-2">
+          <Login />
+        </Fix>
       </ColCover>
     </Fix>
     <Fix
@@ -66,12 +69,12 @@ const handlePopState = (event: any) => useWindowHistory().pop(event);
         </Fix>
         <!-- 데스크탑 -->
         <Fix
-          class="md:flex items-center w-full px-2 hidden h-14"
+          class="items-center hidden w-full px-2 md:flex h-14"
           v-if="filter.type == '장소'"
         >
           <ScheduleStatusbar />
         </Fix>
-        <Fix class="p-2 flex gap-2">
+        <Fix class="flex gap-2 p-2">
           <ScheduleFilter />
           <template v-if="filter.type == '장소'">
             <ScheduleSearch />
