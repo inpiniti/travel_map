@@ -64,9 +64,13 @@ export const useSpot = () => {
   // 여행지
   // 여행지명, 설명, 이미지, 위도, 경도
   const spots = useState<Spot[]>("spots");
+  const cash = useState<Spot[]>("cash");
+
   const selectedSpot = useState<Spot>("spot");
   const status = useState("spotStatus", () => false);
   const { toast } = useToast();
+
+  const tempIds = useState("tempIds", () => "");
 
   const getSpots = async () => {
     try {
@@ -112,7 +116,9 @@ export const useSpot = () => {
     }
   };
 
-  const getSpotsById = async (ids: number[]) => {
+  const getSpotsById = async (ids: number[]): Promise<Spot[]> => {
+    if (tempIds.value == ids.toString()) return cash.value;
+    tempIds.value = ids.toString();
     try {
       // Supabase에서 데이터 조회
       const { data: spots, error } = await useSupabase()
@@ -126,6 +132,7 @@ export const useSpot = () => {
         .filter((spot) => spot !== undefined) as Spot[];
 
       // orderedSpots는 이제 ids 배열의 순서대로 정렬된 Spot[] 타입입니다.
+      cash.value = orderedSpots;
       return orderedSpots;
     } catch (error) {
       console.error("Error fetching spots", error);

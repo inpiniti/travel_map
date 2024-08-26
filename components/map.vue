@@ -14,7 +14,7 @@ const selectedTileUrl = computed(() => TILES[filter.value.selectedTile]);
 
 const schedulesSpotsLine: any = computed(() => {
   return (
-    schedulesSpots.value?.map((spot) => [spot.latitude, spot.longitude]) || []
+    schedulesSpots.value?.map((spot) => [spot?.latitude, spot?.longitude]) || []
   );
 });
 
@@ -86,7 +86,7 @@ const scheduleWritingOpen = (spot: Spot) => {
       <MapToolbar />
     </LControl>
 
-    <LLayerGroup>
+    <LLayerGroup v-if="spots">
       <!-- 마커 및 툴팁 
       <LMarker
         :lat-lng="[spot.latitude, spot.longitude]"
@@ -119,7 +119,7 @@ const scheduleWritingOpen = (spot: Spot) => {
     </LLayerGroup>
 
     <!-- 일정 -->
-    <LLayerGroup>
+    <LLayerGroup v-if="schedulesSpots">
       <!-- icon 마커 -->
       <LMarker
         :lat-lng="[spot.latitude, spot.longitude]"
@@ -144,6 +144,7 @@ const scheduleWritingOpen = (spot: Spot) => {
       <LMarker
         :lat-lng="[spot.latitude, spot.longitude]"
         v-for="spot in schedulesSpots"
+        :key="spot.id + '-label'"
       >
         <LIcon
           :icon-size="[0, 0]"
@@ -158,7 +159,11 @@ const scheduleWritingOpen = (spot: Spot) => {
       </LMarker>
 
       <!-- 경로 -->
-      <LPolyline dashArray="10, 10" :lat-lngs="schedulesSpotsLine" />
+      <LPolyline
+        v-if="schedulesSpotsLine"
+        dashArray="10, 10"
+        :lat-lngs="schedulesSpotsLine"
+      />
     </LLayerGroup>
   </LMap>
 </template>

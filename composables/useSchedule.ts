@@ -6,7 +6,7 @@ export type Schedule = {
 };
 
 export const useSchedule = () => {
-  const { spots, getSpotsById } = useSpot();
+  const { getSpotsById } = useSpot();
   const { toast } = useToast();
 
   const schedules = useState<Schedule[]>("schedules", () => []);
