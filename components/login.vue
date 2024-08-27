@@ -1,21 +1,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
+const { login, loginForKakao, loginForGoogle } = useSign();
+
 const email = ref("");
 const password = ref("");
-const error = ref(null);
-
-const login = async () => {
-  const { data, error } = await useSupabase().auth.signInWithPassword({
-    email: email.value,
-    password: password.value,
-  });
-  if (error) {
-    console.error("Login error:", error.message);
-  } else {
-    console.log("Login success");
-  }
-};
 </script>
 <template>
   <Dialog>
@@ -32,15 +21,44 @@ const login = async () => {
       <div class="grid gap-4 py-4">
         <div class="grid items-center grid-cols-4 gap-4">
           <Label for="email" class="text-right"> Email </Label>
-          <Input id="email" v-model="email" class="col-span-3" />
+          <Input
+            id="email"
+            v-model="email"
+            class="col-span-3"
+            autocomplete="off"
+          />
         </div>
         <div class="grid items-center grid-cols-4 gap-4">
           <Label for="password" class="text-right"> Password </Label>
-          <Input id="password" v-model="password" class="col-span-3" />
+          <Input
+            type="password"
+            id="password"
+            v-model="password"
+            class="col-span-3"
+            autocomplete="off"
+          />
         </div>
       </div>
       <DialogFooter>
-        <Button type="submit" @click="login"> login </Button>
+        <div class="flex gap-2">
+          <Button type="submit" @click="login({ email, password })">
+            login
+          </Button>
+
+          <Button
+            type="submit"
+            class="text-black bg-yellow-300"
+            @click="loginForKakao"
+          >
+            <font-awesome icon="comment" class="mr-2" />
+            kakao
+          </Button>
+
+          <Button type="submit" class="text-black" @click="loginForGoogle">
+            <font-awesome icon="google" class="mr-2" />
+            google
+          </Button>
+        </div>
       </DialogFooter>
     </DialogContent>
   </Dialog>

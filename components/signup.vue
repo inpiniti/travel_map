@@ -1,48 +1,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-const { toast } = useToast();
+const { signUp } = useSign();
 
 const email = ref("");
 const password = ref("");
-
-const signUp = async () => {
-  const { data, error } = await useSupabase().auth.signUp({
-    email: email.value,
-    password: password.value,
-    options: {
-      emailRedirectTo: "http://localhost:3000/welcome",
-    },
-  });
-  if (error) {
-    toast({
-      title: "이메일 가입에 실패하였습니다.",
-      description: `Error: ${error.message}`,
-      variant: "destructive",
-    });
-  } else {
-    toast({
-      title: "이메일 가입에 성공하였습니다. 이메일에서 확인을 해주세요.",
-    });
-  }
-};
-
-const signUpkakao = async () => {
-  const { data, error } = await useSupabase().auth.signInWithOAuth({
-    provider: "kakao",
-  });
-  if (error) {
-    toast({
-      title: "카카오 가입에 실패하였습니다.",
-      description: `Error: ${error.message}`,
-      variant: "destructive",
-    });
-  } else {
-    toast({
-      title: "카카오로 가입에 성공하였습니다. 다시 로그인하여주세요.",
-    });
-  }
-};
 </script>
 <template>
   <Dialog>
@@ -79,17 +41,9 @@ const signUpkakao = async () => {
         </div>
       </div>
       <DialogFooter>
-        <div class="flex gap-2">
-          <Button type="submit" @click="signUp"> 이메일로 회원가입 </Button>
-          <Button
-            type="submit"
-            class="text-black bg-yellow-300"
-            @click="signUpkakao"
-          >
-            <font-awesome icon="comment" class="mr-2" />
-            kakao
-          </Button>
-        </div>
+        <Button type="submit" @click="signUp({ email, password })">
+          이메일로 회원가입
+        </Button>
       </DialogFooter>
     </DialogContent>
   </Dialog>

@@ -5,6 +5,7 @@ const filter = useFilter();
 const { travelPlans, getTravelPlans, selectedTravelPlan } = useTravelPlan();
 const { getSchedule } = useSchedule();
 const { isMobile } = useDevice();
+const { logout } = useSign();
 
 onMounted(async () => {
   await getTravelPlans();
@@ -20,6 +21,10 @@ onUnmounted(() => {
 });
 
 const handlePopState = (event: any) => useWindowHistory().pop(event);
+
+const {
+  data: { user },
+} = await useSupabase().auth.getUser();
 </script>
 
 <template>
@@ -49,7 +54,19 @@ const handlePopState = (event: any) => useWindowHistory().pop(event);
             <PlanList />
           </ScrollArea>
         </Full>
-        <Fix class="p-2"> <Signup /><Login /> </Fix>
+        <Fix class="flex items-center justify-between gap-2 p-2">
+          <div><Signup /><Login /></div>
+          <Avatar>
+            <AvatarImage
+              :src="user?.identities?.[0]?.identity_data?.avatar_url"
+              :alt="user?.identities?.[0]?.identity_data?.email"
+            />
+            <AvatarFallback>
+              user?.identities?.[0]?.identity_data?.avatar_url
+            </AvatarFallback>
+          </Avatar>
+          <Button @click="logout">logout</Button>
+        </Fix>
       </ColCover>
     </Fix>
     <Fix

@@ -44,6 +44,7 @@ export default defineNuxtConfig({
         "comment",
       ],
       regular: ["user"],
+      brands: ["google"], // 'brands' 카테고리에 'google' 아이콘 추가
     },
   },
   app: {
