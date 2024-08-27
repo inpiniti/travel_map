@@ -41,6 +41,7 @@ export default defineNuxtConfig({
         "plus",
         "ellipsis",
         "trash-can",
+        "comment",
       ],
       regular: ["user"],
     },
