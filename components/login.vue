@@ -5,26 +5,26 @@ const email = ref("");
 const password = ref("");
 const error = ref(null);
 
-const signUp = async () => {
-  const { error } = await useSupabase().auth.signUp({
+const login = async () => {
+  const { data, error } = await useSupabase().auth.signInWithPassword({
     email: email.value,
     password: password.value,
   });
   if (error) {
-    console.error("Signup error:", error.message);
+    console.error("Login error:", error.message);
   } else {
-    console.log("Signup success");
+    console.log("Login success");
   }
 };
 </script>
 <template>
   <Dialog>
     <DialogTrigger as-child>
-      <Button variant="outline"> Sign Up </Button>
+      <Button variant="outline"> Login </Button>
     </DialogTrigger>
     <DialogContent class="sm:max-w-[425px]">
       <DialogHeader>
-        <DialogTitle>Sign Up</DialogTitle>
+        <DialogTitle>Login</DialogTitle>
         <DialogDescription>
           여기에서 프로필을 변경할 수 있습니다. 완료되면 저장을 클릭하세요.
         </DialogDescription>
@@ -40,7 +40,7 @@ const signUp = async () => {
         </div>
       </div>
       <DialogFooter>
-        <Button type="submit" @click="signUp"> signUp </Button>
+        <Button type="submit" @click="login"> login </Button>
       </DialogFooter>
     </DialogContent>
   </Dialog>

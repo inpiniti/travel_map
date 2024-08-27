@@ -49,9 +49,7 @@ const handlePopState = (event: any) => useWindowHistory().pop(event);
             <PlanList />
           </ScrollArea>
         </Full>
-        <Fix class="p-2">
-          <Login />
-        </Fix>
+        <Fix class="p-2"> <Signup /><Login /> </Fix>
       </ColCover>
     </Fix>
     <Fix
