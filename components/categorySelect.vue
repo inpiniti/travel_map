@@ -58,7 +58,7 @@ const onClear = () => {
             :value="category"
             v-for="category in CATEGORYS"
             class="flex gap-1 m-1 cursor-pointer"
-            :class="selectedValues.has(category) ? 'bg-sky-200' : ''"
+            :class="selectedValues.has(category) ? 'bg-yellow-200' : ''"
             @click="toggleCategory(category)"
           >
             <div v-if="selectedValues.has(category)">

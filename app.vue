@@ -34,7 +34,7 @@ const handlePopState = (event: any) => useWindowHistory().pop(event);
     >
       <ColCover>
         <Fix
-          class="flex items-center justify-between w-full px-2 text-white md:h-14 md:w-56 bg-sky-400 h-14"
+          class="flex items-center justify-between w-full px-2 bg-yellow-400 md:h-14 md:w-56 h-14"
         >
           <!-- 데스크탑 -->
           <Logo />
@@ -77,7 +77,7 @@ const handlePopState = (event: any) => useWindowHistory().pop(event);
       <ColCover>
         <Fix
           v-if="isMobile"
-          class="flex items-center justify-between w-full px-2 text-white md:hidden bg-sky-400 h-14"
+          class="flex items-center justify-between w-full px-2 bg-yellow-400 md:hidden h-14"
         >
           <!-- 모바일 -->
           <Logo />
@@ -120,7 +120,7 @@ const handlePopState = (event: any) => useWindowHistory().pop(event);
       <ColCover>
         <Fix
           v-if="isMobile"
-          class="flex items-center justify-between w-full px-2 text-white md:hidden bg-sky-400 h-14"
+          class="flex items-center justify-between w-full px-2 bg-yellow-400 md:hidden h-14"
         >
           <!-- 모바일 -->
           <Logo />
