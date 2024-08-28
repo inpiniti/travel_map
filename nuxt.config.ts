@@ -65,6 +65,55 @@ export default defineNuxtConfig({
           content:
             "맞춤형 여행 계획 지도를 통해 나만의 여행 경로를 짜보고, 다양한 여행지 정보를 확인하세요. 여행 계획부터 실행까지, 모든 과정을 한 곳에서 해결할 수 있습니다.",
         },
+        {
+          hid: "og:title",
+          property: "og:title",
+          content: "여행 계획 지도 - 나만의 여행 경로를 짜보세요",
+        },
+        {
+          hid: "og:url",
+          property: "og:url",
+          content: "www.potatomap.com",
+        },
+        {
+          hid: "og:image",
+          property: "og:image",
+          content:
+            "https://cloudfront-ap-northeast-1.images.arcpublishing.com/chosun/CU422HY2YJHS7JQ3REJ24E4H64.PNG",
+        },
+        {
+          hid: "og:description",
+          property: "og:description",
+          content:
+            "맞춤형 여행 계획 지도를 통해 나만의 여행 경로를 짜보고, 다양한 여행지 정보를 확인하세요. 여행 계획부터 실행까지, 모든 과정을 한 곳에서 해결할 수 있습니다.",
+        },
+        {
+          hid: "twitter:card",
+          name: "twitter:card",
+          content: "summary",
+        },
+        {
+          hid: "twitter:title",
+          property: "twitter:title",
+          content: "여행 계획 지도 - 나만의 여행 경로를 짜보세요",
+        },
+        {
+          hid: "twitter:url",
+          property: "twitter:url",
+          content: "www.potatomap.com",
+        },
+        {
+          hid: "twitter:image",
+          property: "twitter:image",
+          content:
+            "https://cloudfront-ap-northeast-1.images.arcpublishing.com/chosun/CU422HY2YJHS7JQ3REJ24E4H64.PNG",
+        },
+        {
+          hid: "twitter:description",
+          property: "twitter:description",
+          content:
+            "맞춤형 여행 계획 지도를 통해 나만의 여행 경로를 짜보고, 다양한 여행지 정보를 확인하세요. 여행 계획부터 실행까지, 모든 과정을 한 곳에서 해결할 수 있습니다.",
+        },
       ],
     },
   },
