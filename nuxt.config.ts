@@ -42,6 +42,8 @@ export default defineNuxtConfig({
         "ellipsis",
         "trash-can",
         "comment",
+        "user",
+        "right-from-bracket",
       ],
       regular: ["user"],
       brands: ["google"], // 'brands' 카테고리에 'google' 아이콘 추가

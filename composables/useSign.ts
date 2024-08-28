@@ -2,6 +2,11 @@ const EMAIL_REDIRECT_TO = "http://localhost:3000/welcome";
 
 export const useSign = () => {
   const { toast } = useToast();
+  const user = useState("user");
+
+  onMounted(async () => {
+    user.value = (await useSupabase().auth.getUser()).data.user;
+  });
 
   const signUp = async ({
     email,
@@ -47,6 +52,10 @@ export const useSign = () => {
         description: `Error: ${error.message}`,
         variant: "destructive",
       });
+    } else {
+      alert("로그인에 성공하였습니다.");
+      user.value = (await useSupabase().auth.getUser()).data.user;
+      alert(user.value);
     }
   };
 
@@ -58,6 +67,9 @@ export const useSign = () => {
         description: `Error: ${error.message}`,
         variant: "destructive",
       });
+    } else {
+      alert("로그아웃에 성공하였습니다.");
+      user.value = (await useSupabase().auth.getUser()).data.user;
     }
   };
 
@@ -71,6 +83,8 @@ export const useSign = () => {
         description: `Error: ${error.message}`,
         variant: "destructive",
       });
+    } else {
+      user.value = (await useSupabase().auth.getUser()).data.user;
     }
   };
 
@@ -84,10 +98,13 @@ export const useSign = () => {
         description: `Error: ${error.message}`,
         variant: "destructive",
       });
+    } else {
+      user.value = (await useSupabase().auth.getUser()).data.user;
     }
   };
 
   return {
+    user,
     signUp,
     login,
     logout,
