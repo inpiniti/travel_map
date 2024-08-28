@@ -52,6 +52,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: "맞춤형 여행 계획 지도",
+      link: [{ rel: "icon", type: "image/png", href: "/fried-potatoes.png" }],
       meta: [
         { charset: "utf-8" },
         {
