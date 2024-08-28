@@ -65,7 +65,7 @@ const handlePopState = (event: any) => useWindowHistory().pop(event);
               logout
             </Button>
           </div>
-          <div v-else><Signup /><Login /></div>
+          <div class="flex gap-2" v-else><Signup /><Login /></div>
         </Fix>
       </ColCover>
     </Fix>
