@@ -1,4 +1,4 @@
-const EMAIL_REDIRECT_TO = "http://localhost:3000/welcome";
+const EMAIL_REDIRECT_TO = "https://potatomap.com";
 
 export const useSign = () => {
   const { toast } = useToast();
