@@ -27,12 +27,12 @@ const goBack = () => {
     일정 등록하기
   </div>
   <div
-    class="flex items-center gap-1 font-bold"
+    class="flex items-center gap-2 font-bold"
     @click="filter.viewOnMobile = 'plan'"
     v-else
   >
-    <font-awesome class="px-2" icon="map" bounce />
-    여행지도
+    <img src="/fried-potatoes.png" class="w-6 h-6" />
+    POTATO MAP
   </div>
   <Tabs
     v-if="filter.viewOnMobile != 'plan'"
