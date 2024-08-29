@@ -75,7 +75,6 @@ watch(
           // 가능하면 코드 작성해줘
           await new Promise((resolve) => {
             const unwatch = watch(confirmationResult, (newValue) => {
-              console.log("newValue", newValue);
               if (newValue !== null) {
                 resolve(newValue);
                 unwatch();

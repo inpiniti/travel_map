@@ -51,7 +51,6 @@ const center: any = computed(() => {
   const midLng = (minLng + maxLng) / 2;
 
   const result = newCenter.value ?? [midLat, midLng];
-  console.log(`${result} = ${newCenter.value} ?? [${midLat}, ${midLng}]`);
 
   return result;
 });

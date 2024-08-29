@@ -11,7 +11,6 @@ if (selectedSpot.value.namu === null) {
 }
 
 const updateNamuwiki = () => {
-  console.log(content.value);
   if (content.value) {
     updateSpot({
       ...selectedSpot.value,
