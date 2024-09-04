@@ -4,6 +4,9 @@ import dayjs from "dayjs";
 
 const { setTravelPlan, status } = useTravelPlan();
 const { user } = useSign();
+const { toast } = useToast();
+
+const open = ref(false);
 
 const form = ref({
   plan_name: "",
@@ -14,7 +17,23 @@ const form = ref({
 });
 
 const savePlan = () => {
-  setTravelPlan(form.value);
+  // 저장시 빈값이 있으면 alert
+  const emptyFields = [];
+  if (!form.value.plan_name) emptyFields.push("계획 이름");
+  if (!form.value.author) emptyFields.push("작성자");
+  if (!form.value.travel_region) emptyFields.push("여행 지역");
+  if (!form.value.travel_period) emptyFields.push("여행 기간");
+
+  if (emptyFields.length > 0) {
+    toast({
+      title: `${emptyFields.join(", ")} 필드를 채워주세요.`,
+      variant: "destructive",
+    });
+    return;
+  } else {
+    open.value = false;
+    setTravelPlan(form.value);
+  }
 };
 
 watch(user, (newValue, oldValue) => {
@@ -28,7 +47,7 @@ watch(user, (newValue, oldValue) => {
 });
 </script>
 <template>
-  <Dialog>
+  <Dialog :open="open" @update:open="open = $event">
     <DialogTrigger as-child>
       <Button class="w-full font-bold"> + 여행 계획 작성하기 </Button>
     </DialogTrigger>
