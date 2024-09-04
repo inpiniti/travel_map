@@ -55,7 +55,6 @@ export const useSign = () => {
     } else {
       alert("로그인에 성공하였습니다.");
       user.value = (await useSupabase().auth.getUser()).data.user;
-      alert(user.value);
     }
   };
 

@@ -17,18 +17,15 @@ const savePlan = () => {
   setTravelPlan(form.value);
 };
 
-watch(
-  () => user,
-  () => {
-    form.value = {
-      plan_name: "",
-      author: user?.identities?.[0]?.identity_data?.email,
-      travel_region: "",
-      travel_period: "",
-      date_created: dayjs().format("YYYY-MM-DD"),
-    };
-  }
-);
+watch(user, (newValue, oldValue) => {
+  form.value = {
+    plan_name: "",
+    author: user.value?.identities?.[0]?.identity_data?.email,
+    travel_region: "",
+    travel_period: "",
+    date_created: dayjs().format("YYYY-MM-DD"),
+  };
+});
 </script>
 <template>
   <Dialog>
