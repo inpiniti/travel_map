@@ -5,6 +5,7 @@ const filter = useFilter();
 
 const map: any = ref(null);
 const zoom = ref(10);
+const newCenter: any = ref(null);
 
 const TILES: any = {
   openStreetMap: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -49,13 +50,58 @@ const center: any = computed(() => {
   const midLat = (minLat + maxLat) / 2;
   const midLng = (minLng + maxLng) / 2;
 
-  return [midLat, midLng];
+  const result = newCenter.value ?? [midLat, midLng];
+
+  return result;
 });
 
 const scheduleWritingOpen = (spot: Spot) => {
   selectedSpot.value = spot;
   filter.value.scheduleWritingOpen = true;
 };
+
+const moveToCurrentLocation = () => {
+  navigator.geolocation.getCurrentPosition((position) => {
+    newCenter.value = [position.coords.latitude, position.coords.longitude];
+  });
+};
+
+let watchId: any = ref(null);
+const startTrackingLocation = () => {
+  if (navigator.geolocation) {
+    watchId.value = navigator.geolocation.watchPosition(
+      (position) => {
+        newCenter.value = [position.coords.latitude, position.coords.longitude];
+        if (map.value) {
+          map.value.setView(newCenter.value, zoom.value);
+        }
+      },
+      (error) => {
+        console.error("Error getting location:", error);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0,
+      }
+    );
+  } else {
+    console.error("Geolocation is not supported by this browser.");
+  }
+};
+
+const stopTrackingLocation = () => {
+  if (watchId.value != null) {
+    navigator.geolocation.clearWatch(watchId);
+    watchId.value = null;
+  } else {
+    startTrackingLocation();
+  }
+};
+
+onUnmounted(() => {
+  stopTrackingLocation();
+});
 </script>
 <template>
   <LMap
@@ -84,6 +130,15 @@ const scheduleWritingOpen = (spot: Spot) => {
 
     <LControl position="topleft">
       <MapToolbar />
+    </LControl>
+
+    <LControl position="bottomright">
+      <Button
+        :variant="watchId == null ? 'secondary' : 'default'"
+        @click="stopTrackingLocation"
+      >
+        <font-awesome icon="location-arrow" />
+      </Button>
     </LControl>
 
     <LLayerGroup v-if="spots">
@@ -165,5 +220,19 @@ const scheduleWritingOpen = (spot: Spot) => {
         :lat-lngs="schedulesSpotsLine"
       />
     </LLayerGroup>
+
+    <!-- 내 위치 -->
+    <LMarker :lat-lng="newCenter" v-if="newCenter">
+      <LIcon
+        :icon-size="[32, 32]"
+        class-name="cursor-default-important z-20-important"
+      >
+        <div
+          class="flex items-center justify-center w-8 h-8 text-white bg-blue-400 rounded-full cursor-pointer"
+        >
+          <font-awesome size="lg" icon="map-marker-alt" />
+        </div>
+      </LIcon>
+    </LMarker>
   </LMap>
 </template>
