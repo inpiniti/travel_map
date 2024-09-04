@@ -2,9 +2,7 @@
 const { selectedTravelPlan } = useTravelPlan();
 const { schedules, schedulesSpots, dayNSchedule } = useSchedule();
 const { spots } = useSpot();
-const {
-  data: { user },
-} = await useSupabase().auth.getUser();
+const { user } = useSign();
 const filter = useFilter();
 </script>
 <template>

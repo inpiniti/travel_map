@@ -3,6 +3,8 @@ import { city } from "../data/city";
 import dayjs from "dayjs";
 
 const { setTravelPlan, status } = useTravelPlan();
+const { user } = useSign();
+
 const form = ref({
   plan_name: "",
   author: "",
@@ -14,6 +16,19 @@ const form = ref({
 const savePlan = () => {
   setTravelPlan(form.value);
 };
+
+watch(
+  () => user,
+  () => {
+    form.value = {
+      plan_name: "",
+      author: user?.identities?.[0]?.identity_data?.email,
+      travel_region: "",
+      travel_period: "",
+      date_created: dayjs().format("YYYY-MM-DD"),
+    };
+  }
+);
 </script>
 <template>
   <Dialog>
@@ -42,6 +57,7 @@ const savePlan = () => {
             class="col-span-3"
             placeholder="홍길동"
             v-model="form.author"
+            disabled
           />
         </div>
         <div class="grid items-center grid-cols-4 gap-4">

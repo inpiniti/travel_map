@@ -52,7 +52,6 @@ const handlePopState = (event: any) => useWindowHistory().pop(event);
         </Full>
         <Fix class="flex items-center justify-between gap-2 p-2">
           <div v-if="user">
-            <font-awesome icon="user" />
             <Avatar>
               <AvatarImage
                 :src="user?.identities?.[0]?.identity_data?.avatar_url"
