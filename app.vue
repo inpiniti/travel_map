@@ -42,7 +42,7 @@ const handlePopState = (event: any) => useWindowHistory().pop(event);
         <Fix class="p-2">
           <PlanFilter />
         </Fix>
-        <Fix class="p-2">
+        <Fix class="p-2" v-if="user?.identities?.[0]?.identity_data?.email">
           <PlanWriting />
         </Fix>
         <Full>
@@ -95,7 +95,12 @@ const handlePopState = (event: any) => useWindowHistory().pop(event);
             <SpotWriting />
           </template>
         </Fix>
-        <Fix class="flex p-2" v-if="filter.type != '장소'">
+        <Fix
+          class="flex p-2"
+          v-if="
+            filter.type != '장소' && user?.identities?.[0]?.identity_data?.email
+          "
+        >
           <Button
             class="flex w-full gap-2"
             @click="

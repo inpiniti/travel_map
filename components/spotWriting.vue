@@ -28,6 +28,7 @@ const form = ref({
   veryCrowded: "", // 매우 혼잡한 시간대
   detailType: "", // 상세타입
 });
+
 const loading = ref({
   save: false,
   get: false,
