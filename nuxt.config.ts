@@ -189,6 +189,7 @@ export default defineNuxtConfig({
         },
         { name: "msapplication-TileColor", content: "#ffffff" },
         { name: "msapplication-TileImage", content: "/ms-icon-144x144.png" },
+        { name: "naver-site-verification", content: "719e4dd6789e34a4c984443e4493d6b01daf7999" },
       ],
     },
   },
